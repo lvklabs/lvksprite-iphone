@@ -1,0 +1,37 @@
+### Exported LvkSprite ################################
+#Exported LvkSprite version 0.1
+
+# Frame Pixmaps
+# format: frameId,offset(bytes),length(bytes)
+fpixmaps(
+	0,0,3465
+	1,3465,3393
+	2,6858,3259
+	3,10117,3495
+	4,13612,3400
+	6,17012,3798
+)
+
+# Animations
+# format: animationId,name
+# Animation frames
+# format: aframeId,frameId,delay
+animations(
+	0,punch
+	aframes(
+		0,0,2,0,0
+		1,1,2,0,0
+		2,2,1,0,0
+		3,1,1,0,0
+	)
+
+	1,kick
+	aframes(
+		4,3,2,0,0
+		5,4,200,0,0
+		7,6,200,0,0
+	)
+
+)
+
+### End Exported LvkSprite ############################
