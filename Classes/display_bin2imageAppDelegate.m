@@ -8,7 +8,7 @@
 
 #import "display_bin2imageAppDelegate.h"
 #import "cocos2d.h"
-#import "HelloWorldScene.h"
+#import "animParse.h"
 
 @implementation display_bin2imageAppDelegate
 
@@ -28,7 +28,7 @@
 	//	[Director useFastDirector];
 	
 	// before creating any layer, set the landscape mode
-	[[Director sharedDirector] setDeviceOrientation:CCDeviceOrientationLandscapeLeft];
+	//[[Director sharedDirector] setDeviceOrientation:CCDeviceOrientationLandscapeLeft];
 	[[Director sharedDirector] setAnimationInterval:1.0/60];
 	[[Director sharedDirector] setDisplayFPS:YES];
 	
@@ -40,9 +40,20 @@
 	// create an openGL view inside a window
 	[[Director sharedDirector] attachInView:window];	
 	[window makeKeyAndVisible];		
-		
-		
-	[[Director sharedDirector] runWithScene: [HelloWorld scene]];
+	
+	Scene *scene = [Scene node];
+	Layer *layer = [Layer node];
+	[scene addChild: layer];
+	[[Director sharedDirector] runWithScene: scene];
+	
+	if( (self=[super init] )) {
+		[[NSFileManager defaultManager] changeCurrentDirectoryPath:@"/Users/lavanda/Documents/LavandaInk/animParse/raw-images"];
+		NSString  *pathBinary = @"ryu.lkob";
+		NSString  *pathInfo = @"ryu.lkot";
+		animParse *animation = [[animParse alloc] initWithBinary:pathBinary andInfo: pathInfo andFrameRate:1/24.0 andScene:scene andLayer:layer];
+//		[animation playAnimation:@"kick"];
+		[animation moveAnimation:@"kick" fromX:150 fromY:150 toX:200 toY:200 during:2.3];		
+	}
 }
 
 

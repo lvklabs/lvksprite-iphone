@@ -10,16 +10,19 @@
 
 @implementation animParse
 
-@synthesize animations;
+@synthesize animations,ourScene,ourLayer;
 
-- (id) initWithBinary: (NSString*)binPath andInfo: (NSString*)infoPath andFrameRate:(float)fps {
-	
+- (id) initWithBinary: (NSString*)binPath andInfo: (NSString*)infoPath andFrameRate:(float)fps  andScene:(Scene*)myScene andLayer:(Layer*)myLayer{
+
 	if(!(self = [super init]))
 		return self;
+
+	ourScene = myScene;
+	ourLayer = myLayer;
 	
 	NSData *binFile = [NSData dataWithContentsOfFile: binPath];
-	
-	frames = [[NSMutableDictionary alloc] initWithCapacity:0];
+
+	NSMutableDictionary *frames = [[NSMutableDictionary alloc] initWithCapacity:0];
 	
 	NSString *infoFile = [NSString stringWithContentsOfFile: infoPath];
 	NSArray *lines = [infoFile componentsSeparatedByString:@"\n"];
@@ -71,6 +74,7 @@
 			line = [linesIterator nextObject];
 						
 			while (![line hasPrefix:@")"]){
+				
 				line = [line stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
 				
 				if ([line hasPrefix:@"#"]){
@@ -117,10 +121,13 @@
 					line = [linesIterator nextObject];
 					line = [line stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
 				}
+				
+				id temp = [[RepeatForever alloc] initWithAction:[[Animate alloc] initWithAnimation:animation]];
 
-				[animations setObject:animation forKey:animationId];
+				[animations setObject:temp forKey:animationId];
 				line = [linesIterator nextObject];
-				line = [line stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];			}
+				line = [line stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];			
+			}
 
 			line = [linesIterator nextObject];
 			line = [line stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -132,7 +139,6 @@
 }
 
 - (void) dealloc {
-	[frames dealloc];
 	[animations dealloc];
 	[super dealloc];
 }
@@ -140,8 +146,37 @@
 // I have written this method since I thought it would be convenient to
 // return a static NSDictionary instead of a mutable one, but may be it´s not
 // so necessary
-- (NSDictionary*) getAnimations {
-	return animations;
+
+- (void) playAnimation: (NSString *)anim atX:(int)x atY:(int)y{
+	if([animations objectForKey:anim] != nil){
+		Sprite *temp = [Sprite spriteWithFile:@"bg.png"];
+		[temp setPosition:ccp(x, y)];
+		[temp runAction:[animations objectForKey:anim]];
+		[ourLayer addChild:temp z:1];
+/*		Sprite *temp1 = [Sprite spriteWithFile:@"bg.png"];
+		 Sprite *temp2 = [Sprite spriteWithFile:@"bg.png"];
+		 [temp1 setPosition:ccp(0, 0)];
+		 [temp1 runAction:[animations objectForKey:@"punch"]];
+		 [temp2 setPosition:ccp(0, 0)];
+		 [temp2 runAction:[animations objectForKey:@"kick"]];		 
+		 [ourLayer addChild:temp1 z:3];
+		 [ourLayer addChild:temp2 z:2];*/
+	}
+}
+
+- (void) playAnimation: (NSString *)anim{
+	[self playAnimation:anim atX:150 atY:150];
+}
+
+- (void) moveAnimation: (NSString *)anim fromX:(int)origX fromY:(int)origY toX:(int)destX toY:(int)destY during:(float)time {
+	if([animations objectForKey:anim] != nil){
+		Sprite *temp = [Sprite spriteWithFile:@"bg.png"];
+		[temp setPosition:ccp(origX, origY)];		
+		[temp runAction:[animations objectForKey:anim]];
+		id movement = [MoveTo actionWithDuration:time position:ccp(destX,destY)];
+		[temp runAction:movement];
+		[ourLayer addChild:temp z:1];
+	}
 }
 
 @end
