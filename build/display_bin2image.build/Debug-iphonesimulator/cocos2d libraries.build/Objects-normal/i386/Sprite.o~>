@@ -1,5 +1,0 @@
-/Users/lavanda/Documents/animParse/cocos2d/Sprite.m: In function '-[Animation addFrameContent:withKey:]':
-/Users/lavanda/Documents/animParse/cocos2d/Sprite.m:214: warning: 'TextureMgr' may not respond to '-addContent:withKey:'
-/Users/lavanda/Documents/animParse/cocos2d/Sprite.m:214: warning: (Messages without a matching method signature
-/Users/lavanda/Documents/animParse/cocos2d/Sprite.m:214: warning: will be assumed to return 'id' and accept
-/Users/lavanda/Documents/animParse/cocos2d/Sprite.m:214: warning: '...' as arguments.)
