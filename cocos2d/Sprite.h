@@ -94,7 +94,10 @@
 
 /** adds a frame to an Animation */
 -(void) addFrameWithFilename: (NSString*) filename;
+
+//lavandaink chaure/pabloc
 -(void) addFrameContent: (NSData*) content withKey:(NSString*)key;
+//end lavandaink chaure/pabloc
 
 /** adds a frame from a Texture2D object to an Animation */
 -(void) addFrameWithTexture: (Texture2D*) tex;

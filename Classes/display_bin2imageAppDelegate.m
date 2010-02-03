@@ -8,7 +8,7 @@
 
 #import "display_bin2imageAppDelegate.h"
 #import "cocos2d.h"
-#import "animParse.h"
+#import "LvkSprite.h"
 
 @implementation display_bin2imageAppDelegate
 
@@ -25,7 +25,7 @@
 	
 	// must be called before any othe call to the director
 	// WARNING: FastDirector doesn't interact well with UIKit controls
-	//	[Director useFastDirector];
+	[Director useFastDirector];
 	
 	// before creating any layer, set the landscape mode
 	//[[Director sharedDirector] setDeviceOrientation:CCDeviceOrientationLandscapeLeft];
@@ -47,12 +47,20 @@
 	[[Director sharedDirector] runWithScene: scene];
 	
 	if( (self=[super init] )) {
-		[[NSFileManager defaultManager] changeCurrentDirectoryPath:@"/Users/lavanda/Documents/LavandaInk/animParse/raw-images"];
-		NSString  *pathBinary = @"ryu.lkob";
-		NSString  *pathInfo = @"ryu.lkot";
-		animParse *animation = [[animParse alloc] initWithBinary:pathBinary andInfo: pathInfo andFrameRate:1/24.0 andScene:scene andLayer:layer];
-//		[animation playAnimation:@"kick"];
-		[animation moveAnimation:@"kick" fromX:150 fromY:150 toX:200 toY:200 during:2.3];		
+		#error "Before compile set this path, comment this line and DO NOT COMMIT the changes!"
+		[[NSFileManager defaultManager] changeCurrentDirectoryPath:@"/Users/andres/lavandaink/src/animParse-andres/exports"];
+		
+		@try {
+			LvkSprite *ryu = [[LvkSprite alloc] initWithBinary:@"ryu-andres.lkob" andInfo: @"ryu-andres.lkot"];
+			LvkSprite *ryu2 = [[LvkSprite alloc] initWithBinary:@"ryu-andres.lkob" andInfo: @"ryu-andres.lkot"];
+			[layer addChild:ryu z:1];
+			[layer addChild:ryu2 z:1];
+			[ryu playAnimation:@"kick" atX:70 atY:100];
+			[ryu2 playAnimation:@"offset_test" atX:200 atY:100];
+		}
+		@catch (NSException* e) {
+			NSLog(@"Exception: %@: %@", [e name], [e reason]);
+		}
 	}
 }
 

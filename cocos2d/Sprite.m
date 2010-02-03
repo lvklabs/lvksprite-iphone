@@ -209,11 +209,13 @@
 	[frames addObject:tex];
 }
 
+//lavandaink chaure/pabloc
 -(void) addFrameContent: (NSData*)content withKey:(NSString*)key
 {
 	Texture2D *tex = [[TextureMgr sharedTextureMgr] addContent: content withKey:key];
 	[frames addObject:tex];
 }
+//end lavandaink chaure/pabloc
 
 #pragma mark Animation - Texture2D
 
@@ -235,7 +237,7 @@
 		name = [n retain];
 		frames = [[NSMutableArray array] retain];
 		delay = d;
-		
+				
 		if( tex ) {
 			[frames addObject:tex];
 			

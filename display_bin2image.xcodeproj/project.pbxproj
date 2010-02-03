@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1F3B9A2D0EF2145700286867 /* display_bin2imageAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F3B9A2B0EF2145700286867 /* display_bin2imageAppDelegate.m */; };
+		41B2076C11191975007A6176 /* ryu-andres.lkob in Resources */ = {isa = PBXBuildFile; fileRef = 41B2076A11191975007A6176 /* ryu-andres.lkob */; };
+		41B2076D11191975007A6176 /* ryu-andres.lkot in Resources */ = {isa = PBXBuildFile; fileRef = 41B2076B11191975007A6176 /* ryu-andres.lkot */; };
+		41DE28FA11165FE000A36F19 /* LvkSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 41DE28F911165FE000A36F19 /* LvkSprite.m */; };
 		505573C01045D1BE00A31725 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 505573BF1045D1BE00A31725 /* Icon.png */; };
 		505573C21045D1EA00A31725 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 505573C11045D1EA00A31725 /* Default.png */; };
 		505574581045D68500A31725 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506EDBA4102F4C9F00A389B3 /* AVFoundation.framework */; };
@@ -168,10 +171,6 @@
 		506EE19110304F7500A389B3 /* CJSONSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 506EE0FE10304F7500A389B3 /* CJSONSerializer.h */; };
 		506EE19210304F7500A389B3 /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 506EE0FF10304F7500A389B3 /* CJSONSerializer.m */; };
 		506EE1A91030508200A389B3 /* libcocos2d libraries.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 506EE05E10304ED200A389B3 /* libcocos2d libraries.a */; };
-		6A92041610BC254000BA093A /* ryu.lkob in Resources */ = {isa = PBXBuildFile; fileRef = 6A92041410BC254000BA093A /* ryu.lkob */; };
-		6A92041710BC254000BA093A /* ryu.lkot in Resources */ = {isa = PBXBuildFile; fileRef = 6A92041510BC254000BA093A /* ryu.lkot */; };
-		6AAE0A9410726CD400DD56C0 /* animParse.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AAE0A9210726CD400DD56C0 /* animParse.m */; };
-		89761B1010DF5D7C0039D9D6 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 89761B0F10DF5D7C0039D9D6 /* bg.png */; };
 		CA3EACB90FEE7024004BBF8E /* fps_images.png in Resources */ = {isa = PBXBuildFile; fileRef = CA3EACB80FEE7024004BBF8E /* fps_images.png */; };
 		DC6640030F83B3EA000B3E49 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6640020F83B3EA000B3E49 /* AudioToolbox.framework */; };
 		DC6640050F83B3EA000B3E49 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6640040F83B3EA000B3E49 /* OpenAL.framework */; };
@@ -198,6 +197,10 @@
 		1F3B9A2C0EF2145700286867 /* display_bin2imageAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = display_bin2imageAppDelegate.h; path = Classes/display_bin2imageAppDelegate.h; sourceTree = SOURCE_ROOT; };
 		1F3B9A820EF2151B00286867 /* display_bin2image_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = display_bin2image_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		41B2076A11191975007A6176 /* ryu-andres.lkob */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ryu-andres.lkob"; path = "exports/ryu-andres.lkob"; sourceTree = "<group>"; };
+		41B2076B11191975007A6176 /* ryu-andres.lkot */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "ryu-andres.lkot"; path = "exports/ryu-andres.lkot"; sourceTree = "<group>"; };
+		41DE28F811165FE000A36F19 /* LvkSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LvkSprite.h; sourceTree = "<group>"; };
+		41DE28F911165FE000A36F19 /* LvkSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LvkSprite.m; sourceTree = "<group>"; };
 		505573BF1045D1BE00A31725 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		505573C11045D1EA00A31725 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		506EDB87102F4C4000A389B3 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -350,11 +353,6 @@
 		506EE0FD10304F7500A389B3 /* CJSONScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONScanner.m; sourceTree = "<group>"; };
 		506EE0FE10304F7500A389B3 /* CJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONSerializer.h; sourceTree = "<group>"; };
 		506EE0FF10304F7500A389B3 /* CJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerializer.m; sourceTree = "<group>"; };
-		6A92041410BC254000BA093A /* ryu.lkob */ = {isa = PBXFileReference; lastKnownFileType = file; name = ryu.lkob; path = "raw-images/ryu.lkob"; sourceTree = "<group>"; };
-		6A92041510BC254000BA093A /* ryu.lkot */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ryu.lkot; path = "raw-images/ryu.lkot"; sourceTree = "<group>"; };
-		6AAE0A9210726CD400DD56C0 /* animParse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = animParse.m; sourceTree = "<group>"; };
-		6AAE0A9310726CD400DD56C0 /* animParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = animParse.h; sourceTree = "<group>"; };
-		89761B0F10DF5D7C0039D9D6 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bg.png; path = "raw-images/bg.png"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CA3EACB80FEE7024004BBF8E /* fps_images.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fps_images.png; sourceTree = "<group>"; };
 		DC6640020F83B3EA000B3E49 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -435,9 +433,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				89761B0F10DF5D7C0039D9D6 /* bg.png */,
-				6A92041410BC254000BA093A /* ryu.lkob */,
-				6A92041510BC254000BA093A /* ryu.lkot */,
+				41B2076A11191975007A6176 /* ryu-andres.lkob */,
+				41B2076B11191975007A6176 /* ryu-andres.lkot */,
 				505573C11045D1EA00A31725 /* Default.png */,
 				505573BF1045D1BE00A31725 /* Icon.png */,
 				CA3EACB80FEE7024004BBF8E /* fps_images.png */,
@@ -465,8 +462,8 @@
 		2D500B1D0D5A766B00DBA0E3 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				6AAE0A9210726CD400DD56C0 /* animParse.m */,
-				6AAE0A9310726CD400DD56C0 /* animParse.h */,
+				41DE28F811165FE000A36F19 /* LvkSprite.h */,
+				41DE28F911165FE000A36F19 /* LvkSprite.m */,
 				1F3B9A2B0EF2145700286867 /* display_bin2imageAppDelegate.m */,
 				1F3B9A2C0EF2145700286867 /* display_bin2imageAppDelegate.h */,
 			);
@@ -834,9 +831,8 @@
 				CA3EACB90FEE7024004BBF8E /* fps_images.png in Resources */,
 				505573C01045D1BE00A31725 /* Icon.png in Resources */,
 				505573C21045D1EA00A31725 /* Default.png in Resources */,
-				6A92041610BC254000BA093A /* ryu.lkob in Resources */,
-				6A92041710BC254000BA093A /* ryu.lkot in Resources */,
-				89761B1010DF5D7C0039D9D6 /* bg.png in Resources */,
+				41B2076C11191975007A6176 /* ryu-andres.lkob in Resources */,
+				41B2076D11191975007A6176 /* ryu-andres.lkot in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -849,7 +845,7 @@
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1F3B9A2D0EF2145700286867 /* display_bin2imageAppDelegate.m in Sources */,
-				6AAE0A9410726CD400DD56C0 /* animParse.m in Sources */,
+				41DE28FA11165FE000A36F19 /* LvkSprite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
