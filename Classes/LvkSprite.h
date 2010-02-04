@@ -1,9 +1,6 @@
 //
 //  LvkSprite.h
 //
-//  Created by arkat on 26/09/09.
-//  Copyright 2009 LavandInk. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"

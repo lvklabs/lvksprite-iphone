@@ -1,9 +1,6 @@
 //
 //  LvkSprite.m
 //
-//  Created by arkat on 26/09/09.
-//  Copyright 2009 LavandaInk. All rights reserved.
-//
 
 #import "LvkSprite.h"
 

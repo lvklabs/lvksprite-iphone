@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
-		1F3B9A2D0EF2145700286867 /* display_bin2imageAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F3B9A2B0EF2145700286867 /* display_bin2imageAppDelegate.m */; };
+		41922961111A32C10058E0DA /* LvkSpriteDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 41922960111A32C10058E0DA /* LvkSpriteDemoAppDelegate.m */; };
 		41B2076C11191975007A6176 /* ryu-andres.lkob in Resources */ = {isa = PBXBuildFile; fileRef = 41B2076A11191975007A6176 /* ryu-andres.lkob */; };
 		41B2076D11191975007A6176 /* ryu-andres.lkot in Resources */ = {isa = PBXBuildFile; fileRef = 41B2076B11191975007A6176 /* ryu-andres.lkot */; };
 		41DE28FA11165FE000A36F19 /* LvkSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 41DE28F911165FE000A36F19 /* LvkSprite.m */; };
@@ -193,10 +193,10 @@
 
 /* Begin PBXFileReference section */
 		1D6058910D05DD3D006BFB54 /* display_bin2image.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = display_bin2image.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		1F3B9A2B0EF2145700286867 /* display_bin2imageAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = display_bin2imageAppDelegate.m; path = Classes/display_bin2imageAppDelegate.m; sourceTree = SOURCE_ROOT; };
-		1F3B9A2C0EF2145700286867 /* display_bin2imageAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = display_bin2imageAppDelegate.h; path = Classes/display_bin2imageAppDelegate.h; sourceTree = SOURCE_ROOT; };
 		1F3B9A820EF2151B00286867 /* display_bin2image_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = display_bin2image_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4192295F111A32C10058E0DA /* LvkSpriteDemoAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LvkSpriteDemoAppDelegate.h; sourceTree = "<group>"; };
+		41922960111A32C10058E0DA /* LvkSpriteDemoAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LvkSpriteDemoAppDelegate.m; sourceTree = "<group>"; };
 		41B2076A11191975007A6176 /* ryu-andres.lkob */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ryu-andres.lkob"; path = "exports/ryu-andres.lkob"; sourceTree = "<group>"; };
 		41B2076B11191975007A6176 /* ryu-andres.lkot */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "ryu-andres.lkot"; path = "exports/ryu-andres.lkot"; sourceTree = "<group>"; };
 		41DE28F811165FE000A36F19 /* LvkSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LvkSprite.h; sourceTree = "<group>"; };
@@ -462,10 +462,10 @@
 		2D500B1D0D5A766B00DBA0E3 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				4192295F111A32C10058E0DA /* LvkSpriteDemoAppDelegate.h */,
+				41922960111A32C10058E0DA /* LvkSpriteDemoAppDelegate.m */,
 				41DE28F811165FE000A36F19 /* LvkSprite.h */,
 				41DE28F911165FE000A36F19 /* LvkSprite.m */,
-				1F3B9A2B0EF2145700286867 /* display_bin2imageAppDelegate.m */,
-				1F3B9A2C0EF2145700286867 /* display_bin2imageAppDelegate.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -770,9 +770,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		1D6058900D05DD3D006BFB54 /* display_bin2image */ = {
+		1D6058900D05DD3D006BFB54 /* LvkSpriteProject */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "display_bin2image" */;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "LvkSpriteProject" */;
 			buildPhases = (
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
@@ -783,7 +783,7 @@
 			dependencies = (
 				506EE1A81030507B00A389B3 /* PBXTargetDependency */,
 			);
-			name = display_bin2image;
+			name = LvkSpriteProject;
 			productName = display_bin2image;
 			productReference = 1D6058910D05DD3D006BFB54 /* display_bin2image.app */;
 			productType = "com.apple.product-type.application";
@@ -817,7 +817,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1D6058900D05DD3D006BFB54 /* display_bin2image */,
+				1D6058900D05DD3D006BFB54 /* LvkSpriteProject */,
 				506EE05D10304ED200A389B3 /* cocos2d libraries */,
 			);
 		};
@@ -844,8 +844,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
-				1F3B9A2D0EF2145700286867 /* display_bin2imageAppDelegate.m in Sources */,
 				41DE28FA11165FE000A36F19 /* LvkSprite.m in Sources */,
+				41922961111A32C10058E0DA /* LvkSpriteDemoAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1040,7 +1040,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "display_bin2image" */ = {
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "LvkSpriteProject" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,

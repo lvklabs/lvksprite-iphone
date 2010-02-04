@@ -1,16 +1,12 @@
 //
-//  display_bin2imageAppDelegate.m
-//  display_bin2image
-//
-//  Created by Gonzalo Buteler on 9/12/09.
-//  Copyright __MyCompanyName__ 2009. All rights reserved.
+//  LvkSpriteDemoAppDelegate.m
 //
 
-#import "display_bin2imageAppDelegate.h"
+#import "LvkSpriteDemoAppDelegate.h"
 #import "cocos2d.h"
 #import "LvkSprite.h"
 
-@implementation display_bin2imageAppDelegate
+@implementation LvkSpriteDemoAppDelegate
 
 @synthesize window;
 
@@ -48,7 +44,7 @@
 	
 	if( (self=[super init] )) {
 		#error "Before compile set this path, comment this line and DO NOT COMMIT the changes!"
-		[[NSFileManager defaultManager] changeCurrentDirectoryPath:@"/Users/andres/lavandaink/src/animParse-andres/exports"];
+		[[NSFileManager defaultManager] changeCurrentDirectoryPath:@"/Users/andres/lavandaink/src/animParse/exports"];
 		
 		@try {
 			LvkSprite *ryu = [[LvkSprite alloc] initWithBinary:@"ryu-andres.lkob" andInfo: @"ryu-andres.lkot"];
