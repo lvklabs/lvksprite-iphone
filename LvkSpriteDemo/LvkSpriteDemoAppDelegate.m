@@ -44,11 +44,11 @@
 	
 	if( (self=[super init] )) {
 		#error "Before compile set this path, comment this line and DO NOT COMMIT the changes!"
-		[[NSFileManager defaultManager] changeCurrentDirectoryPath:@"/Users/andres/lavandaink/src/animParse/exports"];
+		[[NSFileManager defaultManager] changeCurrentDirectoryPath:@"/Users/andres/lavandaink/src/animParse/Resources"];
 		
 		@try {
-			LvkSprite *ryu = [[LvkSprite alloc] initWithBinary:@"ryu-andres.lkob" andInfo: @"ryu-andres.lkot"];
-			LvkSprite *ryu2 = [[LvkSprite alloc] initWithBinary:@"ryu-andres.lkob" andInfo: @"ryu-andres.lkot"];
+			LvkSprite *ryu = [[LvkSprite alloc] initWithBinary:@"ryu.lkob" andInfo: @"ryu.lkot"];
+			LvkSprite *ryu2 = [[LvkSprite alloc] initWithBinary:@"ryu.lkob" andInfo: @"ryu.lkot"];
 			[layer addChild:ryu z:1];
 			[layer addChild:ryu2 z:1];
 			[ryu playAnimation:@"kick" atX:70 atY:100];
