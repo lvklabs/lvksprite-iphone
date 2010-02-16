@@ -137,14 +137,15 @@
 				
 				[lvkAnimations setObject:temp forKey:animationId];
 				line = [linesIterator nextObject];
-				line = [line stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];			
+				line = [line stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+				[animation release];
+				[temp release];
 			}
 			
 			line = [linesIterator nextObject];
 			line = [line stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
 		}
 	}	
-	
 	[frames release];
 }
 
