@@ -159,7 +159,7 @@
 
 - (void) playAnimation: (NSString *)anim
 {
-	[self playAnimation:anim atX:150 atY:150];
+	[self playAnimation:anim atX:self.position.x atY:self.position.y];
 }
 
 @end
