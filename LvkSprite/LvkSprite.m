@@ -21,102 +21,97 @@
 	[super dealloc];
 }
 
+// Return the next line of data in file that we are currently parsing 
+- (NSString *) nextLine
+{
+	NSString *line;
+	
+	// Ommit empty lines and comments
+	do {
+		line = [linesIterator nextObject];
+				
+		// TODO check what happens if the iterator has reached the end
+		if (!line) {
+			return line;
+		}
+		line = [line stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+	} while ([line length] == 0 || [line hasPrefix:@"#"]);
+	
+	return line;	
+}
+
 - (void) loadBinary: (NSString*)binFile andInfo: (NSString*)infoFile
 {
 	// TODO check alloc without dealloc/release! 
 	
-	float fps = 1.0/24.0;
-	
-	NSData *binData = [NSData dataWithContentsOfFile: binFile];
-	
-	NSMutableDictionary *frames = [[NSMutableDictionary alloc] initWithCapacity:0];
-	
-	NSString *infoData = [NSString stringWithContentsOfFile: infoFile];
-	NSArray *lines = [infoData componentsSeparatedByString:@"\n"];
-	NSArray *lineInfo;
-	NSEnumerator* linesIterator =[lines objectEnumerator]; 
-	NSString* line;
-	
-	NSString *animationId;
-	
 	[lvkAnimations removeAllObjects];
 	
-	while ((line = [linesIterator nextObject])){	
+	const float fps = 1.0/24.0;
+	
+	NSData *binData = [NSData dataWithContentsOfFile: binFile];
+
+	NSString *infoData = [NSString stringWithContentsOfFile: infoFile];
+	NSArray *lines = [infoData componentsSeparatedByString:@"\n"];
+	linesIterator = [lines objectEnumerator]; 
+
+	NSMutableDictionary *frames = [[NSMutableDictionary alloc] initWithCapacity:0];
+	NSArray *lineInfo;
+	NSString* line;
+
 		
-		line = [line stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-		
-		if ([line hasPrefix:@"#"]){
-			continue;
-		}
-		
+	while ( (line = [self nextLine]) ) {	
+				
 		// parsing frames
-		// line format "frameId:offset:length"
-		if ([line hasPrefix:@"fpixmaps("]){
-			
-			line = [linesIterator nextObject];
-			line = [line stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-			
-			while (![line hasPrefix:@")"]){
-				
+		if ([line hasPrefix:@"fpixmaps("]) {
+			for (line = [self nextLine]; ![line hasPrefix:@")"]; line = [self nextLine]) {
+
+				// line format "frameId,offset,length"
 				lineInfo = [line componentsSeparatedByString:@","];
-				
+				NSString *frameId = [lineInfo objectAtIndex: 0];
 				NSUInteger offset = [[lineInfo objectAtIndex: 1] intValue];
 				NSUInteger length = [[lineInfo objectAtIndex: 2] intValue];
+				CCLOG(@"Debug: Parsing frame: %@,%i,%i", frameId, offset, length);
 				
 				NSRange range = NSMakeRange(offset, length);
 				
-				[frames setObject:[binData subdataWithRange: range] forKey: [lineInfo objectAtIndex: 0]];
-				
-				line = [linesIterator nextObject];
-				line = [line stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+				[frames setObject:[binData subdataWithRange: range] forKey: frameId];
 			}
 		}
 		
 		// parsing animations
 		if ([line hasPrefix:@"animations("]){
-			
-			id animation;
-			
+						
 			lvkAnimations = [[NSMutableDictionary alloc] init];
 			
-			line = [linesIterator nextObject];
-			
-			while (![line hasPrefix:@")"]){
+			for (line = [self nextLine]; ![line hasPrefix:@")"]; line = [self nextLine]) {
 				
-				line = [line stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-				
-				if ([line hasPrefix:@"#"]){
-					continue;
-				}
-				
-				if([[line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0){
-					line = [linesIterator nextObject];
-					continue;
-				}
-				
-				// We assume animId,animName
+				// line format "animId,animName"
+				//             "aframes("
+				//             "    aframeId,frameId,delay,ox,oy"
+				//             ")"
 				lineInfo = [line componentsSeparatedByString:@","];
+				NSString *animationId = [lineInfo objectAtIndex:0];
+				NSString *animationName = [lineInfo objectAtIndex: 1];
+				CCLOG(@"Debug: Parsing animation: %@ %@", animationId, animationName);
 				
-				animationId = [lineInfo objectAtIndex: 1];
-				animation = [[Animation alloc] initWithName:[lineInfo objectAtIndex:0] delay:fps];
+				id animation = [[Animation alloc] initWithName:animationId delay:fps];
 				
-				[linesIterator nextObject]; // skip line aframes(
-				
-				line = [linesIterator nextObject];
-				line = [line stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+				line = [self nextLine];
+				if (![line hasPrefix:@"aframes("]) {  
+					CCLOG(@"Error: Ill-formed sprite file: aframes(...) section expected, found '%@'", line);
+				}
 				
 				NSInteger frameCount = 1; // it counts the number of the next frame to load
 				float timeCount = 0; // holds the sum of the delays of all the sprites loaded so far
 				
-				// frame parsing/loading
-				// each frame of the animation given by a line of the form
-				// "frameName:duration"
-				while(![line hasSuffix:@")"]){
-					
+				// aframes parsing
+				for (line = [self nextLine]; ![line hasPrefix:@")"]; line = [self nextLine]) {
+
+					// line format "aframeId,frameId,delay,ox,oy"
 					lineInfo = [line componentsSeparatedByString:@","];
-					
+					NSString* frameId = [lineInfo objectAtIndex: 1];					
 					float duration = [[lineInfo objectAtIndex: 2] floatValue];
-					NSString* frameName = [lineInfo objectAtIndex: 1];
 					//TODO use this values!
 					//int ox = [[lineInfo objectAtIndex:3] intValue];
 					//int oy = [[lineInfo objectAtIndex:4] intValue];
@@ -124,26 +119,18 @@
 					//Delays in miliseconds
 					timeCount += duration*0.001;
 					
-					while(!(frameCount*fps > timeCount)) {
-						[animation addFrameContent:[frames objectForKey:frameName] withKey:frameName];
+					while (!(frameCount*fps > timeCount)) {
+						[animation addFrameContent:[frames objectForKey:frameId] withKey:frameId];
 						frameCount++;
 					}
-					
-					line = [linesIterator nextObject];
-					line = [line stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
 				}
 				
 				id temp = [[RepeatForever alloc] initWithAction:[Animate actionWithAnimation:animation]];
+				[lvkAnimations setObject:temp forKey:animationName];
 				
-				[lvkAnimations setObject:temp forKey:animationId];
-				line = [linesIterator nextObject];
-				line = [line stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
 				[animation release];
 				[temp release];
 			}
-			
-			line = [linesIterator nextObject];
-			line = [line stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
 		}
 	}	
 	[frames release];
@@ -160,6 +147,11 @@
 - (void) playAnimation: (NSString *)anim
 {
 	[self playAnimation:anim atX:self.position.x atY:self.position.y];
+}
+
+- (BOOL) animationHasEnded
+{
+	return FALSE;
 }
 
 @end
