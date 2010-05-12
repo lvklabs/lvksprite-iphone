@@ -43,7 +43,8 @@
 
 - (void) loadBinary: (NSString*)binFile andInfo: (NSString*)infoFile
 {
-	// TODO check alloc without dealloc/release! 
+	CCLOG(@"Debug: === Sprite parsing started ===");
+	CCLOG(@"Debug: %@,%@", binFile, infoFile);
 	
 	[lvkAnimations removeAllObjects];
 	
@@ -58,7 +59,6 @@
 	NSMutableDictionary *frames = [[NSMutableDictionary alloc] initWithCapacity:0];
 	NSArray *lineInfo;
 	NSString* line;
-
 		
 	while ( (line = [self nextLine]) ) {	
 				
@@ -95,7 +95,7 @@
 				NSString *animationName = [lineInfo objectAtIndex: 1];
 				CCLOG(@"Debug: Parsing animation: %@ %@", animationId, animationName);
 				
-				id animation = [[Animation alloc] initWithName:animationId delay:fps];
+				CCAnimation *animation = [[CCAnimation alloc] initWithName:animationId delay:fps];
 				
 				line = [self nextLine];
 				if (![line hasPrefix:@"aframes("]) {  
@@ -119,13 +119,13 @@
 					//Delays in miliseconds
 					timeCount += duration*0.001;
 					
-					while (!(frameCount*fps > timeCount)) {
-						[animation addFrameContent:[frames objectForKey:frameId] withKey:frameId];
+					while (frameCount*fps < timeCount) {
+					[animation addFrameContent:[frames objectForKey:frameId] withKey:frameId];
 						frameCount++;
 					}
 				}
 				
-				id temp = [[RepeatForever alloc] initWithAction:[Animate actionWithAnimation:animation]];
+				id temp = [[CCRepeatForever alloc] initWithAction:[CCAnimate actionWithAnimation:animation]];
 				[lvkAnimations setObject:temp forKey:animationName];
 				
 				[animation release];
@@ -134,13 +134,17 @@
 		}
 	}	
 	[frames release];
+
+	CCLOG(@"Debug: === Sprite parsing ended ===");
 }
 
 - (void) playAnimation: (NSString *)anim atX:(int)x atY:(int)y
 {
-	if([lvkAnimations objectForKey:anim] != nil) {
+	if ([lvkAnimations objectForKey:anim] != nil) {
 		[self setPosition:ccp(x, y)];
 		[self runAction:[lvkAnimations objectForKey:anim]];
+	} else {
+		// TODO log error
 	}
 }
 

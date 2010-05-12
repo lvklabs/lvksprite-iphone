@@ -4,7 +4,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LvkSpriteDemoAppDelegate : NSObject <UIApplicationDelegate> {
+@interface LvkSpriteDemoAppDelegate : NSObject <UIApplicationDelegate> 
+{
 	UIWindow *window;
 }
 

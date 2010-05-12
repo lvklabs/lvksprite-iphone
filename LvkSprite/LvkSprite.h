@@ -6,7 +6,7 @@
 #import "cocos2d.h"
 //workaround "property list format"
 
-@interface LvkSprite : Sprite 
+@interface LvkSprite : CCSprite 
 {	
 	/// a dictionary mapping animationName --> cocosAnimation
 	NSMutableDictionary *lvkAnimations;
