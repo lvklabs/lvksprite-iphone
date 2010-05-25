@@ -41,7 +41,7 @@
 	return line;	
 }
 
-- (void) loadBinary: (NSString*)binFile andInfo: (NSString*)infoFile
+- (BOOL) loadBinary: (NSString*)binFile andInfo: (NSString*)infoFile
 {
 	CCLOG(@"Debug: === Sprite parsing started ===");
 	CCLOG(@"Debug: %@,%@", binFile, infoFile);
@@ -95,7 +95,7 @@
 				NSString *animationName = [lineInfo objectAtIndex: 1];
 				CCLOG(@"Debug: Parsing animation: %@ %@", animationId, animationName);
 				
-				CCAnimation *animation = [[CCAnimation alloc] initWithName:animationId delay:fps];
+				CCAnimation *anim = [[CCAnimation alloc] initWithName:animationId delay:fps];
 				
 				line = [self nextLine];
 				if (![line hasPrefix:@"aframes("]) {  
@@ -120,15 +120,15 @@
 					timeCount += duration*0.001;
 					
 					while (frameCount*fps < timeCount) {
-					[animation addFrameContent:[frames objectForKey:frameId] withKey:frameId];
+					[anim addFrameContent:[frames objectForKey:frameId] withKey:frameId];
 						frameCount++;
 					}
 				}
 				
-				id temp = [[CCRepeatForever alloc] initWithAction:[CCAnimate actionWithAnimation:animation]];
+				id temp = [[CCRepeatForever alloc] initWithAction:[CCAnimate actionWithAnimation:anim]];
 				[lvkAnimations setObject:temp forKey:animationName];
 				
-				[animation release];
+				[anim release];
 				[temp release];
 			}
 		}
@@ -136,9 +136,11 @@
 	[frames release];
 
 	CCLOG(@"Debug: === Sprite parsing ended ===");
+
+	return TRUE;
 }
 
-- (void) playAnimation: (NSString *)anim atX:(int)x atY:(int)y
+- (void) playAnimation: (NSString *)anim atX:(int)x atY:(int)y repeat:(int)n
 {
 	if ([lvkAnimations objectForKey:anim] != nil) {
 		[self setPosition:ccp(x, y)];
@@ -148,9 +150,15 @@
 	}
 }
 
+- (void) playAnimation: (NSString *)anim repeat:(int)n
+{
+	[self playAnimation:anim atX:self.position.x atY:self.position.y repeat:n];
+}
+
+
 - (void) playAnimation: (NSString *)anim
 {
-	[self playAnimation:anim atX:self.position.x atY:self.position.y];
+	[self playAnimation:anim repeat:-1];
 }
 
 - (BOOL) animationHasEnded

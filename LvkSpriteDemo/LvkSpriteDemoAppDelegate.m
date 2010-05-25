@@ -30,6 +30,7 @@
 		@try {
 			NSLog(@" * Creating sprites...");
 			ryu = [[LvkSprite alloc] initWithBinary:@"ryu.lkob" andInfo: @"ryu.lkot"];
+			[ryu setPosition:ccp(70, 100)];
 			//ryu2 = [[LvkSprite alloc] initWithBinary:@"ryu.lkob" andInfo: @"ryu.lkot"];
 			
 			NSLog(@" * Adding sprites to the scene...");
@@ -53,9 +54,9 @@
 	static int frameCounter = 0;
 	
 	if (frameCounter % 200 == 0) {
-		[ryu playAnimation:@"punch" atX:70 atY:100];
+		[ryu playAnimation:@"punch"];
 	} else if (frameCounter % 200 == 99) {
-		[ryu playAnimation:@"kick" atX:70 atY:100];	
+		[ryu playAnimation:@"kick"];	
 	}
 	
 	if ([ryu animationHasEnded]) {
