@@ -72,8 +72,6 @@
 /// Returns the name of the current animation
 /// @returns the name of the current animation or
 ///          nil if no animation is playing
-///
-/// TODO: implement
 @property (readonly) NSString* animation;
 
 /// Set/returns the position of the sprite in the x axis

@@ -12,7 +12,9 @@
 		return self;
 	
 	[self loadBinary: binFile andInfo: infoFile];
-  
+
+	animation = nil;
+	
 	return self;
 }
 
@@ -142,9 +144,14 @@
 
 - (void) playAnimation: (NSString *)anim atX:(int)x atY:(int)y repeat:(int)n
 {
+	[self setPosition:ccp(x, y)];
+
 	if ([lvkAnimations objectForKey:anim] != nil) {
-		[self setPosition:ccp(x, y)];
+		if (animation != nil) {
+			[self stopAction:[lvkAnimations objectForKey:animation]];
+		}
 		[self runAction:[lvkAnimations objectForKey:anim]];
+		animation = anim;
 	} else {
 		// TODO log error
 	}
@@ -165,5 +172,7 @@
 {
 	return FALSE;
 }
+
+@synthesize animation;
 
 @end
