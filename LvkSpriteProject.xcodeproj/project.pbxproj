@@ -269,6 +269,7 @@
 		419DC9E11198F5A400F1455B /* ZAttributedStringPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZAttributedStringPrivate.h; sourceTree = "<group>"; };
 		419DC9E21198F5A400F1455B /* ZFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFont.h; sourceTree = "<group>"; };
 		419DC9E31198F5A400F1455B /* ZFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFont.m; sourceTree = "<group>"; };
+		41DA179111ADF299004277E9 /* ResourcesPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResourcesPath.h; path = LvkSpriteDemo/ResourcesPath.h; sourceTree = "<group>"; };
 		506EDB87102F4C4000A389B3 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		506EDBA4102F4C9F00A389B3 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -366,6 +367,7 @@
 				41922A4C111A69270058E0DA /* LvkSpriteDemoAppDelegate.h */,
 				41922A4D111A69270058E0DA /* LvkSpriteDemoAppDelegate.m */,
 				41922A4E111A69270058E0DA /* main.m */,
+				41DA179111ADF299004277E9 /* ResourcesPath.h */,
 			);
 			name = "LvkSprite Demo App Sources";
 			sourceTree = "<group>";

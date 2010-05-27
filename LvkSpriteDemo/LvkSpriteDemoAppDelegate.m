@@ -5,6 +5,7 @@
 #import "LvkSpriteDemoAppDelegate.h"
 #import "cocos2d.h"
 #import "LvkSprite.h"
+#import "ResourcesPath.h"
 
 ////////////////////////////////////////
 
@@ -23,9 +24,8 @@
 {
     self = [super init];
     if (self != nil) {
-		//#error "Before compile set this path, comment this line and DO NOT COMMIT the changes!"
-//		NSString *fullpath = [CCFileUtils fullPathFromRelativePath: @"./Resources" ];
-		[[NSFileManager defaultManager] changeCurrentDirectoryPath:@"/Users/andres/lavandaink/src/animParse/Resources"];
+		//NSString *fullpath = [CCFileUtils fullPathFromRelativePath: @"./Resources" ];
+		[[NSFileManager defaultManager] changeCurrentDirectoryPath:@LVK_SPRITE_RESOURCES_PATH];
 		
 		@try {
 			NSLog(@" * Creating sprites...");
