@@ -14,6 +14,8 @@
 	[self loadBinary: binFile andInfo: infoFile];
 
 	animation = nil;
+	px = &(position_.x);
+	py = &(position_.y);
 	
 	return self;
 }
@@ -22,6 +24,9 @@
 	[lvkAnimations release];
 	[super dealloc];
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
 
 // Return the next line of data in file that we are currently parsing 
 - (NSString *) nextLine
@@ -142,6 +147,8 @@
 	return TRUE;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 - (void) playAnimation: (NSString *)anim atX:(int)x atY:(int)y repeat:(int)n
 {
 	[self setPosition:ccp(x, y)];
@@ -174,5 +181,50 @@
 }
 
 @synthesize animation;
+
+////////////////////////////////////////////////////////////////////////////////
+
+#define COCOS_DIRTY_YES isTransformDirty_ = isInverseDirty_ = YES;
+
+- (void) setX:(CGFloat)x
+{
+	COCOS_DIRTY_YES
+	*px = x;
+}
+
+- (CGFloat) x
+{
+	return *px;
+}
+
+- (void) setY:(CGFloat)y
+{
+	COCOS_DIRTY_YES
+	*py = y; 
+}
+
+- (CGFloat) y
+{
+	return *py;
+}
+
+- (void) setDx: (CGFloat)dx
+{
+	COCOS_DIRTY_YES
+	*px += dx;
+}
+
+- (void) setDy: (CGFloat)dy
+{
+	COCOS_DIRTY_YES
+	*py += dy; 
+}
+
+- (void) setDx: (CGFloat)dx andDy:(CGFloat)dy
+{
+	COCOS_DIRTY_YES
+	*px += dx; 
+	*py += dy; 
+}
 
 @end

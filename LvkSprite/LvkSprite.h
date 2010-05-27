@@ -26,6 +26,10 @@
 	NSEnumerator* linesIterator; 
 	// current animation
 	NSString* animation;
+	// pointer to the x position
+	CGFloat *px;
+	// pointer to the y position
+	CGFloat *py;
 }
 
 /// Initializes an instance of the class using a Lvk Sprite 
@@ -77,24 +81,24 @@
 /// Set/returns the position of the sprite in the x axis
 ///
 /// TODO: implement
-@property double* x;
+@property CGFloat x;
 
 /// Set/returns the position of the sprite in the y axis
 ///
 /// TODO: implement
-@property double* y;
+@property CGFloat y;
 
 /// Changes the position of the sprite in the x axis relative to the current position
 /// @param dx: the x offset
 ///
 /// TODO: implement
-- (void) setDx: (double)dx;
+- (void) setDx: (CGFloat)dx;
 
 /// Changes the position of the sprite in the y axis relative to the current position
 /// @param dy: the y offset
 ///
 /// TODO: implement
-- (void) setDy: (double)dy;
+- (void) setDy: (CGFloat)dy;
 
 /// Changes the position of the sprite in the x and y axis relative to the current 
 /// position
@@ -102,21 +106,21 @@
 /// @param dy: the y offset
 ///
 /// TODO: implement
-- (void) setDx: (double)dx andDy:(double)dy;
+- (void) setDx: (CGFloat)dx andDy:(CGFloat)dy;
 
 /// Moves the sprite at the given velocity until reaches the given x position
 /// @param x: the final x position
 /// @param vel: the velocity (in pixels/frame)
 ///
 /// TODO: implement
-- (void) moveX: (double)x withVelocity:(double)vel;
+- (void) moveX: (CGFloat)x withVelocity:(CGFloat)vel;
 
 /// Moves the sprite at the given velocity until reaches the given y position
 /// @param y: the final y position
 /// @param vel: the velocity (in pixels/frame)
 ///
 /// TODO: implement
-- (void) moveY: (double)y withVelocity:(double)vel;
+- (void) moveY: (CGFloat)y withVelocity:(CGFloat)vel;
 
 /// Moves the sprite at the given velocity until reaches the given (x, y) position
 /// @param x: the final x position
@@ -124,26 +128,26 @@
 /// @param vel: the velocity (in pixels/frame)
 ///
 /// TODO: implement
-- (void) moveX: (double)x andY:(double)y withVelocity:(double)vel;
+- (void) moveX: (CGFloat)x andY:(CGFloat)y withVelocity:(CGFloat)vel;
 
 /// Moves the sprite at the given offset at the given velocity
 /// @param dx: the x offset
 /// @param vel: the velocity (in pixels/frame)
-- (void) moveDx: (double)dx withVelocity:(double)vel;
+- (void) moveDx: (CGFloat)dx withVelocity:(CGFloat)vel;
 
 /// Moves the sprite at the given offset at the given velocity
 /// @param dy: the y offset
 /// @param vel: the velocity (in pixels/frame)
 ///
 /// TODO: implement
-- (void) moveDy: (double)dy withVelocity:(double)vel;
+- (void) moveDy: (CGFloat)dy withVelocity:(CGFloat)vel;
 
 /// Moves the sprite at the given offset at the given velocity
 /// @param dx: the x offset
 /// @param vel: the velocity (in pixels/frame)
 ///
 /// TODO: implement
-- (void) moveDy: (double)dx andDy:(double)dy withVelocity:(double)vel;
+- (void) moveDy: (CGFloat)dx andDy:(CGFloat)dy withVelocity:(CGFloat)vel;
 
 /// returns if the sprite collides with the given sprite
 /// @param spr: the given sprite

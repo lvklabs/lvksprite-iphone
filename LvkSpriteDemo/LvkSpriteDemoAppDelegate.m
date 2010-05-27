@@ -29,13 +29,14 @@
 		
 		@try {
 			NSLog(@" * Creating sprites...");
-			ryu = [[LvkSprite alloc] initWithBinary:@"ryu.lkob" andInfo: @"ryu.lkot"];
-			[ryu setPosition:ccp(70, 100)];
-			//ryu2 = [[LvkSprite alloc] initWithBinary:@"ryu.lkob" andInfo: @"ryu.lkot"];
+			ryu = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo: @"ryu-fixed-frame-size.lkot"];
+			[ryu setPosition:ccp(50, 100)];
+			ryu2 = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo: @"ryu-fixed-frame-size.lkot"];
+			[ryu2 setPosition:ccp(250, 100)];
 			
 			NSLog(@" * Adding sprites to the scene...");
 			[self addChild:ryu z:1];
-			//[self addChild:ryu2 z:1];
+			[self addChild:ryu2 z:1];
 			
 			NSLog(@" * Scheduling...");
 			[self schedule:@selector(tick:)];
@@ -53,15 +54,30 @@
 	
 	static int frameCounter = 0;
 	
-	if (frameCounter % 200 == 0) {
-		[ryu playAnimation:@"punch"];
-	} else if (frameCounter % 200 == 99) {
-		[ryu playAnimation:@"kick"];	
+	enum { RIGHT = 1, LEFT = -1 };
+	static int direction = RIGHT;
+	
+	// ryu logic
+	if (ryu.animation == nil) {
+		[ryu playAnimation:@"walk"];	
+	}
+	if (ryu.animation == @"walk" && ryu.x < 180 && direction == RIGHT) {
+		[ryu setDx:3];
+	} else if (ryu.animation == @"walk" && ryu.x > 50 && direction == LEFT) {
+			[ryu setDx:-3];
+	} else if (ryu.animation != @"wait") {
+		[ryu playAnimation:@"wait"];	
+	} else if (ryu.animation == @"wait" && frameCounter % 500 > 350) {
+		direction = (direction == RIGHT) ? LEFT : RIGHT;
+		[ryu playAnimation:@"walk"];			
+	}
+
+	// ryu2 logic
+	if (ryu2.animation == nil) {
+		[ryu2 playAnimation:@"wait"];
+		ryu2.flipX = YES;
 	}
 	
-	if ([ryu animationHasEnded]) {
-		NSLog(@"animation has ended");
-	}
 	
 	frameCounter++;
 }
