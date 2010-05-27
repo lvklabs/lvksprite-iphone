@@ -11,8 +11,8 @@
 //
 // Instructions:
 //  1) remove the line that starts with #error
-//  2) Set your path
-//
+//  2) Set your resources path
+//  3) Run 'git update-index --assume-unchanged LvkSpriteDemo/ResourcesPath.h'
 
 #error "Before compile, please set your resources path in ResourcesPath.h"
 #define LVK_SPRITE_RESOURCES_PATH "/Users/andres/lavandaink/src/animParse/Resources"
