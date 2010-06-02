@@ -15,6 +15,7 @@
 		41922A49111A68F40058E0DA /* LvkSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 41922A48111A68F40058E0DA /* LvkSprite.m */; };
 		41922A4F111A69270058E0DA /* LvkSpriteDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 41922A4D111A69270058E0DA /* LvkSpriteDemoAppDelegate.m */; };
 		41922A50111A69270058E0DA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41922A4E111A69270058E0DA /* main.m */; };
+		4199EE9611B2D869005919CB /* LvkRepeatAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4199EE9511B2D869005919CB /* LvkRepeatAction.m */; };
 		419DC97E1198F41800F1455B /* CCAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 419DC8EC1198F41800F1455B /* CCAction.m */; };
 		419DC97F1198F41800F1455B /* CCActionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 419DC8EE1198F41800F1455B /* CCActionManager.m */; };
 		419DC9801198F41800F1455B /* CCAtlasNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 419DC8F01198F41800F1455B /* CCAtlasNode.m */; };
@@ -112,6 +113,8 @@
 		41922A4C111A69270058E0DA /* LvkSpriteDemoAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LvkSpriteDemoAppDelegate.h; path = LvkSpriteDemo/LvkSpriteDemoAppDelegate.h; sourceTree = "<group>"; };
 		41922A4D111A69270058E0DA /* LvkSpriteDemoAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LvkSpriteDemoAppDelegate.m; path = LvkSpriteDemo/LvkSpriteDemoAppDelegate.m; sourceTree = "<group>"; };
 		41922A4E111A69270058E0DA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = LvkSpriteDemo/main.m; sourceTree = "<group>"; };
+		4199EE9511B2D869005919CB /* LvkRepeatAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LvkRepeatAction.m; path = LvkSprite/LvkRepeatAction.m; sourceTree = "<group>"; };
+		4199EE9711B2D88D005919CB /* LvkRepeatAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LvkRepeatAction.h; path = LvkSprite/LvkRepeatAction.h; sourceTree = "<group>"; };
 		419DC8EB1198F41800F1455B /* CCAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCAction.h; path = "../cocos2d-iphone/cocos2d/CCAction.h"; sourceTree = SOURCE_ROOT; };
 		419DC8EC1198F41800F1455B /* CCAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCAction.m; path = "../cocos2d-iphone/cocos2d/CCAction.m"; sourceTree = SOURCE_ROOT; };
 		419DC8ED1198F41800F1455B /* CCActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCActionManager.h; path = "../cocos2d-iphone/cocos2d/CCActionManager.h"; sourceTree = SOURCE_ROOT; };
@@ -328,6 +331,8 @@
 			children = (
 				41922A47111A68F40058E0DA /* LvkSprite.h */,
 				41922A48111A68F40058E0DA /* LvkSprite.m */,
+				4199EE9511B2D869005919CB /* LvkRepeatAction.m */,
+				4199EE9711B2D88D005919CB /* LvkRepeatAction.h */,
 			);
 			name = "LvkSprite Sources";
 			sourceTree = "<group>";
@@ -688,6 +693,7 @@
 				419DC9E61198F5A400F1455B /* FontManager.m in Sources */,
 				419DC9E71198F5A400F1455B /* ZAttributedString.m in Sources */,
 				419DC9E81198F5A400F1455B /* ZFont.m in Sources */,
+				4199EE9611B2D869005919CB /* LvkRepeatAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

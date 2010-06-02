@@ -23,9 +23,11 @@
 	// a dictionary mapping animationName --> cocosAnimation
 	NSMutableDictionary *lvkAnimations;
 	// Lines iterator used to parse the sprite file
-	NSEnumerator* linesIterator; 
-	// current animation
-	NSString* animation;
+	NSEnumerator *linesIterator; 
+	// current animation name
+	NSString *animation;
+	// current animation action
+	CCAction *aniAction;
 	// pointer to the x position
 	CGFloat *px;
 	// pointer to the y position
@@ -43,8 +45,6 @@
 /// @param info: the lvk sprite information file (usually *.lkot)
 /// @returns TRUE if it loads and parses the files successfully,
 ///          FALSE otherwise
-///
-/// FIXME: current implementation always returns TRUE
 - (BOOL) loadBinary: (NSString*)bin andInfo: (NSString*)info; 
 
 /// Plays n times the given animation at the given position
@@ -54,13 +54,11 @@
 /// @param n: repeat n times the animation, -1 repeats forever
 ///
 /// FIXME: always repeats forever
-- (void) playAnimation: (NSString *)name atX:(int)x atY:(int)y repeat:(int)n;
+- (void) playAnimation: (NSString *)name atX:(CGFloat)x atY:(CGFloat)y repeat:(int)n;
 
 /// Plays n times the given animation
 /// @param name: the animation name
 /// @param n: repeat n times the animation, -1 to repeat forever
-///
-/// FIXME: always repeats forever
 - (void) playAnimation: (NSString *)name repeat:(int)n;
 
 /// Plays forever the given animation
@@ -69,8 +67,6 @@
 
 /// Returns if the animation has ended
 /// @returns TRUE if the animation has ended, FALSE otherwise. 
-///
-/// TODO: implement
 - (BOOL) animationHasEnded;
 
 /// Returns the name of the current animation
@@ -79,33 +75,23 @@
 @property (readonly) NSString* animation;
 
 /// Set/returns the position of the sprite in the x axis
-///
-/// TODO: implement
 @property CGFloat x;
 
 /// Set/returns the position of the sprite in the y axis
-///
-/// TODO: implement
 @property CGFloat y;
 
 /// Changes the position of the sprite in the x axis relative to the current position
 /// @param dx: the x offset
-///
-/// TODO: implement
 - (void) setDx: (CGFloat)dx;
 
 /// Changes the position of the sprite in the y axis relative to the current position
 /// @param dy: the y offset
-///
-/// TODO: implement
 - (void) setDy: (CGFloat)dy;
 
 /// Changes the position of the sprite in the x and y axis relative to the current 
 /// position
 /// @param dx: the x offset
 /// @param dy: the y offset
-///
-/// TODO: implement
 - (void) setDx: (CGFloat)dx andDy:(CGFloat)dy;
 
 /// Moves the sprite at the given velocity until reaches the given x position
@@ -149,6 +135,12 @@
 /// TODO: implement
 - (void) moveDy: (CGFloat)dx andDy:(CGFloat)dy withVelocity:(CGFloat)vel;
 
+/// Returns if the movement has ended
+/// @returns TRUE if the movement has ended, FALSE otherwise. 
+///
+/// TODO: implement
+- (BOOL) moveHasEnded;
+
 /// returns if the sprite collides with the given sprite
 /// @param spr: the given sprite
 /// @returns TRUE if the sprite collides with the given sprite,
@@ -163,7 +155,7 @@
 ///          FALSE otherwise
 ///
 /// TODO: implement
-- (BOOL) collidesWithPoint:(NSPoint)point;
+- (BOOL) collidesWithPoint:(CGPoint)point;
 
 /// returns if the sprite instance collides with the given rect
 /// @param spr: the given rect
@@ -171,7 +163,10 @@
 ///          FALSE otherwise
 ///
 /// TODO: implement
-- (BOOL) collidesWithRect:(NSRect)rect;
+- (BOOL) collidesWithRect:(CGRect)rect;
+
+/// Drawing method that is called in every frame
+-(void) draw;
 
 /// deallocate resources used by the class
 ///

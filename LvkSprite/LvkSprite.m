@@ -3,6 +3,7 @@
 //
 
 #import "LvkSprite.h"
+#import "LvkRepeatAction.h"
 
 @implementation LvkSprite
 
@@ -14,8 +15,11 @@
 	[self loadBinary: binFile andInfo: infoFile];
 
 	animation = nil;
+	aniAction = nil;
 	px = &(position_.x);
 	py = &(position_.y);
+	
+	[self schedule:@selector(tick:)];
 	
 	return self;
 }
@@ -25,10 +29,38 @@
 	[super dealloc];
 }
 
+- (void) tick: (ccTime) dt
+{
+}
+
+-(void) draw
+{
+	[super draw];
+	
+#ifdef LVK_SPRITE_SHOW_FRAME_RECT	
+	glColor4ub(255, 0, 255, 255);
+	glLineWidth(1);
+	int x = rect_.origin.x;
+	int y = rect_.origin.y;
+	int w = rect_.size.width;
+	int h = rect_.size.height;
+	CGPoint v[] = { 
+		ccp(x, y), 
+		ccp(x + w, y), 
+		ccp(x + w, y + h),
+		ccp(x, y + h)
+	};
+	ccDrawPoly(v, 4, YES);
+
+	//glColor4ub(0, 255, 0, 255);
+	//ccDrawPoint(ccp(*px, *py));
+#endif //LVK_SPRITE_SHOW_FRAME_RECT	
+
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 
-
-// Return the next line of data in file that we are currently parsing 
+// Returns the next line of data in file that we are currently parsing 
 - (NSString *) nextLine
 {
 	NSString *line;
@@ -132,11 +164,9 @@
 					}
 				}
 				
-				id temp = [[CCRepeatForever alloc] initWithAction:[CCAnimate actionWithAnimation:anim]];
-				[lvkAnimations setObject:temp forKey:animationName];
-				
+				[lvkAnimations setObject:anim forKey:animationName];
+								
 				[anim release];
-				[temp release];
 			}
 		}
 	}	
@@ -149,35 +179,54 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-- (void) playAnimation: (NSString *)anim atX:(int)x atY:(int)y repeat:(int)n
+- (void) playAnimation: (NSString *)name atX:(CGFloat)x atY:(CGFloat)y repeat:(int)n
 {
+	NSLog(@"Debug: Playing animation '%@' at (%f,%f) %i times", name, x, y, n);
+	
 	[self setPosition:ccp(x, y)];
-
-	if ([lvkAnimations objectForKey:anim] != nil) {
-		if (animation != nil) {
-			[self stopAction:[lvkAnimations objectForKey:animation]];
+	
+	CCAnimation *anim = [lvkAnimations objectForKey:name];
+	
+	if (anim != nil) {
+		if (aniAction != nil && ![aniAction isDone]) {
+			[self stopAction:aniAction];
+			[aniAction release];
+			aniAction = nil;
 		}
-		[self runAction:[lvkAnimations objectForKey:anim]];
-		animation = anim;
+		if (n > 0) {
+			aniAction = [[LvkRepeatAction alloc] initWithAction:[CCAnimate actionWithAnimation:anim] times:n];
+		} else if (n == -1) {
+			aniAction = [[CCRepeatForever alloc] initWithAction:[CCAnimate actionWithAnimation:anim]];
+		} else {
+			aniAction = nil;
+		}
+		if (aniAction != nil) {
+			[self runAction:aniAction];
+		}
+		animation = name;
 	} else {
-		// TODO log error
+		NSLog(@"Debug: animation '%@' does not exist", name);
 	}
 }
 
-- (void) playAnimation: (NSString *)anim repeat:(int)n
+- (void) playAnimation: (NSString *)name repeat:(int)n
 {
-	[self playAnimation:anim atX:self.position.x atY:self.position.y repeat:n];
+	[self playAnimation:name atX:self.position.x atY:self.position.y repeat:n];
 }
 
 
-- (void) playAnimation: (NSString *)anim
+- (void) playAnimation: (NSString *)name
 {
-	[self playAnimation:anim repeat:-1];
+	[self playAnimation:name repeat:-1];
 }
 
 - (BOOL) animationHasEnded
 {
-	return FALSE;
+	if (aniAction == nil) {
+		return YES;
+	} else {
+		return [aniAction isDone];
+	}
 }
 
 @synthesize animation;
@@ -225,6 +274,83 @@
 	COCOS_DIRTY_YES
 	*px += dx; 
 	*py += dy; 
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (void) moveX: (CGFloat)x withVelocity:(CGFloat)vel
+{
+	//TODO
+}
+
+- (void) moveY: (CGFloat)y withVelocity:(CGFloat)vel
+{
+	//TODO
+}
+
+- (void) moveX: (CGFloat)x andY:(CGFloat)y withVelocity:(CGFloat)vel
+{
+	//TODO
+}
+
+- (void) moveDx: (CGFloat)dx withVelocity:(CGFloat)vel
+{
+	//TODO
+}
+
+- (void) moveDy: (CGFloat)dy withVelocity:(CGFloat)vel
+{
+	//TODO
+}
+
+- (void) moveDy: (CGFloat)dx andDy:(CGFloat)dy withVelocity:(CGFloat)vel
+{
+	//TODO
+}
+
+- (BOOL) moveHasEnded
+{
+	//TODO
+	return NO;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (BOOL) collidesWithSprite:(LvkSprite *)spr
+{
+	//FIXME
+	return CGRectIntersectsRect(rect_, spr->rect_);
+/*
+	CGFloat r1x = (rect_).origin.x;
+	//int r1y = rect_.origin.y;
+	CGFloat r1w = (rect_).size.width;
+	//int r1h = rect_.size.height;
+	
+	CGFloat r2x = (spr->rect_).origin.x;
+	//int r2y = spr->rect_.origin.y;
+	CGFloat r2w = (spr->rect_).size.width;
+	//int r2h = spr->rect_.size.height;
+	
+	if (r1x <=  r2x + r2w && 
+		r1x + r1w >=  r2x) {
+		NSLog(@"(%f,%f) (%f,%f) yes", r1x, r1w, r2x, r2w);
+		return YES;
+	} else {
+		return NO;
+	}
+*/
+}
+
+- (BOOL) collidesWithPoint:(CGPoint)point
+{
+	//FIXME
+	return CGRectContainsPoint(rect_, point);
+}
+
+- (BOOL) collidesWithRect:(CGRect)rect
+{
+	//FIXME
+	return CGRectIntersectsRect(rect_, rect);
 }
 
 @end
