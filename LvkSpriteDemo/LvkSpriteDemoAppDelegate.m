@@ -80,8 +80,8 @@ BOOL touch = FALSE;
 			ryuState++;
 			break;
 		case 1:
-			if (ryu.x < 180 && direction == RIGHT) {
-			//if (![ryu collidesWithSprite:ryu2] && direction == RIGHT) {
+			//if (ryu.x < 180 && direction == RIGHT) {
+			if (![ryu collidesWithSprite:ryu2] && direction == RIGHT) {
 				[ryu setDx:speed];
 			} else {
 				direction = LEFT;
@@ -158,7 +158,7 @@ BOOL touch = FALSE;
 	// DEPRECATED in 0.99 ?? [CCDirector useFastDirector];
 	
 	// before creating any layer, set the landscape mode
-	//[[CCDirector sharedDirector] setDeviceOrientation:CCDeviceOrientationLandscapeLeft];
+	[[CCDirector sharedDirector] setDeviceOrientation:CCDeviceOrientationLandscapeLeft];
 	[[CCDirector sharedDirector] setAnimationInterval:1.0/60];
 	[[CCDirector sharedDirector] setDisplayFPS:YES];
 	

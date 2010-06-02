@@ -69,7 +69,7 @@
 /// @returns TRUE if the animation has ended, FALSE otherwise. 
 - (BOOL) animationHasEnded;
 
-/// Returns the name of the current animation
+/// Gets the name of the current animation
 /// @returns the name of the current animation or
 ///          nil if no animation is playing
 @property (readonly) NSString* animation;
@@ -141,28 +141,26 @@
 /// TODO: implement
 - (BOOL) moveHasEnded;
 
-/// returns if the sprite collides with the given sprite
+/// Gets the current frame rect
+/// @returns the current frame rect
+@property (readonly) CGRect rect;
+
+/// Returns if the sprite collides with the given sprite
 /// @param spr: the given sprite
 /// @returns TRUE if the sprite collides with the given sprite,
 ///          FALSE otherwise
-///
-/// TODO: implement
 - (BOOL) collidesWithSprite:(LvkSprite *)spr;
 
-/// returns if the sprite collides with the given point
+/// Returns if the sprite collides with the given point
 /// @param point: the given point
 /// @returns TRUE if the sprite collides with the given point,
 ///          FALSE otherwise
-///
-/// TODO: implement
 - (BOOL) collidesWithPoint:(CGPoint)point;
 
-/// returns if the sprite instance collides with the given rect
+/// Returns if the sprite instance collides with the given rect
 /// @param spr: the given rect
 /// @returns TRUE if the sprite collides with the given rect,
 ///          FALSE otherwise
-///
-/// TODO: implement
 - (BOOL) collidesWithRect:(CGRect)rect;
 
 /// Drawing method that is called in every frame

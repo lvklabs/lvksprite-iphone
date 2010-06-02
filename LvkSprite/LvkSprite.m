@@ -36,26 +36,41 @@
 -(void) draw
 {
 	[super draw];
+
+#ifdef LVK_SPRITE_SHOW_FRAME_RECT
+	int x;
+	int y;
+	int w;
+	int h;
 	
-#ifdef LVK_SPRITE_SHOW_FRAME_RECT	
 	glColor4ub(255, 0, 255, 255);
 	glLineWidth(1);
-	int x = rect_.origin.x;
-	int y = rect_.origin.y;
-	int w = rect_.size.width;
-	int h = rect_.size.height;
-	CGPoint v[] = { 
+	x = rect_.origin.x;
+	y = rect_.origin.y;
+	w = rect_.size.width;
+	h = rect_.size.height;
+	CGPoint v1[] = { 
 		ccp(x, y), 
 		ccp(x + w, y), 
 		ccp(x + w, y + h),
 		ccp(x, y + h)
 	};
-	ccDrawPoly(v, 4, YES);
-
-	//glColor4ub(0, 255, 0, 255);
-	//ccDrawPoint(ccp(*px, *py));
-#endif //LVK_SPRITE_SHOW_FRAME_RECT	
-
+	ccDrawPoly(v1, 4, YES);
+	
+	glColor4ub(0, 255, 0, 255);
+	glLineWidth(1);
+	x = position_.x;
+	y = position_.y;
+	w = contentSize_.width;
+	h = contentSize_.height;
+	CGPoint v2[] = { 
+		ccp(x, y), 
+		ccp(x + w, y), 
+		ccp(x + w, y + h),
+		ccp(x, y + h)
+	};
+	ccDrawPoly(v2, 4, YES);
+#endif //LVK_SPRITE_SHOW_FRAME_RECT		
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -316,41 +331,24 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
+- (CGRect) rect
+{
+	return CGRectMake(position_.x, position_.y, contentSize_.width, contentSize_.height);
+}
+
 - (BOOL) collidesWithSprite:(LvkSprite *)spr
 {
-	//FIXME
-	return CGRectIntersectsRect(rect_, spr->rect_);
-/*
-	CGFloat r1x = (rect_).origin.x;
-	//int r1y = rect_.origin.y;
-	CGFloat r1w = (rect_).size.width;
-	//int r1h = rect_.size.height;
-	
-	CGFloat r2x = (spr->rect_).origin.x;
-	//int r2y = spr->rect_.origin.y;
-	CGFloat r2w = (spr->rect_).size.width;
-	//int r2h = spr->rect_.size.height;
-	
-	if (r1x <=  r2x + r2w && 
-		r1x + r1w >=  r2x) {
-		NSLog(@"(%f,%f) (%f,%f) yes", r1x, r1w, r2x, r2w);
-		return YES;
-	} else {
-		return NO;
-	}
-*/
+	return CGRectIntersectsRect(self.rect, spr.rect);
 }
 
 - (BOOL) collidesWithPoint:(CGPoint)point
 {
-	//FIXME
-	return CGRectContainsPoint(rect_, point);
+	return CGRectContainsPoint(self.rect, point);
 }
 
 - (BOOL) collidesWithRect:(CGRect)rect
 {
-	//FIXME
-	return CGRectIntersectsRect(rect_, rect);
+	return CGRectIntersectsRect(self.rect, rect);
 }
 
 @end
