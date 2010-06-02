@@ -18,6 +18,11 @@
 	aniAction = nil;
 	px = &(position_.x);
 	py = &(position_.y);
+	pw = &(contentSize_.width);
+	ph = &(contentSize_.height);
+	collisionThreshold = 0;
+	
+	self.anchorPoint = CGPointMake(0, 1);
 	
 	[self schedule:@selector(tick:)];
 	
@@ -38,10 +43,10 @@
 	[super draw];
 
 #ifdef LVK_SPRITE_SHOW_FRAME_RECT
-	int x;
-	int y;
-	int w;
-	int h;
+	CGFloat x;
+	CGFloat y;
+	CGFloat w;
+	CGFloat h;
 	
 	glColor4ub(255, 0, 255, 255);
 	glLineWidth(1);
@@ -56,6 +61,23 @@
 		ccp(x, y + h)
 	};
 	ccDrawPoly(v1, 4, YES);
+
+	glColor4ub(255, 0, 0, 255);
+	ccDrawPoint(CGPointMake(x, y));	
+	
+	glColor4ub(128, 0, 128, 255);
+	glLineWidth(1);
+	x = rect_.origin.x - collisionThreshold;
+	y = rect_.origin.y - collisionThreshold;
+	w = rect_.size.width + collisionThreshold;
+	h = rect_.size.height + collisionThreshold;
+	CGPoint v3[] = { 
+		ccp(x, y), 
+		ccp(x + w, y), 
+		ccp(x + w, y + h),
+		ccp(x, y + h)
+	};
+	ccDrawPoly(v3, 4, YES);
 	
 	glColor4ub(0, 255, 0, 255);
 	glLineWidth(1);
@@ -70,7 +92,25 @@
 		ccp(x, y + h)
 	};
 	ccDrawPoly(v2, 4, YES);
-#endif //LVK_SPRITE_SHOW_FRAME_RECT		
+
+	glColor4ub(255, 0, 0, 255);
+	ccDrawPoint(CGPointMake(x, y));	
+	
+	glColor4ub(0, 128, 0, 255);
+	glLineWidth(1);
+	x = position_.x - collisionThreshold;
+	y = position_.y - collisionThreshold;
+	w = contentSize_.width + collisionThreshold;
+	h = contentSize_.height + collisionThreshold;
+	CGPoint v4[] = { 
+		ccp(x, y), 
+		ccp(x + w, y), 
+		ccp(x + w, y + h),
+		ccp(x, y + h)
+	};
+	ccDrawPoly(v4, 4, YES);
+	
+#endif //LVK_SPRITE_SHOW_FRAME_RECT	
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -333,22 +373,32 @@
 
 - (CGRect) rect
 {
-	return CGRectMake(position_.x, position_.y, contentSize_.width, contentSize_.height);
+	return CGRectMake(*px, *py, *pw, *ph);
+}
+
+@synthesize collisionThreshold;
+
+- (CGRect) collisionRect
+{
+	return CGRectMake(*px - collisionThreshold, 
+					  *py - collisionThreshold, 
+					  *pw + collisionThreshold, 
+					  *ph + collisionThreshold);
 }
 
 - (BOOL) collidesWithSprite:(LvkSprite *)spr
 {
-	return CGRectIntersectsRect(self.rect, spr.rect);
+	return CGRectIntersectsRect(self.collisionRect, spr.collisionRect);
 }
 
 - (BOOL) collidesWithPoint:(CGPoint)point
 {
-	return CGRectContainsPoint(self.rect, point);
+	return CGRectContainsPoint(self.collisionRect, point);
 }
 
 - (BOOL) collidesWithRect:(CGRect)rect
 {
-	return CGRectIntersectsRect(self.rect, rect);
+	return CGRectIntersectsRect(self.collisionRect, rect);
 }
 
 @end

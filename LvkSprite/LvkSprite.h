@@ -32,6 +32,12 @@
 	CGFloat *px;
 	// pointer to the y position
 	CGFloat *py;
+	// pointer to the sprite width
+	CGFloat *pw;
+	// pointer to the sprite height
+	CGFloat *ph;
+	// collision threshold
+	CGFloat collisionThreshold;
 }
 
 /// Initializes an instance of the class using a Lvk Sprite 
@@ -142,8 +148,14 @@
 - (BOOL) moveHasEnded;
 
 /// Gets the current frame rect
-/// @returns the current frame rect
 @property (readonly) CGRect rect;
+
+/// Gets the current frame rect plus the collision threshold 
+@property (readonly) CGRect collisionRect;
+
+/// Gets or sets the collision threshold.
+/// TODO explain with more detail
+@property CGFloat collisionThreshold;
 
 /// Returns if the sprite collides with the given sprite
 /// @param spr: the given sprite

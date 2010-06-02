@@ -76,11 +76,11 @@ BOOL touch = FALSE;
 		case 0:
 			[ryu setPosition:ccp(50, 100)];
 			[ryu playAnimation:@"walk"];
+			ryu.collisionThreshold = -10;
 			direction = RIGHT;
 			ryuState++;
 			break;
 		case 1:
-			//if (ryu.x < 180 && direction == RIGHT) {
 			if (![ryu collidesWithSprite:ryu2] && direction == RIGHT) {
 				[ryu setDx:speed];
 			} else {
@@ -113,6 +113,7 @@ BOOL touch = FALSE;
 		case 0:
 			[ryu2 setPosition:ccp(250, 100)];
 			[ryu2 playAnimation:@"wait"];
+			ryu2.collisionThreshold = -10;
 			ryu2.flipX = YES;
 			ryu2State++;
 			break;
