@@ -22,7 +22,7 @@
 	ph = &(contentSize_.height);
 	collisionThreshold = 0;
 	
-	self.anchorPoint = CGPointMake(0, 1);
+	self.anchorPoint = CGPointMake(0, 0);
 	
 	[self schedule:@selector(tick:)];
 	
