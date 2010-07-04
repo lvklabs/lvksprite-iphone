@@ -4,6 +4,7 @@
 
 #import "LvkSprite.h"
 #import "LvkRepeatAction.h"
+#import "common.h"
 
 @implementation LvkSprite
 
@@ -137,8 +138,8 @@
 
 - (BOOL) loadBinary: (NSString*)binFile andInfo: (NSString*)infoFile
 {
-	CCLOG(@"Debug: === Sprite parsing started ===");
-	CCLOG(@"Debug: %@,%@", binFile, infoFile);
+	LKLOG(@"Debug: === Sprite parsing started ===");
+	LKLOG(@"Debug: %@,%@", binFile, infoFile);
 	
 	[lvkAnimations removeAllObjects];
 	
@@ -165,7 +166,7 @@
 				NSString *frameId = [lineInfo objectAtIndex: 0];
 				NSUInteger offset = [[lineInfo objectAtIndex: 1] intValue];
 				NSUInteger length = [[lineInfo objectAtIndex: 2] intValue];
-				CCLOG(@"Debug: Parsing frame: %@,%i,%i", frameId, offset, length);
+				LKLOG(@"Debug: Parsing frame: %@,%i,%i", frameId, offset, length);
 				
 				NSRange range = NSMakeRange(offset, length);
 				
@@ -187,13 +188,13 @@
 				lineInfo = [line componentsSeparatedByString:@","];
 				NSString *animationId = [lineInfo objectAtIndex:0];
 				NSString *animationName = [lineInfo objectAtIndex: 1];
-				CCLOG(@"Debug: Parsing animation: %@ %@", animationId, animationName);
+				LKLOG(@"Debug: Parsing animation: %@ %@", animationId, animationName);
 				
 				CCAnimation *anim = [[CCAnimation alloc] initWithName:animationId delay:fps];
 				
 				line = [self nextLine];
 				if (![line hasPrefix:@"aframes("]) {  
-					CCLOG(@"Error: Ill-formed sprite file: aframes(...) section expected, found '%@'", line);
+					LKLOG(@"Error: Ill-formed sprite file: aframes(...) section expected, found '%@'", line);
 				}
 				
 				NSInteger frameCount = 1; // it counts the number of the next frame to load
@@ -227,7 +228,7 @@
 	}	
 	[frames release];
 
-	CCLOG(@"Debug: === Sprite parsing ended ===");
+	LKLOG(@"Debug: === Sprite parsing ended ===");
 
 	return TRUE;
 }

@@ -283,6 +283,7 @@
 		DCCBF1BA0F6022AE0040855A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		DCCBF1BC0F6022AE0040855A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		DCCBF1BE0F6022AE0040855A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		E09FABA311E1304600334436 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -329,6 +330,7 @@
 		29B97315FDCFA39411CA2CEA /* LvkSprite Sources */ = {
 			isa = PBXGroup;
 			children = (
+				E09FABA311E1304600334436 /* common.h */,
 				41922A47111A68F40058E0DA /* LvkSprite.h */,
 				41922A48111A68F40058E0DA /* LvkSprite.m */,
 				4199EE9511B2D869005919CB /* LvkRepeatAction.m */,
