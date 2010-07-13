@@ -147,7 +147,9 @@
 	
 	NSData *binData = [NSData dataWithContentsOfFile: binFile];
 
-	NSString *infoData = [NSString stringWithContentsOfFile: infoFile];
+	NSStringEncoding* encoding;
+	NSError* error;
+	NSString *infoData = [NSString stringWithContentsOfFile:infoFile usedEncoding:encoding error:&error];
 	NSArray *lines = [infoData componentsSeparatedByString:@"\n"];
 	linesIterator = [lines objectEnumerator]; 
 
