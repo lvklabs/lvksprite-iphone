@@ -138,9 +138,9 @@
 
 - (BOOL) loadBinary: (NSString*)binFile andInfo: (NSString*)infoFile
 {
-	LKLOG(@"Debug: === Sprite parsing started ===");
-	LKLOG(@"Debug: %@,%@", binFile, infoFile);
-	
+	LKLOG(@"LvkSprite: === Sprite parsing started ===");
+	LKLOG(@"LvkSprite: %@,%@", binFile, infoFile);
+
 	[lvkAnimations removeAllObjects];
 	
 	const float fps = 1.0/24.0;
@@ -153,9 +153,12 @@
 	NSArray *lines = [infoData componentsSeparatedByString:@"\n"];
 	linesIterator = [lines objectEnumerator]; 
 
-	NSMutableDictionary *frames = [[NSMutableDictionary alloc] initWithCapacity:0];
+	NSMutableDictionary *frames = [[NSMutableDictionary alloc] initWithCapacity:10];
 	NSArray *lineInfo;
 	NSString* line;
+	
+	CCAnimation *nullAnim = [[CCAnimation alloc] initWithName:@"NullAnimation" delay:fps];
+	[lvkAnimations setObject:nullAnim forKey:@"NullAnimation"];
 		
 	while ( (line = [self nextLine]) ) {	
 				
@@ -168,11 +171,11 @@
 				NSString *frameId = [lineInfo objectAtIndex: 0];
 				NSUInteger offset = [[lineInfo objectAtIndex: 1] intValue];
 				NSUInteger length = [[lineInfo objectAtIndex: 2] intValue];
-				LKLOG(@"Debug: Parsing frame: %@,%i,%i", frameId, offset, length);
+				LKLOG(@"LvkSprite: Parsing frame: %@,%i,%i", frameId, offset, length);
 				
 				NSRange range = NSMakeRange(offset, length);
-				
-				[frames setObject:[binData subdataWithRange: range] forKey: frameId];
+				NSString *CCFrameId = [NSString stringWithFormat:@"%@_%@", infoFile, frameId];
+				[frames setObject:[binData subdataWithRange: range] forKey: CCFrameId];
 			}
 		}
 		
@@ -190,13 +193,14 @@
 				lineInfo = [line componentsSeparatedByString:@","];
 				NSString *animationId = [lineInfo objectAtIndex:0];
 				NSString *animationName = [lineInfo objectAtIndex: 1];
-				LKLOG(@"Debug: Parsing animation: %@ %@", animationId, animationName);
+				LKLOG(@"LvkSprite: Parsing animation: %@ %@", animationId, animationName);
 				
-				CCAnimation *anim = [[CCAnimation alloc] initWithName:animationId delay:fps];
+				NSString *CCAnimationId = [NSString stringWithFormat:@"%@_%@", infoFile, animationId];
+				CCAnimation *anim = [[CCAnimation alloc] initWithName:CCAnimationId delay:fps];
 				
 				line = [self nextLine];
 				if (![line hasPrefix:@"aframes("]) {  
-					LKLOG(@"Error: Ill-formed sprite file: aframes(...) section expected, found '%@'", line);
+					LKLOG(@"LvkSprite: Error: Ill-formed sprite file: aframes(...) section expected, found '%@'", line);
 				}
 				
 				NSInteger frameCount = 1; // it counts the number of the next frame to load
@@ -217,7 +221,8 @@
 					timeCount += duration*0.001;
 					
 					while (frameCount*fps < timeCount) {
-					[anim addFrameContent:[frames objectForKey:frameId] withKey:frameId];
+						NSString *CCFrameId = [NSString stringWithFormat:@"%@_%@", infoFile, frameId];
+						[anim addFrameContent:[frames objectForKey:CCFrameId] withKey:CCFrameId];
 						frameCount++;
 					}
 				}
@@ -230,7 +235,7 @@
 	}	
 	[frames release];
 
-	LKLOG(@"Debug: === Sprite parsing ended ===");
+	LKLOG(@"LvkSprite: === Sprite parsing ended ===");
 
 	return TRUE;
 }
@@ -239,18 +244,14 @@
 
 - (void) playAnimation: (NSString *)name atX:(CGFloat)x atY:(CGFloat)y repeat:(int)n
 {
-	NSLog(@"Debug: Playing animation '%@' at (%f,%f) %i times", name, x, y, n);
+	LKLOG(@"LvkSprite: Playing animation '%@' at (%f,%f) %i times", name, x, y, n);
 	
 	[self setPosition:ccp(x, y)];
+	[self stopAnimation];
 	
 	CCAnimation *anim = [lvkAnimations objectForKey:name];
-	
+
 	if (anim != nil) {
-		if (aniAction != nil && ![aniAction isDone]) {
-			[self stopAction:aniAction];
-			[aniAction release];
-			aniAction = nil;
-		}
 		if (n > 0) {
 			aniAction = [[LvkRepeatAction alloc] initWithAction:[CCAnimate actionWithAnimation:anim] times:n];
 		} else if (n == -1) {
@@ -263,7 +264,7 @@
 		}
 		animation = name;
 	} else {
-		NSLog(@"Debug: animation '%@' does not exist", name);
+		LKLOG(@"LvkSprite: animation '%@' does not exist", name);
 	}
 }
 
@@ -276,6 +277,15 @@
 - (void) playAnimation: (NSString *)name
 {
 	[self playAnimation:name repeat:-1];
+}
+
+- (void) stopAnimation
+{
+	if (aniAction != nil && ![aniAction isDone]) {
+		[self stopAction:aniAction];
+		[aniAction release];
+		aniAction = nil;
+	}
 }
 
 - (BOOL) animationHasEnded

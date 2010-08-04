@@ -71,6 +71,9 @@
 /// @param name: the animation name
 - (void) playAnimation: (NSString *)name;
 
+/// Stops the current animation
+- (void) stopAnimation;
+
 /// Returns if the animation has ended
 /// @returns TRUE if the animation has ended, FALSE otherwise. 
 - (BOOL) animationHasEnded;
