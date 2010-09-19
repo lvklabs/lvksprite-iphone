@@ -99,7 +99,43 @@
 		DCCBF1BB0F6022AE0040855A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1BA0F6022AE0040855A /* OpenGLES.framework */; };
 		DCCBF1BD0F6022AE0040855A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1BC0F6022AE0040855A /* QuartzCore.framework */; };
 		DCCBF1BF0F6022AE0040855A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1BE0F6022AE0040855A /* UIKit.framework */; };
+		E0B541B812469B8800A27025 /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0B541B712469B8800A27025 /* GHUnitIOS.framework */; };
+		E0B543AD1246A20400A27025 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1B60F6022AE0040855A /* CoreGraphics.framework */; };
+		E0B543AE1246A20400A27025 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1B80F6022AE0040855A /* Foundation.framework */; };
+		E0B543AF1246A20400A27025 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1BA0F6022AE0040855A /* OpenGLES.framework */; };
+		E0B543B01246A20400A27025 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1BC0F6022AE0040855A /* QuartzCore.framework */; };
+		E0B543B11246A20400A27025 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1BE0F6022AE0040855A /* UIKit.framework */; };
+		E0B543B21246A20400A27025 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6640020F83B3EA000B3E49 /* AudioToolbox.framework */; };
+		E0B543B31246A20400A27025 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6640040F83B3EA000B3E49 /* OpenAL.framework */; };
+		E0B543B41246A20400A27025 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 506EDB87102F4C4000A389B3 /* libz.dylib */; };
+		E0B543B51246A20400A27025 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506EDBA4102F4C9F00A389B3 /* AVFoundation.framework */; };
+		E0B5444A1246A66400A27025 /* LvkRepeatActionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = E0B5428412469F0700A27025 /* LvkRepeatActionTest.m */; };
+		E0B5444B1246A66400A27025 /* LvkSpriteTest.m in Sources */ = {isa = PBXBuildFile; fileRef = E0B541D512469C2E00A27025 /* LvkSpriteTest.m */; };
+		E0B5444C1246A66400A27025 /* GHUnitIPhoneTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = E0B5419012469AB400A27025 /* GHUnitIPhoneTestMain.m */; };
+		E0B544BE1246B75E00A27025 /* libcocos2d.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E0B544921246A84600A27025 /* libcocos2d.a */; };
+		E0B544BF1246B75E00A27025 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1B60F6022AE0040855A /* CoreGraphics.framework */; };
+		E0B544C01246B75E00A27025 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1B80F6022AE0040855A /* Foundation.framework */; };
+		E0B544C11246B75E00A27025 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1BA0F6022AE0040855A /* OpenGLES.framework */; };
+		E0B544C21246B75E00A27025 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1BC0F6022AE0040855A /* QuartzCore.framework */; };
+		E0B544C31246B75E00A27025 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1BE0F6022AE0040855A /* UIKit.framework */; };
+		E0B544C41246B75E00A27025 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6640020F83B3EA000B3E49 /* AudioToolbox.framework */; };
+		E0B544C51246B75E00A27025 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6640040F83B3EA000B3E49 /* OpenAL.framework */; };
+		E0B544C61246B75E00A27025 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 506EDB87102F4C4000A389B3 /* libz.dylib */; };
+		E0B544C71246B75E00A27025 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506EDBA4102F4C9F00A389B3 /* AVFoundation.framework */; };
+		E0B544C81246B77100A27025 /* LvkSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 41922A48111A68F40058E0DA /* LvkSprite.m */; };
+		E0B544C91246B77100A27025 /* LvkRepeatAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4199EE9511B2D869005919CB /* LvkRepeatAction.m */; };
+		E0B544D01246B79900A27025 /* libLvkSprite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E0B544BA1246B73E00A27025 /* libLvkSprite.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E0B544CE1246B78F00A27025 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E0B544B91246B73E00A27025 /* LvkSprite */;
+			remoteInfo = LvkSprite;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1D6058910D05DD3D006BFB54 /* LvkSprite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LvkSprite.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -284,6 +320,19 @@
 		DCCBF1BC0F6022AE0040855A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		DCCBF1BE0F6022AE0040855A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E09FABA311E1304600334436 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = common.h; path = LvkSprite/common.h; sourceTree = "<group>"; };
+		E0B5417D124699D700A27025 /* Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E0B5417F124699D700A27025 /* Test-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Test-Info.plist"; sourceTree = "<group>"; };
+		E0B5419012469AB400A27025 /* GHUnitIPhoneTestMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHUnitIPhoneTestMain.m; path = LvkSpriteTest/GHUnitIPhoneTestMain.m; sourceTree = "<group>"; };
+		E0B541B712469B8800A27025 /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GHUnitIOS.framework; path = LvkSpriteTest/Frameworks/GHUnitIOS.framework; sourceTree = "<group>"; };
+		E0B541D412469C2E00A27025 /* LvkSpriteTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LvkSpriteTest.h; path = LvkSpriteTest/LvkSpriteTest.h; sourceTree = "<group>"; };
+		E0B541D512469C2E00A27025 /* LvkSpriteTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LvkSpriteTest.m; path = LvkSpriteTest/LvkSpriteTest.m; sourceTree = "<group>"; };
+		E0B5428312469F0700A27025 /* LvkRepeatActionTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LvkRepeatActionTest.h; path = LvkSpriteTest/LvkRepeatActionTest.h; sourceTree = "<group>"; };
+		E0B5428412469F0700A27025 /* LvkRepeatActionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LvkRepeatActionTest.m; path = LvkSpriteTest/LvkRepeatActionTest.m; sourceTree = "<group>"; };
+		E0B544921246A84600A27025 /* libcocos2d.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcocos2d.a; path = LvkSprite/Frameworks/cocos2d/Simulator/libcocos2d.a; sourceTree = "<group>"; };
+		E0B544BA1246B73E00A27025 /* libLvkSprite.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLvkSprite.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E0B545181246BA0500A27025 /* LvkSpriteFramework-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LvkSpriteFramework-Info.plist"; sourceTree = "<group>"; };
+		E0B545A91246C04C00A27025 /* ryu-fixed-frame-size.lkob */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ryu-fixed-frame-size.lkob"; path = "Resources/ryu-fixed-frame-size.lkob"; sourceTree = "<group>"; };
+		E0B545AA1246C04C00A27025 /* ryu-fixed-frame-size.lkot */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "ryu-fixed-frame-size.lkot"; path = "Resources/ryu-fixed-frame-size.lkot"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,6 +352,41 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E0B5417B124699D700A27025 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E0B543AD1246A20400A27025 /* CoreGraphics.framework in Frameworks */,
+				E0B543AE1246A20400A27025 /* Foundation.framework in Frameworks */,
+				E0B543AF1246A20400A27025 /* OpenGLES.framework in Frameworks */,
+				E0B543B01246A20400A27025 /* QuartzCore.framework in Frameworks */,
+				E0B543B11246A20400A27025 /* UIKit.framework in Frameworks */,
+				E0B543B21246A20400A27025 /* AudioToolbox.framework in Frameworks */,
+				E0B543B31246A20400A27025 /* OpenAL.framework in Frameworks */,
+				E0B543B41246A20400A27025 /* libz.dylib in Frameworks */,
+				E0B543B51246A20400A27025 /* AVFoundation.framework in Frameworks */,
+				E0B541B812469B8800A27025 /* GHUnitIOS.framework in Frameworks */,
+				E0B544D01246B79900A27025 /* libLvkSprite.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E0B544B81246B73E00A27025 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E0B544BE1246B75E00A27025 /* libcocos2d.a in Frameworks */,
+				E0B544BF1246B75E00A27025 /* CoreGraphics.framework in Frameworks */,
+				E0B544C01246B75E00A27025 /* Foundation.framework in Frameworks */,
+				E0B544C11246B75E00A27025 /* OpenGLES.framework in Frameworks */,
+				E0B544C21246B75E00A27025 /* QuartzCore.framework in Frameworks */,
+				E0B544C31246B75E00A27025 /* UIKit.framework in Frameworks */,
+				E0B544C41246B75E00A27025 /* AudioToolbox.framework in Frameworks */,
+				E0B544C51246B75E00A27025 /* OpenAL.framework in Frameworks */,
+				E0B544C61246B75E00A27025 /* libz.dylib in Frameworks */,
+				E0B544C71246B75E00A27025 /* AVFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -310,6 +394,8 @@
 			isa = PBXGroup;
 			children = (
 				1D6058910D05DD3D006BFB54 /* LvkSprite.app */,
+				E0B5417D124699D700A27025 /* Test.app */,
+				E0B544BA1246B73E00A27025 /* libLvkSprite.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -317,12 +403,15 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				E0B5418F12469A9900A27025 /* LvkSpriteTest */,
 				419DC8E81198F3E400F1455B /* cocos2d */,
 				41922A4A111A69070058E0DA /* LvkSprite Demo App Sources */,
 				29B97315FDCFA39411CA2CEA /* LvkSprite Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				E0B5417F124699D700A27025 /* Test-Info.plist */,
+				E0B545181246BA0500A27025 /* LvkSpriteFramework-Info.plist */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -342,6 +431,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E0B545A91246C04C00A27025 /* ryu-fixed-frame-size.lkob */,
+				E0B545AA1246C04C00A27025 /* ryu-fixed-frame-size.lkot */,
 				41922A3D111A68E40058E0DA /* Default.png */,
 				41922A3E111A68E40058E0DA /* fps_images.png */,
 				41922A3F111A68E40058E0DA /* Icon.png */,
@@ -355,6 +446,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E0B541B712469B8800A27025 /* GHUnitIOS.framework */,
 				DCCBF1B60F6022AE0040855A /* CoreGraphics.framework */,
 				DCCBF1B80F6022AE0040855A /* Foundation.framework */,
 				DCCBF1BA0F6022AE0040855A /* OpenGLES.framework */,
@@ -364,6 +456,7 @@
 				DC6640020F83B3EA000B3E49 /* AudioToolbox.framework */,
 				506EDB87102F4C4000A389B3 /* libz.dylib */,
 				506EDBA4102F4C9F00A389B3 /* AVFoundation.framework */,
+				E0B544921246A84600A27025 /* libcocos2d.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -383,6 +476,7 @@
 			isa = PBXGroup;
 			children = (
 				419DC9D81198F5A400F1455B /* FontLabel */,
+				419DC9671198F41800F1455B /* Support */,
 				419DC8EB1198F41800F1455B /* CCAction.h */,
 				419DC8EC1198F41800F1455B /* CCAction.m */,
 				419DC8ED1198F41800F1455B /* CCActionManager.h */,
@@ -507,7 +601,6 @@
 				419DC9641198F41800F1455B /* ccTypes.h */,
 				419DC9651198F41800F1455B /* cocos2d.h */,
 				419DC9661198F41800F1455B /* cocos2d.m */,
-				419DC9671198F41800F1455B /* Support */,
 			);
 			name = cocos2d;
 			sourceTree = "<group>";
@@ -561,7 +654,29 @@
 			path = "../cocos2d-iphone/external/FontLabel";
 			sourceTree = SOURCE_ROOT;
 		};
+		E0B5418F12469A9900A27025 /* LvkSpriteTest */ = {
+			isa = PBXGroup;
+			children = (
+				E0B5428312469F0700A27025 /* LvkRepeatActionTest.h */,
+				E0B5428412469F0700A27025 /* LvkRepeatActionTest.m */,
+				E0B541D412469C2E00A27025 /* LvkSpriteTest.h */,
+				E0B541D512469C2E00A27025 /* LvkSpriteTest.m */,
+				E0B5419012469AB400A27025 /* GHUnitIPhoneTestMain.m */,
+			);
+			name = LvkSpriteTest;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		E0B544B61246B73E00A27025 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		1D6058900D05DD3D006BFB54 /* LvkSpriteProject */ = {
@@ -581,6 +696,41 @@
 			productReference = 1D6058910D05DD3D006BFB54 /* LvkSprite.app */;
 			productType = "com.apple.product-type.application";
 		};
+		E0B5417C124699D700A27025 /* Test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E0B54182124699D700A27025 /* Build configuration list for PBXNativeTarget "Test" */;
+			buildPhases = (
+				E0B54179124699D700A27025 /* Resources */,
+				E0B5417A124699D700A27025 /* Sources */,
+				E0B5417B124699D700A27025 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E0B544CF1246B78F00A27025 /* PBXTargetDependency */,
+			);
+			name = Test;
+			productName = Test;
+			productReference = E0B5417D124699D700A27025 /* Test.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E0B544B91246B73E00A27025 /* LvkSprite */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E0B544BD1246B75D00A27025 /* Build configuration list for PBXNativeTarget "LvkSprite" */;
+			buildPhases = (
+				E0B544B61246B73E00A27025 /* Headers */,
+				E0B544B71246B73E00A27025 /* Sources */,
+				E0B544B81246B73E00A27025 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LvkSprite;
+			productName = LvkSprite;
+			productReference = E0B544BA1246B73E00A27025 /* libLvkSprite.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -594,6 +744,8 @@
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* LvkSpriteProject */,
+				E0B5417C124699D700A27025 /* Test */,
+				E0B544B91246B73E00A27025 /* LvkSprite */,
 			);
 		};
 /* End PBXProject section */
@@ -608,6 +760,13 @@
 				41922A44111A68E40058E0DA /* Icon.png in Resources */,
 				41922A45111A68E40058E0DA /* ryu.lkob in Resources */,
 				41922A46111A68E40058E0DA /* ryu.lkot in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E0B54179124699D700A27025 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -699,7 +858,34 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E0B5417A124699D700A27025 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E0B5444A1246A66400A27025 /* LvkRepeatActionTest.m in Sources */,
+				E0B5444B1246A66400A27025 /* LvkSpriteTest.m in Sources */,
+				E0B5444C1246A66400A27025 /* GHUnitIPhoneTestMain.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E0B544B71246B73E00A27025 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E0B544C81246B77100A27025 /* LvkSprite.m in Sources */,
+				E0B544C91246B77100A27025 /* LvkRepeatAction.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E0B544CF1246B78F00A27025 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E0B544B91246B73E00A27025 /* LvkSprite */;
+			targetProxy = E0B544CE1246B78F00A27025 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
@@ -754,7 +940,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos2.2;
+				SDKROOT = iphonesimulator4.0;
 			};
 			name = Debug;
 		};
@@ -768,7 +954,111 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos2.2;
+				SDKROOT = iphonesimulator4.0;
+			};
+			name = Release;
+		};
+		E0B54180124699D700A27025 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/LvkSpriteTest/Frameworks\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
+				INFOPLIST_FILE = "Test-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../cocos2d-iphone/build/Release-iphonesimulator\"",
+					"\"$(SRCROOT)/LvkSprite/Frameworks/cocos2d/Simulator\"",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+					"-framework",
+					Foundation,
+					"-framework",
+					UIKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = Test;
+				SDKROOT = iphonesimulator4.0;
+			};
+			name = Debug;
+		};
+		E0B54181124699D700A27025 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/LvkSpriteTest/Frameworks\"",
+				);
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
+				INFOPLIST_FILE = "Test-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../cocos2d-iphone/build/Release-iphonesimulator\"",
+					"\"$(SRCROOT)/LvkSprite/Frameworks/cocos2d/Simulator\"",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+					"-framework",
+					Foundation,
+					"-framework",
+					UIKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = Test;
+				SDKROOT = iphonesimulator4.0;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		E0B544BB1246B73F00A27025 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/LvkSprite/Frameworks/cocos2d/Simulator\"",
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = LvkSprite;
+			};
+			name = Debug;
+		};
+		E0B544BC1246B73F00A27025 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/LvkSprite/Frameworks/cocos2d/Simulator\"",
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = LvkSprite;
+				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
@@ -789,6 +1079,24 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E0B54182124699D700A27025 /* Build configuration list for PBXNativeTarget "Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E0B54180124699D700A27025 /* Debug */,
+				E0B54181124699D700A27025 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E0B544BD1246B75D00A27025 /* Build configuration list for PBXNativeTarget "LvkSprite" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E0B544BB1246B73F00A27025 /* Debug */,
+				E0B544BC1246B73F00A27025 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
