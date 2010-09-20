@@ -132,7 +132,314 @@
 	int x = 0;
 	int y = 0;
 	[sprite playAnimation:@"kick" atX:x atY:y repeat:0];
-	GHAssertFalse([sprite animationHasEnded], @"");
 	GHAssertEqualObjects(sprite.animation, nil, @"Wrong animation name");
+}
+
+/*
+ Class to test: LvkSprite
+ Method to test: - (void) playAnimation: (NSString *)name;
+ Prerrequisites: initWithBinary or loadBinary invoked with valid sprite files
+ Parameters: dx = 0
+ Expected results: Property "x" returns correctly the x position (i.e. position did not change)
+ */
+- (void)testLVK_SP_05 {
+    //initialization
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	
+	[sprite playAnimation:@"wrongName"];
+	GHAssertEquals(sprite.animation, nil, @"Wrong animation name");
+
+	[sprite playAnimation:@"kick"];
+	GHAssertEqualStrings(sprite.animation, @"kick", @"Wrong animation name");
+	[NSThread sleepForTimeInterval:3];
+	GHAssertFalse([sprite animationHasEnded], @"");
+}
+
+/*
+ Class to test: LvkSprite
+ Method to test: - (void) setDx: (CGFloat)dx;
+ Prerrequisites: initWithBinary or loadBinary invoked with valid sprite files, Use property "position" to set the initial (x,y)
+ Parameters: dx = 0
+ Expected results: Property "x" returns correctly the x position (i.e. position did not change)
+ */
+- (void)testLVK_SP_06 {
+    //initialization
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	CGFloat dx = 0;
+
+	CGPoint initialPosition = {0, 0};
+	sprite.position = initialPosition;
+	[sprite setDx:dx];
+	GHAssertEquals(sprite.position.x, initialPosition.x, @"The position has changed");
+	
+	initialPosition.x = -10;
+	sprite.position = initialPosition;	
+	[sprite setDx:dx];
+	GHAssertEquals(sprite.position.x, initialPosition.x, @"The position has changed");
+	
+	initialPosition.x = 8;
+	sprite.position = initialPosition;	
+	[sprite setDx:dx];
+	GHAssertEquals(sprite.position.x, initialPosition.x, @"The position has changed");
+}
+
+/*
+ Class to test: LvkSprite
+ Method to test: - (void) setDx: (CGFloat)dx;
+ Prerrequisites: initWithBinary or loadBinary invoked with valid sprite files, Use property "position" to set the initial (x,y)
+ Parameters: dx < 0
+ Expected results: Property "x" returns correctly the x position
+ */
+- (void)testLVK_SP_06_2 {
+    //initialization
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	CGFloat dx = -21;
+	
+	CGPoint initialPosition = {0, 0};
+	sprite.position = initialPosition;
+	[sprite setDx:dx];
+	GHAssertEquals(sprite.position.x, initialPosition.x + dx, @"The position has not changed");
+	
+	initialPosition.x = -10;
+	sprite.position = initialPosition;	
+	[sprite setDx:dx];
+	GHAssertEquals(sprite.position.x, initialPosition.x + dx, @"The position has not changed");
+	
+	initialPosition.x = 8;
+	sprite.position = initialPosition;	
+	[sprite setDx:dx];
+	GHAssertEquals(sprite.position.x, initialPosition.x + dx, @"The position has not changed");
+}
+
+/*
+ Class to test: LvkSprite
+ Method to test: - (void) setDx: (CGFloat)dx;
+ Prerrequisites: initWithBinary or loadBinary invoked with valid sprite files, Use property "position" to set the initial (x,y)
+ Parameters: dx > 0
+ Expected results: Property "x" returns correctly the x position
+ */
+- (void)testLVK_SP_06_3 {
+    //initialization
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	CGFloat dx = 13;
+	
+	CGPoint initialPosition = {0, 0};
+	sprite.position = initialPosition;
+	[sprite setDx:dx];
+	GHAssertEquals(sprite.position.x, initialPosition.x + dx, @"The position has not changed");
+	
+	initialPosition.x = -10;
+	sprite.position = initialPosition;	
+	[sprite setDx:dx];
+	GHAssertEquals(sprite.position.x, initialPosition.x + dx, @"The position has not changed");
+	
+	initialPosition.x = 8;
+	sprite.position = initialPosition;	
+	[sprite setDx:dx];
+	GHAssertEquals(sprite.position.x, initialPosition.x + dx, @"The position has not changed");
+}
+
+/*
+ Class to test: LvkSprite
+ Method to test: - (BOOL) collidesWithSprite:(LvkSprite *)spr;
+ Prerrequisites: initWithBinary or loadBinary invoked with valid sprite files
+				 playAnimation invoked with a valid animation name
+				 Set x,y position and collisionThreshold = 0
+ Parameters: LvkSprite that does not collide with the sprite
+ Expected results: Return FALSE
+ */
+- (void)testLVK_SP_11 {
+    //initialization
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	[sprite playAnimation:@"kick"];
+	CGPoint initialPosition = {0, 0};
+	sprite.position = initialPosition;
+	sprite.collisionThreshold = 0;
+	
+	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	[collidingSprite playAnimation:@"kick"];
+	CGPoint collidingPosition = {sprite.rect.size.width, sprite.rect.size.height};
+	collidingSprite.position = collidingPosition;
+	GHAssertFalse([sprite collidesWithSprite:collidingSprite], @"The sprite collides");
+
+	collidingPosition.x = sprite.rect.size.width + 1;
+	collidingPosition.y = sprite.rect.size.height + 1;
+	collidingSprite.position = collidingPosition;
+	GHAssertFalse([sprite collidesWithSprite:collidingSprite], @"The sprite collides");
+}
+
+/*
+ Class to test: LvkSprite
+ Method to test: - (BOOL) collidesWithSprite:(LvkSprite *)spr;
+ Prerrequisites: initWithBinary or loadBinary invoked with valid sprite files
+				 playAnimation invoked with a valid animation name
+				 Set x,y position and collisionThreshold = 0
+ Parameters: LvkSprite that collides with the sprite
+ Expected results: Return TRUE
+ */
+- (void)testLVK_SP_11_2 {
+    //initialization
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	[sprite playAnimation:@"kick"];
+	CGPoint initialPosition = {0, 0};
+	sprite.position = initialPosition;
+	sprite.collisionThreshold = 0;
+	
+	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	[collidingSprite playAnimation:@"kick"];
+	
+	CGPoint collidingPosition = {sprite.rect.size.width - 1, sprite.rect.size.height - 1};
+	collidingSprite.position = collidingPosition;
+	GHAssertTrue([sprite collidesWithSprite:collidingSprite], @"The sprite does not collide");
+}
+
+/*
+ Class to test: LvkSprite
+ Method to test: - (BOOL) collidesWithSprite:(LvkSprite *)spr;
+ Prerrequisites: initWithBinary or loadBinary invoked with valid sprite files
+				 playAnimation invoked with a valid animation name
+				 Set x,y position and collisionThreshold > 0
+ Parameters: LvkSprite that does not collide with the sprite. LvkSprite distance from the sprite > collisionThreshold
+ Expected results: Return FALSE
+ */
+- (void)testLVK_SP_11_3 {
+    //initialization
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	[sprite playAnimation:@"kick"];
+	CGPoint initialPosition = {0, 0};
+	sprite.position = initialPosition;
+	sprite.collisionThreshold = 1;
+	
+	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	[collidingSprite playAnimation:@"kick"];
+	CGPoint collidingPosition = {sprite.rect.size.width + 2, sprite.rect.size.height + 2};
+	collidingSprite.position = collidingPosition;
+	GHAssertFalse([sprite collidesWithSprite:collidingSprite], @"The sprite collides");
+}
+
+/*
+ Class to test: LvkSprite
+ Method to test: - (BOOL) collidesWithSprite:(LvkSprite *)spr;
+ Prerrequisites: initWithBinary or loadBinary invoked with valid sprite files
+				 playAnimation invoked with a valid animation name
+				 Set x,y position and collisionThreshold > 0
+ Parameters: LvkSprite that does not collide with the sprite. LvkSprite distance from the sprite < collisionThreshold
+ Expected results: Return TRUE
+ */
+- (void)testLVK_SP_11_4 {
+    //initialization
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	[sprite playAnimation:@"kick"];
+	CGPoint initialPosition = {0, 0};
+	sprite.position = initialPosition;
+	sprite.collisionThreshold = 2;
+	
+	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	[collidingSprite playAnimation:@"kick"];
+	CGPoint collidingPosition = {sprite.rect.size.width + 1, sprite.rect.size.height + 1};
+	collidingSprite.position = collidingPosition;
+	GHAssertTrue([sprite collidesWithSprite:collidingSprite], @"The sprite does not collide");
+}
+
+/*
+ Class to test: LvkSprite
+ Method to test: - (BOOL) collidesWithSprite:(LvkSprite *)spr;
+ Prerrequisites: initWithBinary or loadBinary invoked with valid sprite files
+ playAnimation invoked with a valid animation name
+ Set x,y position and collisionThreshold > 0
+ Parameters: LvkSprite that collides with the sprite.
+ Expected results: Return TRUE
+ */
+- (void)testLVK_SP_11_5 {
+    //initialization
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	[sprite playAnimation:@"kick"];
+	CGPoint initialPosition = {0, 0};
+	sprite.position = initialPosition;
+	sprite.collisionThreshold = 2;
+	
+	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	[collidingSprite playAnimation:@"kick"];
+	CGPoint collidingPosition = {sprite.rect.size.width - 1, sprite.rect.size.height - 1};
+	collidingSprite.position = collidingPosition;
+	GHAssertTrue([sprite collidesWithSprite:collidingSprite], @"The sprite does not collide");
+}
+
+/*
+ Class to test: LvkSprite
+ Method to test: - (BOOL) collidesWithSprite:(LvkSprite *)spr;
+ Prerrequisites: initWithBinary or loadBinary invoked with valid sprite files
+				 playAnimation invoked with a valid animation name
+				 Set x,y position and collisionThreshold < 0
+ Parameters: LvkSprite that does not collide with the sprite.
+ Expected results: Return FALSE
+ */
+- (void)testLVK_SP_11_6 {
+    //initialization
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	[sprite playAnimation:@"kick"];
+	CGPoint initialPosition = {0, 0};
+	sprite.position = initialPosition;
+	sprite.collisionThreshold = -1;
+	
+	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	[collidingSprite playAnimation:@"kick"];
+	CGPoint collidingPosition = {sprite.rect.size.width, sprite.rect.size.height};
+	collidingSprite.position = collidingPosition;
+	GHAssertFalse([sprite collidesWithSprite:collidingSprite], @"The sprite collides");
+
+	collidingPosition.x = sprite.rect.size.width + 2;
+	collidingPosition.y = sprite.rect.size.height + 2;
+	collidingSprite.position = collidingPosition;
+	GHAssertFalse([sprite collidesWithSprite:collidingSprite], @"The sprite collides");
+}
+
+/*
+ Class to test: LvkSprite
+ Method to test: - (BOOL) collidesWithSprite:(LvkSprite *)spr;
+ Prerrequisites: initWithBinary or loadBinary invoked with valid sprite files
+				 playAnimation invoked with a valid animation name
+				 Set x,y position and collisionThreshold < 0
+ Parameters: LvkSprite that collides with the sprite at a distance. LvkSprite penetrates the sprite < abs(collisionThreshold)
+ Expected results: Return FALSE
+ */
+- (void)testLVK_SP_11_7 {
+    //initialization
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	[sprite playAnimation:@"kick"];
+	CGPoint initialPosition = {0, 0};
+	sprite.position = initialPosition;
+	sprite.collisionThreshold = -2;
+	
+	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	[collidingSprite playAnimation:@"kick"];
+	
+	CGPoint collidingPosition = {sprite.rect.size.width - 1, sprite.rect.size.height - 1};
+	collidingSprite.position = collidingPosition;
+	GHAssertFalse([sprite collidesWithSprite:collidingSprite], @"The sprite collides");
+}
+
+/*
+ Class to test: LvkSprite
+ Method to test: - (BOOL) collidesWithSprite:(LvkSprite *)spr;
+ Prerrequisites: initWithBinary or loadBinary invoked with valid sprite files
+				 playAnimation invoked with a valid animation name
+				 Set x,y position and collisionThreshold < 0
+ Parameters: LvkSprite that collides with the sprite at a distance. LvkSprite penetrates the sprite > abs(collisionThreshold)
+ Expected results: Return TRUE
+ */
+- (void)testLVK_SP_11_8 {
+    //initialization
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	[sprite playAnimation:@"kick"];
+	CGPoint initialPosition = {0, 0};
+	sprite.position = initialPosition;
+	sprite.collisionThreshold = -1;
+	
+	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	[collidingSprite playAnimation:@"kick"];
+	CGPoint collidingPosition = {sprite.rect.size.width - 2, sprite.rect.size.height - 2};
+	collidingSprite.position = collidingPosition;
+	GHAssertTrue([sprite collidesWithSprite:collidingSprite], @"The sprite does not collide");
 }
 @end

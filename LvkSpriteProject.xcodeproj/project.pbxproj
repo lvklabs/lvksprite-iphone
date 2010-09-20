@@ -132,7 +132,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = E0B544B91246B73E00A27025 /* LvkSprite */;
+			remoteGlobalIDString = E0B544B91246B73E00A27025;
 			remoteInfo = LvkSprite;
 		};
 /* End PBXContainerItemProxy section */
@@ -319,6 +319,7 @@
 		DCCBF1BA0F6022AE0040855A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		DCCBF1BC0F6022AE0040855A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		DCCBF1BE0F6022AE0040855A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		E00E647812475CEA00575829 /* LvkSprite-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LvkSprite-Info.plist"; sourceTree = "<group>"; };
 		E09FABA311E1304600334436 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = common.h; path = LvkSprite/common.h; sourceTree = "<group>"; };
 		E0B5417D124699D700A27025 /* Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0B5417F124699D700A27025 /* Test-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Test-Info.plist"; sourceTree = "<group>"; };
@@ -412,6 +413,7 @@
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				E0B5417F124699D700A27025 /* Test-Info.plist */,
 				E0B545181246BA0500A27025 /* LvkSpriteFramework-Info.plist */,
+				E00E647812475CEA00575829 /* LvkSprite-Info.plist */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
