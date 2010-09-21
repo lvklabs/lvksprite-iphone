@@ -331,7 +331,6 @@
 		E0B5428412469F0700A27025 /* LvkRepeatActionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LvkRepeatActionTest.m; path = LvkSpriteTest/LvkRepeatActionTest.m; sourceTree = "<group>"; };
 		E0B544921246A84600A27025 /* libcocos2d.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcocos2d.a; path = LvkSprite/Frameworks/cocos2d/Simulator/libcocos2d.a; sourceTree = "<group>"; };
 		E0B544BA1246B73E00A27025 /* libLvkSprite.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLvkSprite.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		E0B545181246BA0500A27025 /* LvkSpriteFramework-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LvkSpriteFramework-Info.plist"; sourceTree = "<group>"; };
 		E0B545A91246C04C00A27025 /* ryu-fixed-frame-size.lkob */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ryu-fixed-frame-size.lkob"; path = "Resources/ryu-fixed-frame-size.lkob"; sourceTree = "<group>"; };
 		E0B545AA1246C04C00A27025 /* ryu-fixed-frame-size.lkot */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "ryu-fixed-frame-size.lkot"; path = "Resources/ryu-fixed-frame-size.lkot"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -412,7 +411,6 @@
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				E0B5417F124699D700A27025 /* Test-Info.plist */,
-				E0B545181246BA0500A27025 /* LvkSpriteFramework-Info.plist */,
 				E00E647812475CEA00575829 /* LvkSprite-Info.plist */,
 			);
 			name = CustomTemplate;
