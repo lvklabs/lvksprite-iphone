@@ -2,4 +2,8 @@ build
 tmp
 LvkSpriteProject.xcodeproj/andres.mode1v3
 LvkSpriteProject.xcodeproj/andres.pbxuser
-.gitignore
+LvkSpriteProject.xcodeproj/arkat.mode1v3
+LvkSpriteProject.xcodeproj/arkat.pbxuser
+LvkSpriteProject.xcodeproj/mtambos.mode1v3
+LvkSpriteProject.xcodeproj/mtambos.pbxuser
+LvkSpriteDemo/ResourcesPath.h

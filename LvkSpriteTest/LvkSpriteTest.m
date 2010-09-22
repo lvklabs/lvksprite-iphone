@@ -31,6 +31,8 @@
     // Run after each test method
 }   
 
+
+
 /*
  Class to test: LvkSprite
  Method to test: - (id) initWithBinary: (NSString*)bin andInfo: (NSString*)info;
@@ -41,7 +43,7 @@
 				   -- should be initialized with the animations. i.e. For each animation must exist a (key, value) = (animation_name, CCAnimation)
 */
 - (void)testLVK_SP_01_3 {
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
 	
     //GHAssertNotNULL(a, nil);
 	
@@ -62,9 +64,56 @@
 				   Inmediately call animationHasEnded, should return false
 				   Wait n seconds (n greater enough to finish the animation) call animationHasEnded, should return true
  */
+/*
+ Class to test: LvkSprite
+ Method to test: - (BOOL) loadBinary: (NSString*)bin andInfo: (NSString*)info;  
+ Prerrequisites: None
+ Parameters:wrong binary file, correct info file
+ Expected results: Return FALSE
+*/
+- (void)testLVK_SP_02 {
+	LvkSprite *utLvkSprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	BOOL myBool = [utLvkSprite loadBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	GHAssertTrue(myBool,@"return value must be equal to TRUE but insted it's %i ", myBool);
+	[utLvkSprite release];
+	utLvkSprite=nil;
+}
+
+/*
+ Class to test: LvkSprite
+ Method to test: - (BOOL) loadBinary: (NSString*)bin andInfo: (NSString*)info;  
+ Prerrequisites: None
+ Parameters: correct binary file, wrong info file
+ Expected results: Return FALSE
+ */
+- (void)testLVK_SP_02_02 {
+	LvkSprite *utLvkSprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	BOOL myBool = [utLvkSprite loadBinary:@"ryu-fixed-frame-sie-WF.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	GHAssertFalse(myBool,@"return value must be equal to FALSE but insted it's %i ", myBool);
+	[utLvkSprite release];
+	utLvkSprite=nil;
+}
+
+/*
+ Class to test: LvkSprite
+ Method to test: - (BOOL) loadBinary: (NSString*)bin andInfo: (NSString*)info;  
+ Prerrequisites: None
+ Parameters: correct binary file, correct info file
+ Expected results: Return TRUE
+ */
+
+- (void)testLVK_SP_02_03 {
+	LvkSprite *utLvkSprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	BOOL myBool = [utLvkSprite loadBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size-WF.lkot"];
+	GHAssertFalse(myBool,@"return value must be equal to FALSE but insted it's %i ", myBool);
+	[utLvkSprite release];
+	utLvkSprite=nil;
+}  
+
+
 - (void)testLVK_SP_03_3 {
     //initialization
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
 	
 	int x = 0;
 	int y = 0;
@@ -127,7 +176,7 @@
  */
 - (void)testLVK_SP_03_4 {
     //initialization
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
 	
 	int x = 0;
 	int y = 0;
@@ -144,7 +193,7 @@
  */
 - (void)testLVK_SP_05 {
     //initialization
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
 	
 	[sprite playAnimation:@"wrongName"];
 	GHAssertEquals(sprite.animation, nil, @"Wrong animation name");
@@ -164,7 +213,7 @@
  */
 - (void)testLVK_SP_06 {
     //initialization
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
 	CGFloat dx = 0;
 
 	CGPoint initialPosition = {0, 0};
@@ -192,7 +241,7 @@
  */
 - (void)testLVK_SP_06_2 {
     //initialization
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
 	CGFloat dx = -21;
 	
 	CGPoint initialPosition = {0, 0};
@@ -220,7 +269,7 @@
  */
 - (void)testLVK_SP_06_3 {
     //initialization
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
 	CGFloat dx = 13;
 	
 	CGPoint initialPosition = {0, 0};
@@ -250,13 +299,13 @@
  */
 - (void)testLVK_SP_11 {
     //initialization
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
 	[sprite playAnimation:@"kick"];
 	CGPoint initialPosition = {0, 0};
 	sprite.position = initialPosition;
 	sprite.collisionThreshold = 0;
 	
-	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
 	[collidingSprite playAnimation:@"kick"];
 	CGPoint collidingPosition = {sprite.rect.size.width, sprite.rect.size.height};
 	collidingSprite.position = collidingPosition;
@@ -279,13 +328,13 @@
  */
 - (void)testLVK_SP_11_2 {
     //initialization
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
 	[sprite playAnimation:@"kick"];
 	CGPoint initialPosition = {0, 0};
 	sprite.position = initialPosition;
 	sprite.collisionThreshold = 0;
 	
-	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
 	[collidingSprite playAnimation:@"kick"];
 	
 	CGPoint collidingPosition = {sprite.rect.size.width - 1, sprite.rect.size.height - 1};
@@ -304,13 +353,13 @@
  */
 - (void)testLVK_SP_11_3 {
     //initialization
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
 	[sprite playAnimation:@"kick"];
 	CGPoint initialPosition = {0, 0};
 	sprite.position = initialPosition;
 	sprite.collisionThreshold = 1;
 	
-	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
 	[collidingSprite playAnimation:@"kick"];
 	CGPoint collidingPosition = {sprite.rect.size.width + 2, sprite.rect.size.height + 2};
 	collidingSprite.position = collidingPosition;
@@ -328,13 +377,13 @@
  */
 - (void)testLVK_SP_11_4 {
     //initialization
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
 	[sprite playAnimation:@"kick"];
 	CGPoint initialPosition = {0, 0};
 	sprite.position = initialPosition;
 	sprite.collisionThreshold = 2;
 	
-	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
 	[collidingSprite playAnimation:@"kick"];
 	CGPoint collidingPosition = {sprite.rect.size.width + 1, sprite.rect.size.height + 1};
 	collidingSprite.position = collidingPosition;
@@ -352,13 +401,13 @@
  */
 - (void)testLVK_SP_11_5 {
     //initialization
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
 	[sprite playAnimation:@"kick"];
 	CGPoint initialPosition = {0, 0};
 	sprite.position = initialPosition;
 	sprite.collisionThreshold = 2;
 	
-	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
 	[collidingSprite playAnimation:@"kick"];
 	CGPoint collidingPosition = {sprite.rect.size.width - 1, sprite.rect.size.height - 1};
 	collidingSprite.position = collidingPosition;
@@ -376,13 +425,13 @@
  */
 - (void)testLVK_SP_11_6 {
     //initialization
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
 	[sprite playAnimation:@"kick"];
 	CGPoint initialPosition = {0, 0};
 	sprite.position = initialPosition;
 	sprite.collisionThreshold = -1;
 	
-	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
 	[collidingSprite playAnimation:@"kick"];
 	CGPoint collidingPosition = {sprite.rect.size.width, sprite.rect.size.height};
 	collidingSprite.position = collidingPosition;
@@ -405,13 +454,13 @@
  */
 - (void)testLVK_SP_11_7 {
     //initialization
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
 	[sprite playAnimation:@"kick"];
 	CGPoint initialPosition = {0, 0};
 	sprite.position = initialPosition;
 	sprite.collisionThreshold = -2;
 	
-	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
 	[collidingSprite playAnimation:@"kick"];
 	
 	CGPoint collidingPosition = {sprite.rect.size.width - 1, sprite.rect.size.height - 1};
@@ -430,13 +479,13 @@
  */
 - (void)testLVK_SP_11_8 {
     //initialization
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
 	[sprite playAnimation:@"kick"];
 	CGPoint initialPosition = {0, 0};
 	sprite.position = initialPosition;
 	sprite.collisionThreshold = -1;
 	
-	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkob" andInfo:@LVK_SPRITE_RESOURCES_PATH"/ryu-fixed-frame-size.lkot"];
+	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
 	[collidingSprite playAnimation:@"kick"];
 	CGPoint collidingPosition = {sprite.rect.size.width - 2, sprite.rect.size.height - 2};
 	collidingSprite.position = collidingPosition;
