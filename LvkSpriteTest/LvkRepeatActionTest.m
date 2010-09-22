@@ -30,7 +30,7 @@
 - (void)tearDown {
     // Run after each test method
 }   
-
+/*
 - (void)testFoo {
     // Assert a is not NULL, with no custom error description
 	NSString* a;
@@ -42,6 +42,7 @@
     // Assert equal objects, add custom error description
     GHAssertEqualObjects(a, b, @"Foo should be equal to: %@. Something bad happened", bar);
 }
+*/
 
 - (void)testBar {
     // Another test

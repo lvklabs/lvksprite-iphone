@@ -442,4 +442,151 @@
 	collidingSprite.position = collidingPosition;
 	GHAssertTrue([sprite collidesWithSprite:collidingSprite], @"The sprite does not collide");
 }
+
+
+/*
+ Class to test: LvkSprite
+ Method to test: - (BOOL) collidesWithRect:(CGRect)rect;
+ Prerrequisites: initWithBinary or loadBinary invoked with valid sprite files,
+ playAnimation invoked with a valid animation name, Set x,y position and collisionThreshold = 0
+ Parameters: rect that does not collide with the sprite
+ Expected result: return FALSE
+ */
+- (void) testLVK_SP_09 {
+	LvkSprite *ryu = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	[ryu setPosition:ccp(0, 0)];
+	[ryu playAnimation:@"walk"];
+	ryu.collisionThreshold = 0;
+	CGRect rect = CGRectMake(0, 0, 0, 0);
+	BOOL collide = [ryu collidesWithRect:rect];
+	GHAssertFalse(collide,@"collideWithRect return %d insted of FALSE",collide);
+	[ryu release];
+	ryu = nil;
+}
+
+
+/*
+ Class to test: LvkSprite
+ Method to test: - (BOOL) collidesWithRect:(CGRect)rect;
+ Prerrequisites: initWithBinary or loadBinary invoked with valid sprite files,
+ playAnimation invoked with a valid animation name, Set x,y position and collisionThreshold = 0
+ Parameters: rect that collides with the sprite
+ Expected result: return TRUE
+ */
+- (void) testLVK_SP_09_02 {
+	LvkSprite *ryu = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	[ryu setPosition:ccp(50, 100)];
+	[ryu playAnimation:@"walk"];
+	ryu.collisionThreshold = 0;
+	CGRect rect = CGRectMake(0, 0, 1000, 1000);
+	BOOL collide = [ryu collidesWithRect:rect];
+	GHAssertTrue(collide,@"collideWithRect return %d insted of TRUE",collide);
+	[ryu release];
+	ryu = nil;
+	
+}
+
+/*
+ Class to test: LvkSprite
+ Method to test: - (BOOL) collidesWithRect:(CGRect)rect;
+ Prerrequisites: Idem but setting collisionThreshold > 0
+ Parameters: rect that does not collide with the sprite. Rect distance from the sprite > collisionThreshold
+ Expected result: return FALSE
+ */
+- (void) testLVK_SP_09_03 {
+	LvkSprite *ryu = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	[ryu setPosition:ccp(50, 100)];
+	[ryu playAnimation:@"walk"];
+	ryu.collisionThreshold = 1;
+	CGRect rect = CGRectMake([ryu rect].origin.x -2, [ryu rect].origin.y -2, 1, 1);
+	BOOL collide = [ryu collidesWithRect:rect];
+	GHAssertFalse(collide,@"collideWithRect return %d insted of FALSE",collide);
+	[ryu release];
+	ryu = nil;
+}
+
+/*
+ 
+ Parameters: 
+ Expected result: 
+ */
+- (void) testLVK_SP_09_04 {
+	LvkSprite *ryu = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	[ryu setPosition:ccp(50, 100)];
+	[ryu playAnimation:@"walk"];
+	ryu.collisionThreshold =  2;
+	CGRect rect = CGRectMake([ryu rect].origin.x -2, [ryu rect].origin.y -2, 1, 1);
+	BOOL collide = [ryu collidesWithRect:rect];
+	GHAssertTrue(collide,@"collideWithRect return %d insted of TRUE",collide);
+	[ryu release];
+	ryu = nil;
+}
+
+/*
+ 
+ Parameters: 
+ Expected result: 
+ */
+- (void) testLVK_SP_09_05 {
+	LvkSprite *ryu = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	[ryu setPosition:ccp(50, 100)];
+	[ryu playAnimation:@"walk"];
+	ryu.collisionThreshold =  1;
+	CGRect rect = CGRectMake([ryu rect].origin.x -2 , [ryu rect].origin.y -2 , 2, 2);
+	BOOL collide = [ryu collidesWithRect:rect];
+	GHAssertTrue(collide,@"collideWithRect return %d insted of TRUE",collide);
+	[ryu release];
+	ryu = nil;
+}
+
+/*
+ Prerrequisites:
+ Parameters: 
+ Expected result: 
+ */
+- (void) testLVK_SP_09_06 {
+	LvkSprite *ryu = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	[ryu setPosition:ccp(50, 100)];
+	[ryu playAnimation:@"walk"];
+	ryu.collisionThreshold = -1;
+	CGRect rect = CGRectMake([ryu rect].origin.x -2, [ryu rect].origin.y -2, 1, 1);
+	BOOL collide = [ryu collidesWithRect:rect];
+	GHAssertFalse(collide,@"collideWithRect return %d insted of FALSE",collide);
+	[ryu release];
+	ryu = nil;
+}
+
+/*
+ Parameters: 
+ Expected result: 
+ */
+- (void) testLVK_SP_09_07 {
+	LvkSprite *ryu = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	[ryu setPosition:ccp(50, 100)];
+	[ryu playAnimation:@"walk"];
+	ryu.collisionThreshold =  -3;
+	CGRect rect = CGRectMake([ryu rect].origin.x - 2 , [ryu rect].origin.y - 2 , 3, 3);
+	BOOL collide = [ryu collidesWithRect:rect];
+	GHAssertFalse(collide,@"collideWithRect return %d insted of TRUE",collide);
+	[ryu release];
+	ryu = nil;
+}
+
+/*
+ Parameters: 
+ Expected result: 
+ */
+- (void) testLVK_SP_09_08 {
+	LvkSprite *ryu = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	[ryu setPosition:ccp(50, 100)];
+	[ryu playAnimation:@"walk"];
+	ryu.collisionThreshold =  -2;
+	CGRect rect = CGRectMake([ryu rect].origin.x - 2 , [ryu rect].origin.y - 2 , 5, 5);
+	BOOL collide = [ryu collidesWithRect:rect];
+	GHAssertTrue(collide,@"collideWithRect return %d insted of TRUE",collide);
+	[ryu release];
+	ryu = nil;
+}
+
+
 @end
