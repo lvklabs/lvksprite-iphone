@@ -1328,7 +1328,7 @@
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_NAME = LvkSprite;
-				USER_HEADER_SEARCH_PATHS = "$(ANIMLIB)";
+				USER_HEADER_SEARCH_PATHS = "$(ANIMLIB)/** $(COCOS2d0992)/**";
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Debug;
