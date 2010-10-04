@@ -611,12 +611,12 @@
  */
 - (void) testLVK_SP_09_07 {
 	LvkSprite *ryu = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
-	[ryu setPosition:ccp(50, 100)];
+	[ryu setPosition:ccp(5, 5)];
 	[ryu playAnimation:@"walk"];
 	ryu.collisionThreshold =  -3;
-	CGRect rect = CGRectMake([ryu rect].origin.x - 2 , [ryu rect].origin.y - 2 , 3, 3);
+	CGRect rect = CGRectMake([ryu rect].origin.x - 2 , [ryu rect].origin.y + 2 , 3, 3);
 	BOOL collide = [ryu collidesWithRect:rect];
-	GHAssertFalse(collide,@"collideWithRect return %d insted of TRUE",collide);
+	GHAssertFalse(collide,@"collideWithRect return %d insted of False",collide);
 	[ryu release];
 	ryu = nil;
 }
