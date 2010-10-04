@@ -11,9 +11,10 @@ Add a “Source Tree” variable that Xcode can use to dynamically find the stat
     Select the “Source Trees” tab.
     Create a new Source Tree variable by clicking on the “+” button and filling in the columns.  
 	--- We’re using “COCOS2d0992”!!! for the cocos2d-iphone variable name and that it points to 
-	“/Users/PutYourUserHere/lvk/repos/cocos2d-iphone″.Tip: avoid using special characters in the actual file 
-	path (i.e., stick to alphanumeric characters, underscores, and hyphens); this path will be used as a “Search Path” and 
-	Xcode seems to have problems with search paths that use characters like an ampersand (&).
+	“/Users/PutYourUserHere/lvk/repos/cocos2d-iphone″.
+	Tip: avoid using special characters in the actual file path (i.e., stick to alphanumeric characters,
+	underscores, and hyphens); this path will be used as a “Search Path” and Xcode seems to have problems
+	with search paths that use characters like an ampersand (&).
 
 
 Any doubt refer to http://www.clintharris.net/2009/iphone-app-shared-libraries/
