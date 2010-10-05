@@ -27,7 +27,6 @@
 		DCCBF1BD0F6022AE0040855A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1BC0F6022AE0040855A /* QuartzCore.framework */; };
 		DCCBF1BF0F6022AE0040855A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1BE0F6022AE0040855A /* UIKit.framework */; };
 		E0AC3E60125BE25F00D9B00F /* libcocos2d.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E0AC3CB4125BD43700D9B00F /* libcocos2d.a */; };
-		E0AC3E61125BE25F00D9B00F /* libFontLabel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E0AC3CBC125BD43700D9B00F /* libFontLabel.a */; };
 		E0B541B812469B8800A27025 /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0B541B712469B8800A27025 /* GHUnitIOS.framework */; };
 		E0B543AD1246A20400A27025 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1B60F6022AE0040855A /* CoreGraphics.framework */; };
 		E0B543AE1246A20400A27025 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1B80F6022AE0040855A /* Foundation.framework */; };
@@ -562,7 +561,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E0AC3E60125BE25F00D9B00F /* libcocos2d.a in Frameworks */,
-				E0AC3E61125BE25F00D9B00F /* libFontLabel.a in Frameworks */,
 				E0B544BF1246B75E00A27025 /* CoreGraphics.framework in Frameworks */,
 				E0B544C01246B75E00A27025 /* Foundation.framework in Frameworks */,
 				E0B544C11246B75E00A27025 /* OpenGLES.framework in Frameworks */,
