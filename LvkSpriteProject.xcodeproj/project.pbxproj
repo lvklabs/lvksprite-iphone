@@ -26,6 +26,8 @@
 		DCCBF1BB0F6022AE0040855A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1BA0F6022AE0040855A /* OpenGLES.framework */; };
 		DCCBF1BD0F6022AE0040855A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1BC0F6022AE0040855A /* QuartzCore.framework */; };
 		DCCBF1BF0F6022AE0040855A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1BE0F6022AE0040855A /* UIKit.framework */; };
+		E09DBFA012747590003CCC20 /* ryu-fixed-frame-size.lkob in Resources */ = {isa = PBXBuildFile; fileRef = E0B545A91246C04C00A27025 /* ryu-fixed-frame-size.lkob */; };
+		E09DBFA112747590003CCC20 /* ryu-fixed-frame-size.lkot in Resources */ = {isa = PBXBuildFile; fileRef = E0B545AA1246C04C00A27025 /* ryu-fixed-frame-size.lkot */; };
 		E0AC3E60125BE25F00D9B00F /* libcocos2d.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E0AC3CB4125BD43700D9B00F /* libcocos2d.a */; };
 		E0B541B812469B8800A27025 /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0B541B712469B8800A27025 /* GHUnitIOS.framework */; };
 		E0B543AD1246A20400A27025 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1B60F6022AE0040855A /* CoreGraphics.framework */; };
@@ -37,7 +39,6 @@
 		E0B543B31246A20400A27025 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6640040F83B3EA000B3E49 /* OpenAL.framework */; };
 		E0B543B41246A20400A27025 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 506EDB87102F4C4000A389B3 /* libz.dylib */; };
 		E0B543B51246A20400A27025 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506EDBA4102F4C9F00A389B3 /* AVFoundation.framework */; };
-		E0B5444A1246A66400A27025 /* LvkRepeatActionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = E0B5428412469F0700A27025 /* LvkRepeatActionTest.m */; };
 		E0B5444B1246A66400A27025 /* LvkSpriteTest.m in Sources */ = {isa = PBXBuildFile; fileRef = E0B541D512469C2E00A27025 /* LvkSpriteTest.m */; };
 		E0B5444C1246A66400A27025 /* GHUnitIPhoneTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = E0B5419012469AB400A27025 /* GHUnitIPhoneTestMain.m */; };
 		E0B544BF1246B75E00A27025 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1B60F6022AE0040855A /* CoreGraphics.framework */; };
@@ -512,8 +513,6 @@
 		E0B541B712469B8800A27025 /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GHUnitIOS.framework; path = LvkSpriteTest/Frameworks/GHUnitIOS.framework; sourceTree = "<group>"; };
 		E0B541D412469C2E00A27025 /* LvkSpriteTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LvkSpriteTest.h; path = LvkSpriteTest/LvkSpriteTest.h; sourceTree = "<group>"; };
 		E0B541D512469C2E00A27025 /* LvkSpriteTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LvkSpriteTest.m; path = LvkSpriteTest/LvkSpriteTest.m; sourceTree = "<group>"; };
-		E0B5428312469F0700A27025 /* LvkRepeatActionTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LvkRepeatActionTest.h; path = LvkSpriteTest/LvkRepeatActionTest.h; sourceTree = "<group>"; };
-		E0B5428412469F0700A27025 /* LvkRepeatActionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LvkRepeatActionTest.m; path = LvkSpriteTest/LvkRepeatActionTest.m; sourceTree = "<group>"; };
 		E0B544921246A84600A27025 /* libcocos2d.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcocos2d.a; path = LvkSprite/Frameworks/cocos2d/Simulator/libcocos2d.a; sourceTree = "<group>"; };
 		E0B544BA1246B73E00A27025 /* libLvkSprite.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLvkSprite.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0B545A91246C04C00A27025 /* ryu-fixed-frame-size.lkob */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ryu-fixed-frame-size.lkob"; path = "Resources/ryu-fixed-frame-size.lkob"; sourceTree = "<group>"; };
@@ -726,8 +725,6 @@
 		E0B5418F12469A9900A27025 /* LvkSpriteTest */ = {
 			isa = PBXGroup;
 			children = (
-				E0B5428312469F0700A27025 /* LvkRepeatActionTest.h */,
-				E0B5428412469F0700A27025 /* LvkRepeatActionTest.m */,
 				E0B541D412469C2E00A27025 /* LvkSpriteTest.h */,
 				E0B541D512469C2E00A27025 /* LvkSpriteTest.m */,
 				E0B5419012469AB400A27025 /* GHUnitIPhoneTestMain.m */,
@@ -1253,6 +1250,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E09DBFA012747590003CCC20 /* ryu-fixed-frame-size.lkob in Resources */,
+				E09DBFA112747590003CCC20 /* ryu-fixed-frame-size.lkot in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1274,7 +1273,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E0B5444A1246A66400A27025 /* LvkRepeatActionTest.m in Sources */,
 				E0B5444B1246A66400A27025 /* LvkSpriteTest.m in Sources */,
 				E0B5444C1246A66400A27025 /* GHUnitIPhoneTestMain.m in Sources */,
 			);

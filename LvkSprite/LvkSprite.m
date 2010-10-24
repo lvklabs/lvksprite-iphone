@@ -8,12 +8,12 @@
 
 @implementation LvkSprite
 
-- (id) initWithBinary: (NSString*)binFile andInfo: (NSString*)infoFile 
+- (id) initWithBinary: (NSString*)binFile andInfo: (NSString*)infoFile andError:(NSError**)error
 {
 	if(!(self = [super init]))
 		return self;
 	
-	[self loadBinary: binFile andInfo: infoFile];
+	[self loadBinary: binFile andInfo: infoFile andError:error];
 
 	animation = nil;
 	aniAction = nil;
@@ -136,7 +136,7 @@
 	return line;	
 }
 
-- (BOOL) loadBinary: (NSString*)binFile andInfo: (NSString*)infoFile
+- (BOOL) loadBinary: (NSString*)binFile andInfo: (NSString*)infoFile andError:(NSError**)error
 {
 	LKLOG(@"LvkSprite: === Sprite parsing started ===");
 	LKLOG(@"LvkSprite: %@,%@", binFile, infoFile);
@@ -145,11 +145,17 @@
 	
 	const float fps = 1.0/24.0;
 	
-	NSData *binData = [NSData dataWithContentsOfFile: binFile];
-
+	NSDataReadingOptions options;
+	NSData *binData = [NSData dataWithContentsOfFile:binFile options:options error:error];
+	if (*error != nil) {
+		return NO;
+	}
+	
 	NSStringEncoding encoding;
-	NSError* error;
-	NSString *infoData = [NSString stringWithContentsOfFile:infoFile usedEncoding:&encoding error:&error];
+	NSString *infoData = [NSString stringWithContentsOfFile:infoFile usedEncoding:&encoding error:error];
+	if (*error != nil) {
+		return NO;
+	}
 	NSArray *lines = [infoData componentsSeparatedByString:@"\n"];
 	linesIterator = [lines objectEnumerator]; 
 
@@ -298,6 +304,7 @@
 }
 
 @synthesize animation;
+@synthesize lvkAnimations;
 
 ////////////////////////////////////////////////////////////////////////////////
 

@@ -10,7 +10,8 @@
 #import "LvkSprite.h"
 
 @interface LvkSpriteTest : GHTestCase {
-
+	NSString* binFilePath;
+	NSString* textFilePath;
 }
 
 @end

@@ -7,9 +7,19 @@
 //
 
 #import "LvkSpriteTest.h"
-#import "ResourcesPath.h"
+
+@interface LvkSpriteTest ()
+
+@property (retain) NSString* binFilePath;
+@property (retain) NSString* textFilePath;
+
+@end
 
 @implementation LvkSpriteTest
+
+@synthesize binFilePath;
+@synthesize textFilePath;
+
 - (BOOL)shouldRunOnMainThread {
     // By default NO, but if you have a UI test or test dependent on running on the main thread return YES
 	return NO;
@@ -17,6 +27,12 @@
 
 - (void)setUpClass {
     // Run at start of all tests in the class
+	NSBundle* mainBundle;
+	// Get the main bundle for the app.
+	mainBundle = [NSBundle mainBundle];
+
+	self.binFilePath = [mainBundle pathForResource:@"ryu-fixed-frame-size" ofType:@"lkob"];
+	self.textFilePath = [mainBundle pathForResource:@"ryu-fixed-frame-size" ofType:@"lkot"];
 }
 
 - (void)tearDownClass {
@@ -42,15 +58,22 @@
 				   NSMutableDictionary *lvkAnimations
 				   -- should be initialized with the animations. i.e. For each animation must exist a (key, value) = (animation_name, CCAnimation)
 */
-- (void)testLVK_SP_01_3 {
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+/* - (void)testLVK_SP_01_3 {
+	NSError* error = nil;
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
 	
-    //GHAssertNotNULL(a, nil);
-	
-    // Assert equal objects, add custom error description
-    //GHAssertEqualObjects(a, b, @"Foo should be equal to: %@. Something bad happened", bar);
+	GHAssertNil(error, nil);
+	GHAssertNotNil(sprite, nil);
+	GHAssertNotNil([sprite.lvkAnimations objectForKey:@"walk"], @"Element 'walk' was not found");
+	GHAssertTrue([[sprite.lvkAnimations objectForKey:@"walk"] class] == NSClassFromString(@"CCAnimation"), @"Element 'walk' is not a CCAnimation");
+	GHAssertNotNil([sprite.lvkAnimations objectForKey:@"kick"], @"Element 'kick' was not found");
+	GHAssertTrue([[sprite.lvkAnimations objectForKey:@"kick"] class] == NSClassFromString(@"CCAnimation"), @"Element 'kick' is not a CCAnimation");
+	GHAssertNotNil([sprite.lvkAnimations objectForKey:@"hitted"], @"Element 'hitted' was not found");
+	GHAssertTrue([[sprite.lvkAnimations objectForKey:@"hitted"] class] == NSClassFromString(@"CCAnimation"), @"Element 'hitted' is not a CCAnimation");
+	GHAssertNotNil([sprite.lvkAnimations objectForKey:@"wait"], @"Element 'wait' was not found");
+	GHAssertTrue([[sprite.lvkAnimations objectForKey:@"wait"] class] == NSClassFromString(@"CCAnimation"), @"Element 'wait' is not a CCAnimation");
 }
-
+ */
 
 /*
  Class to test: LvkSprite
@@ -72,8 +95,10 @@
  Expected results: Return FALSE
 */
 - (void)testLVK_SP_02 {
-	LvkSprite *utLvkSprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
-	BOOL myBool = [utLvkSprite loadBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	NSError* error = nil;
+	LvkSprite *utLvkSprite = [[LvkSprite alloc] init];
+	BOOL myBool = [utLvkSprite loadBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot" andError:&error];
+    GHAssertNil(error, nil);
 	GHAssertTrue(myBool,@"return value must be equal to TRUE but insted it's %i ", myBool);
 	[utLvkSprite release];
 	utLvkSprite=nil;
@@ -87,9 +112,11 @@
  Expected results: Return FALSE
  */
 - (void)testLVK_SP_02_02 {
-	LvkSprite *utLvkSprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
-	BOOL myBool = [utLvkSprite loadBinary:@"ryu-fixed-frame-sie-WF.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	NSError* error = nil;
+	LvkSprite *utLvkSprite = [[LvkSprite alloc] init];
+	BOOL myBool = [utLvkSprite loadBinary:@"ryu-fixed-frame-sie-WF.lkob" andInfo:@"ryu-fixed-frame-size.lkot" andError:&error];
 	GHAssertFalse(myBool,@"return value must be equal to FALSE but insted it's %i ", myBool);
+    GHAssertNotNil(error, nil);
 	[utLvkSprite release];
 	utLvkSprite=nil;
 }
@@ -101,25 +128,128 @@
  Parameters: correct binary file, correct info file
  Expected results: Return TRUE
  */
-
 - (void)testLVK_SP_02_03 {
-	LvkSprite *utLvkSprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
-	BOOL myBool = [utLvkSprite loadBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size-WF.lkot"];
+	NSError* error = nil;
+	LvkSprite *utLvkSprite = [[LvkSprite alloc] init];
+	BOOL myBool = [utLvkSprite loadBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size-WF.lkot" andError:&error];
 	GHAssertFalse(myBool,@"return value must be equal to FALSE but insted it's %i ", myBool);
+    GHAssertNotNil(error, nil);
 	[utLvkSprite release];
 	utLvkSprite=nil;
 }  
 
 
+/*
+ Class to test: LvkSprite
+ Method to test: - (void) playAnimation: (NSString *)name atX:(CGFloat)x atY:(CGFloat)y repeat:(int)n;  
+ Prerrequisites: initWithBinary or loadBinary invoked with valid sprite files
+ Parameters: wrong animation name, any (x,y), repeat = -1 (i.e. Infinite)
+ Expected results: Any way to detect graphically that is *not* playing anything??
+				   Property "animation" returns nil
+ */
+- (void)testLVK_SP_03_1 {
+    //initialization
+	NSError* error = nil;
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
+	
+	int x = 0;
+	int y = 0;
+	[sprite playAnimation:@"wrongAnimationName" atX:x atY:y repeat:-1];
+	GHAssertNil(sprite.animation, nil);
+}
+
+/*
+ Class to test: LvkSprite
+ Method to test: - (void) playAnimation: (NSString *)name atX:(CGFloat)x atY:(CGFloat)y repeat:(int)n;  
+ Prerrequisites: initWithBinary or loadBinary invoked with valid sprite files
+ Parameters: valid animation name, any (x,y), repeat = -1 (i.e. Infinite)
+ Expected results: Any way to detect graphically that is playing the animation??
+				   Property "animation" returns the animation name
+				   Property "x" returns correctly the x position
+				   Property "y" returns correctly the y position
+				   Wait a couple of seconds, animationHasEnded should return false
+ */
+- (void)testLVK_SP_03_2 {
+    //initialization
+	NSError* error = nil;
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
+	
+	int x = 0;
+	int y = 0;
+	[sprite playAnimation:@"kick" atX:x atY:y repeat:-1];
+	GHAssertFalse([sprite animationHasEnded], @"");
+	GHAssertEqualStrings(sprite.animation, @"kick", @"Wrong animation name");
+	GHAssertEquals(sprite.x, 0, @"The x coordinate is not %d", x);
+	GHAssertEquals(sprite.y, 0, @"The y  coordinate is not %d", y);
+	[NSThread sleepForTimeInterval:3];
+	GHAssertFalse([sprite animationHasEnded], @"");
+	
+	x = -12;
+	y = -8;
+	[sprite playAnimation:@"kick" atX:x atY:y repeat:-1];
+	GHAssertFalse([sprite animationHasEnded], @"");
+	GHAssertEqualStrings(sprite.animation, @"kick", @"Wrong animation name");
+	GHAssertEquals(sprite.x, 0, @"The x coordinate is not %d", x);
+	GHAssertEquals(sprite.y, 0, @"The y  coordinate is not %d", y);
+	[NSThread sleepForTimeInterval:3];
+	GHAssertFalse([sprite animationHasEnded], @"");
+	
+	x = 12;
+	y = 8;
+	[sprite playAnimation:@"kick" atX:x atY:y repeat:-1];
+	GHAssertFalse([sprite animationHasEnded], @"");
+	GHAssertEqualStrings(sprite.animation, @"kick", @"Wrong animation name");
+	GHAssertEquals(sprite.x, 0, @"The x coordinate is not %d", x);
+	GHAssertEquals(sprite.y, 0, @"The y  coordinate is not %d", y);
+	[NSThread sleepForTimeInterval:3];
+	GHAssertFalse([sprite animationHasEnded], @"");
+	
+	x = -12;
+	y = 8;
+	[sprite playAnimation:@"kick" atX:x atY:y repeat:-1];
+	GHAssertFalse([sprite animationHasEnded], @"");
+	GHAssertEqualStrings(sprite.animation, @"kick", @"Wrong animation name");
+	GHAssertEquals(sprite.x, 0, @"The x coordinate is not %d", x);
+	GHAssertEquals(sprite.y, 0, @"The y  coordinate is not %d", y);
+	[NSThread sleepForTimeInterval:3];
+	GHAssertFalse([sprite animationHasEnded], @"");
+	
+	x = 12;
+	y = -8;
+	[sprite playAnimation:@"kick" atX:x atY:y repeat:-1];
+	GHAssertFalse([sprite animationHasEnded], @"");
+	GHAssertEqualStrings(sprite.animation, @"kick", @"Wrong animation name");
+	GHAssertEquals(sprite.x, 0, @"The x coordinate is not %d", x);
+	GHAssertEquals(sprite.y, 0, @"The y  coordinate is not %d", y);
+	[NSThread sleepForTimeInterval:3];
+	GHAssertFalse([sprite animationHasEnded], @"");
+}
+
+/*
+ Class to test: LvkSprite
+ Method to test: - (void) playAnimation: (NSString *)name atX:(CGFloat)x atY:(CGFloat)y repeat:(int)n;  
+ Prerrequisites: initWithBinary or loadBinary invoked with valid sprite files
+ Parameters: valid animation name, any (x,y), repeat > 0
+ Expected results: Any way to detect graphically that is playing the animation??
+				   Property "animation" returns the animation name
+				   Property "x" returns correctly the x position
+				   Property "y" returns correctly the y position
+				   Inmediately call animationHasEnded, should return false
+				   Wait n seconds (n greater enough to finish the animation) call animationHasEnded, should return true
+ */
 - (void)testLVK_SP_03_3 {
     //initialization
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
-	
+	NSError* error = nil;
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
+
 	int x = 0;
 	int y = 0;
 	[sprite playAnimation:@"kick" atX:x atY:y repeat:3];
 	GHAssertFalse([sprite animationHasEnded], @"");
-	GHAssertEqualStrings(sprite.animation, @"punch", @"Wrong animation name");
+	GHAssertEqualStrings(sprite.animation, @"kick", @"Wrong animation name");
 	GHAssertEquals(sprite.x, 0, @"The x coordinate is not %d", x);
 	GHAssertEquals(sprite.y, 0, @"The y  coordinate is not %d", y);
 	[NSThread sleepForTimeInterval:3];
@@ -129,7 +259,7 @@
 	y = -8;
 	[sprite playAnimation:@"kick" atX:x atY:y repeat:3];
 	GHAssertFalse([sprite animationHasEnded], @"");
-	GHAssertEqualStrings(sprite.animation, @"punch", @"Wrong animation name");
+	GHAssertEqualStrings(sprite.animation, @"kick", @"Wrong animation name");
 	GHAssertEquals(sprite.x, 0, @"The x coordinate is not %d", x);
 	GHAssertEquals(sprite.y, 0, @"The y  coordinate is not %d", y);
 	[NSThread sleepForTimeInterval:3];
@@ -139,7 +269,7 @@
 	y = 8;
 	[sprite playAnimation:@"kick" atX:x atY:y repeat:3];
 	GHAssertFalse([sprite animationHasEnded], @"");
-	GHAssertEqualStrings(sprite.animation, @"punch", @"Wrong animation name");
+	GHAssertEqualStrings(sprite.animation, @"kick", @"Wrong animation name");
 	GHAssertEquals(sprite.x, 0, @"The x coordinate is not %d", x);
 	GHAssertEquals(sprite.y, 0, @"The y  coordinate is not %d", y);
 	[NSThread sleepForTimeInterval:3];
@@ -149,7 +279,7 @@
 	y = 8;
 	[sprite playAnimation:@"kick" atX:x atY:y repeat:3];
 	GHAssertFalse([sprite animationHasEnded], @"");
-	GHAssertEqualStrings(sprite.animation, @"punch", @"Wrong animation name");
+	GHAssertEqualStrings(sprite.animation, @"kick", @"Wrong animation name");
 	GHAssertEquals(sprite.x, 0, @"The x coordinate is not %d", x);
 	GHAssertEquals(sprite.y, 0, @"The y  coordinate is not %d", y);
 	[NSThread sleepForTimeInterval:3];
@@ -159,7 +289,7 @@
 	y = -8;
 	[sprite playAnimation:@"kick" atX:x atY:y repeat:3];
 	GHAssertFalse([sprite animationHasEnded], @"");
-	GHAssertEqualStrings(sprite.animation, @"punch", @"Wrong animation name");
+	GHAssertEqualStrings(sprite.animation, @"kick", @"Wrong animation name");
 	GHAssertEquals(sprite.x, 0, @"The x coordinate is not %d", x);
 	GHAssertEquals(sprite.y, 0, @"The y  coordinate is not %d", y);
 	[NSThread sleepForTimeInterval:3];
@@ -176,12 +306,108 @@
  */
 - (void)testLVK_SP_03_4 {
     //initialization
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
-	
+	NSError* error = nil;
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
+
 	int x = 0;
 	int y = 0;
 	[sprite playAnimation:@"kick" atX:x atY:y repeat:0];
-	GHAssertEqualObjects(sprite.animation, nil, @"Wrong animation name");
+	GHAssertNil(sprite.animation, nil);
+}
+
+/*
+ Class to test: LvkSprite
+ Method to test: - (void) playAnimation: (NSString *)name atX:(CGFloat)x atY:(CGFloat)y repeat:(int)n;  
+ Prerrequisites: initWithBinary or loadBinary invoked with valid sprite files
+ Parameters: wrong animation name, any (x,y), repeat = -1 (i.e. Infinite)
+ Expected results: Any way to detect graphically that is *not* playing anything??
+					Property "animation" returns nil
+ */
+- (void)testLVK_SP_04_1 {
+    //initialization
+	NSError* error = nil;
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
+	
+	[sprite playAnimation:@"wrongAnimationName" repeat:-1];
+	GHAssertNil(sprite.animation, nil);
+}
+
+/*
+ Class to test: LvkSprite
+ Method to test: - (void) playAnimation: (NSString *)name repeat:(int)n;  
+ Prerrequisites: initWithBinary or loadBinary invoked with valid sprite files
+ Parameters: valid animation name, repeat = -1 (i.e. Infinite)
+ Expected results: Any way to detect graphically that is playing the animation??
+					 Property "animation" returns the animation name
+					 Property "x" returns correctly the x position
+					 Property "y" returns correctly the y position
+					 Wait a couple of seconds, animationHasEnded should return false
+ */
+- (void)testLVK_SP_04_2 {
+    //initialization
+	NSError* error = nil;
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
+	
+	int x = sprite.x;
+	int y = sprite.y;
+	[sprite playAnimation:@"kick" repeat:-1];
+	GHAssertFalse([sprite animationHasEnded], @"");
+	GHAssertEqualStrings(sprite.animation, @"kick", @"Wrong animation name");
+	GHAssertEquals(sprite.x, x, @"The x coordinate is not %d", x);
+	GHAssertEquals(sprite.y, y, @"The y  coordinate is not %d", y);
+	[NSThread sleepForTimeInterval:3];
+	GHAssertFalse([sprite animationHasEnded], @"");
+}
+
+/*
+ Class to test: LvkSprite
+ Method to test: - (void) playAnimation: (NSString *)name repeat:(int)n;  
+ Prerrequisites: initWithBinary or loadBinary invoked with valid sprite files
+ Parameters: valid animation name, repeat > 0
+ Expected results: Any way to detect graphically that is playing the animation??
+					 Property "animation" returns the animation name
+					 Property "x" returns correctly the x position
+					 Property "y" returns correctly the y position
+					 Inmediately call animationHasEnded, should return false
+					 Wait n seconds (n greater enough to finish the animation) call animationHasEnded, should return true
+ */
+- (void)testLVK_SP_04_3 {
+    //initialization
+	NSError* error = nil;
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
+	
+	int x = sprite.x;
+	int y = sprite.y;
+	[sprite playAnimation:@"kick" repeat:3];
+	GHAssertFalse([sprite animationHasEnded], @"");
+	GHAssertEqualStrings(sprite.animation, @"kick", @"Wrong animation name");
+	GHAssertEquals(sprite.x, x, @"The x coordinate is not %d", x);
+	GHAssertEquals(sprite.y, y, @"The y  coordinate is not %d", y);
+	[NSThread sleepForTimeInterval:3];
+	GHAssertTrue([sprite animationHasEnded], @"");
+	
+}
+
+/*
+ Class to test: LvkSprite
+ Method to test: - (void) playAnimation: (NSString *)name repeat:(int)n;
+ Prerrequisites: initWithBinary or loadBinary invoked with valid sprite files
+ Parameters: valid animation name, repeat = 0
+					 Expected results: Any way to detect graphically that is *not* playing anything??
+					 Property "animation" returns nil
+ */
+- (void)testLVK_SP_04_4 {
+    //initialization
+	NSError* error = nil;
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
+	
+	[sprite playAnimation:@"kick" repeat:0];
+	GHAssertNil(sprite.animation, nil);
 }
 
 /*
@@ -193,11 +419,27 @@
  */
 - (void)testLVK_SP_05 {
     //initialization
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	NSError* error = nil;
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
 	
 	[sprite playAnimation:@"wrongName"];
-	GHAssertEquals(sprite.animation, nil, @"Wrong animation name");
+	GHAssertNil(sprite.animation, nil);
+}
 
+/*
+ Class to test: LvkSprite
+ Method to test: - (void) playAnimation: (NSString *)name;
+ Prerrequisites: initWithBinary or loadBinary invoked with valid sprite files
+ Parameters: dx = 0
+ Expected results: Property "x" returns correctly the x position (i.e. position did not change)
+ */
+- (void)testLVK_SP_05_2 {
+    //initialization
+	NSError* error = nil;
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
+	
 	[sprite playAnimation:@"kick"];
 	GHAssertEqualStrings(sprite.animation, @"kick", @"Wrong animation name");
 	[NSThread sleepForTimeInterval:3];
@@ -213,7 +455,9 @@
  */
 - (void)testLVK_SP_06 {
     //initialization
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	NSError* error = nil;
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
 	CGFloat dx = 0;
 
 	CGPoint initialPosition = {0, 0};
@@ -241,7 +485,9 @@
  */
 - (void)testLVK_SP_06_2 {
     //initialization
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	NSError* error = nil;
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
 	CGFloat dx = -21;
 	
 	CGPoint initialPosition = {0, 0};
@@ -269,7 +515,9 @@
  */
 - (void)testLVK_SP_06_3 {
     //initialization
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	NSError* error = nil;
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
 	CGFloat dx = 13;
 	
 	CGPoint initialPosition = {0, 0};
@@ -299,13 +547,16 @@
  */
 - (void)testLVK_SP_11 {
     //initialization
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	NSError*error;
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
 	[sprite playAnimation:@"kick"];
 	CGPoint initialPosition = {0, 0};
 	sprite.position = initialPosition;
 	sprite.collisionThreshold = 0;
 	
-	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
 	[collidingSprite playAnimation:@"kick"];
 	CGPoint collidingPosition = {sprite.rect.size.width, sprite.rect.size.height};
 	collidingSprite.position = collidingPosition;
@@ -328,13 +579,16 @@
  */
 - (void)testLVK_SP_11_2 {
     //initialization
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	NSError* error = nil;
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
 	[sprite playAnimation:@"kick"];
 	CGPoint initialPosition = {0, 0};
 	sprite.position = initialPosition;
 	sprite.collisionThreshold = 0;
 	
-	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
 	[collidingSprite playAnimation:@"kick"];
 	
 	CGPoint collidingPosition = {sprite.rect.size.width - 1, sprite.rect.size.height - 1};
@@ -353,13 +607,16 @@
  */
 - (void)testLVK_SP_11_3 {
     //initialization
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	NSError*error;
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
 	[sprite playAnimation:@"kick"];
 	CGPoint initialPosition = {0, 0};
 	sprite.position = initialPosition;
 	sprite.collisionThreshold = 1;
 	
-	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
 	[collidingSprite playAnimation:@"kick"];
 	CGPoint collidingPosition = {sprite.rect.size.width + 2, sprite.rect.size.height + 2};
 	collidingSprite.position = collidingPosition;
@@ -377,13 +634,16 @@
  */
 - (void)testLVK_SP_11_4 {
     //initialization
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	NSError*error;
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
 	[sprite playAnimation:@"kick"];
 	CGPoint initialPosition = {0, 0};
 	sprite.position = initialPosition;
 	sprite.collisionThreshold = 2;
 	
-	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
 	[collidingSprite playAnimation:@"kick"];
 	CGPoint collidingPosition = {sprite.rect.size.width + 1, sprite.rect.size.height + 1};
 	collidingSprite.position = collidingPosition;
@@ -401,13 +661,16 @@
  */
 - (void)testLVK_SP_11_5 {
     //initialization
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	NSError* error = nil;
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
 	[sprite playAnimation:@"kick"];
 	CGPoint initialPosition = {0, 0};
 	sprite.position = initialPosition;
 	sprite.collisionThreshold = 2;
 	
-	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
 	[collidingSprite playAnimation:@"kick"];
 	CGPoint collidingPosition = {sprite.rect.size.width - 1, sprite.rect.size.height - 1};
 	collidingSprite.position = collidingPosition;
@@ -425,13 +688,16 @@
  */
 - (void)testLVK_SP_11_6 {
     //initialization
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	NSError* error = nil;
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
 	[sprite playAnimation:@"kick"];
 	CGPoint initialPosition = {0, 0};
 	sprite.position = initialPosition;
 	sprite.collisionThreshold = -1;
 	
-	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
 	[collidingSprite playAnimation:@"kick"];
 	CGPoint collidingPosition = {sprite.rect.size.width, sprite.rect.size.height};
 	collidingSprite.position = collidingPosition;
@@ -454,13 +720,16 @@
  */
 - (void)testLVK_SP_11_7 {
     //initialization
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	NSError* error = nil;
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
 	[sprite playAnimation:@"kick"];
 	CGPoint initialPosition = {0, 0};
 	sprite.position = initialPosition;
 	sprite.collisionThreshold = -2;
 	
-	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
 	[collidingSprite playAnimation:@"kick"];
 	
 	CGPoint collidingPosition = {sprite.rect.size.width - 1, sprite.rect.size.height - 1};
@@ -479,13 +748,16 @@
  */
 - (void)testLVK_SP_11_8 {
     //initialization
-	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	NSError* error = nil;
+	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
 	[sprite playAnimation:@"kick"];
 	CGPoint initialPosition = {0, 0};
 	sprite.position = initialPosition;
 	sprite.collisionThreshold = -1;
 	
-	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
 	[collidingSprite playAnimation:@"kick"];
 	CGPoint collidingPosition = {sprite.rect.size.width - 2, sprite.rect.size.height - 2};
 	collidingSprite.position = collidingPosition;
@@ -502,7 +774,9 @@
  Expected result: return FALSE
  */
 - (void) testLVK_SP_09 {
-	LvkSprite *ryu = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	NSError* error = nil;
+	LvkSprite* ryu = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
 	[ryu setPosition:ccp(0, 0)];
 	[ryu playAnimation:@"walk"];
 	ryu.collisionThreshold = 0;
@@ -523,7 +797,9 @@
  Expected result: return TRUE
  */
 - (void) testLVK_SP_09_02 {
-	LvkSprite *ryu = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	NSError* error = nil;
+	LvkSprite* ryu = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
 	[ryu setPosition:ccp(50, 100)];
 	[ryu playAnimation:@"walk"];
 	ryu.collisionThreshold = 0;
@@ -543,7 +819,9 @@
  Expected result: return FALSE
  */
 - (void) testLVK_SP_09_03 {
-	LvkSprite *ryu = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	NSError* error = nil;
+	LvkSprite* ryu = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
 	[ryu setPosition:ccp(50, 100)];
 	[ryu playAnimation:@"walk"];
 	ryu.collisionThreshold = 1;
@@ -560,7 +838,9 @@
  Expected result: 
  */
 - (void) testLVK_SP_09_04 {
-	LvkSprite *ryu = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	NSError* error = nil;
+	LvkSprite* ryu = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
 	[ryu setPosition:ccp(50, 100)];
 	[ryu playAnimation:@"walk"];
 	ryu.collisionThreshold =  2;
@@ -577,7 +857,9 @@
  Expected result: 
  */
 - (void) testLVK_SP_09_05 {
-	LvkSprite *ryu = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	NSError* error = nil;
+	LvkSprite* ryu = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
 	[ryu setPosition:ccp(50, 100)];
 	[ryu playAnimation:@"walk"];
 	ryu.collisionThreshold =  1;
@@ -594,7 +876,9 @@
  Expected result: 
  */
 - (void) testLVK_SP_09_06 {
-	LvkSprite *ryu = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	NSError* error = nil;
+	LvkSprite* ryu = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
 	[ryu setPosition:ccp(50, 100)];
 	[ryu playAnimation:@"walk"];
 	ryu.collisionThreshold = -1;
@@ -610,7 +894,9 @@
  Expected result: 
  */
 - (void) testLVK_SP_09_07 {
-	LvkSprite *ryu = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	NSError* error = nil;
+	LvkSprite* ryu = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
 	[ryu setPosition:ccp(5, 5)];
 	[ryu playAnimation:@"walk"];
 	ryu.collisionThreshold =  -3;
@@ -626,7 +912,9 @@
  Expected result: 
  */
 - (void) testLVK_SP_09_08 {
-	LvkSprite *ryu = [[LvkSprite alloc] initWithBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot"];
+	NSError* error = nil;
+	LvkSprite* ryu = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
+	GHAssertNil(error, nil);
 	[ryu setPosition:ccp(50, 100)];
 	[ryu playAnimation:@"walk"];
 	ryu.collisionThreshold =  -2;

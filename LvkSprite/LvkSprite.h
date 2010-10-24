@@ -44,14 +44,14 @@
 /// @param bin: the lvk sprite binary file (usually *.lkob)
 /// @param info: the lvk sprite information file (usually *.lkot)
 /// @returns an initialized instance of LvkSprite
-- (id) initWithBinary: (NSString*)bin andInfo: (NSString*)info;
+- (id) initWithBinary: (NSString*)bin andInfo: (NSString*)info andError:(NSError**)error;
 
 /// Loads a Lvk Sprite
 /// @param bin: the lvk sprite binary file (usually *.lkob)
 /// @param info: the lvk sprite information file (usually *.lkot)
 /// @returns TRUE if it loads and parses the files successfully,
 ///          FALSE otherwise
-- (BOOL) loadBinary: (NSString*)bin andInfo: (NSString*)info; 
+- (BOOL) loadBinary: (NSString*)bin andInfo: (NSString*)info andError:(NSError**)error;
 
 /// Plays n times the given animation at the given position
 /// @param name: the animation name
@@ -88,6 +88,8 @@
 
 /// Set/returns the position of the sprite in the y axis
 @property CGFloat y;
+
+@property (readonly, retain) NSDictionary* lvkAnimations;
 
 /// Changes the position of the sprite in the x axis relative to the current position
 /// @param dx: the x offset
