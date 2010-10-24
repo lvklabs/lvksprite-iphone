@@ -9,25 +9,38 @@
 
 @implementation LvkSprite
 
+- (id)init{
+	if(self = [super init]){
+		animation = nil;
+		aniAction = nil;
+		px = &(position_.x);
+		py = &(position_.y);
+		pw = &(contentSize_.width);
+		ph = &(contentSize_.height);
+		collisionThreshold = 0;
+		
+		self.anchorPoint = CGPointMake(0, 0);
+	}
+	return self;
+}
+
 - (id) initWithBinary: (NSString*)binFile andInfo: (NSString*)infoFile andError:(NSError**)error
 {
-	if(!(self = [super init]))
-		return self;
-	
-	[self loadBinary: binFile andInfo: infoFile andError:error];
+	if(self = [super init]){
+		[self loadBinary: binFile andInfo: infoFile andError:error];
 
-	animation = nil;
-	aniAction = nil;
-	px = &(position_.x);
-	py = &(position_.y);
-	pw = &(contentSize_.width);
-	ph = &(contentSize_.height);
-	collisionThreshold = 0;
-	
-	self.anchorPoint = CGPointMake(0, 0);
-	
-	[self schedule:@selector(tick:)];
-	
+		animation = nil;
+		aniAction = nil;
+		px = &(position_.x);
+		py = &(position_.y);
+		pw = &(contentSize_.width);
+		ph = &(contentSize_.height);
+		collisionThreshold = 0;
+		
+		self.anchorPoint = CGPointMake(0, 0);
+		
+		[self schedule:@selector(tick:)];
+	}
 	return self;
 }
 
@@ -146,6 +159,7 @@
 	
 	const float fps = 1.0/24.0;
 	
+	*error = nil;
 	NSData *binData = [NSData dataWithContentsOfFile:binFile options:0 error:error];
 	if (*error != nil) {
 		LKLOG(@"Error opening binary file: %@", [*error localizedDescription]);
@@ -264,6 +278,7 @@
 	
 	CCAnimation *anim = [lvkAnimations objectForKey:name];
 
+	animation = nil;
 	if (anim != nil) {
 		if (n > 0) {
 			aniAction = [[LvkRepeatAction alloc] initWithAction:[CCAnimate actionWithAnimation:anim] times:n];
@@ -274,8 +289,8 @@
 		}
 		if (aniAction != nil) {
 			[self runAction:aniAction];
+			animation = name;
 		}
-		animation = name;
 	} else {
 		LKLOG(@"LvkSprite: animation '%@' does not exist", name);
 	}

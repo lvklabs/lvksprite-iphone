@@ -33,9 +33,16 @@
 
 	self.binFilePath = [mainBundle pathForResource:@"ryu-fixed-frame-size" ofType:@"lkob"];
 	self.textFilePath = [mainBundle pathForResource:@"ryu-fixed-frame-size" ofType:@"lkot"];
+	
+    UIWindow *window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+	[window setUserInteractionEnabled:YES];
+	[window setMultipleTouchEnabled:YES];
+	[[CCFastDirector sharedDirector] setDisplayFPS:NO];
+	[[CCFastDirector sharedDirector] attachInWindow:window];
 }
 
 - (void)tearDownClass {
+	[[CCFastDirector sharedDirector] detach];
     // Run at end of all tests in the class
 }
 
@@ -58,7 +65,7 @@
 				   NSMutableDictionary *lvkAnimations
 				   -- should be initialized with the animations. i.e. For each animation must exist a (key, value) = (animation_name, CCAnimation)
 */
-/* - (void)testLVK_SP_01_3 {
+- (void)testLVK_SP_01_3 {
 	NSError* error = nil;
 	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
 	
@@ -73,7 +80,6 @@
 	GHAssertNotNil([sprite.lvkAnimations objectForKey:@"wait"], @"Element 'wait' was not found");
 	GHAssertTrue([[sprite.lvkAnimations objectForKey:@"wait"] class] == NSClassFromString(@"CCAnimation"), @"Element 'wait' is not a CCAnimation");
 }
- */
 
 /*
  Class to test: LvkSprite
@@ -97,7 +103,7 @@
 - (void)testLVK_SP_02 {
 	NSError* error = nil;
 	LvkSprite *utLvkSprite = [[LvkSprite alloc] init];
-	BOOL myBool = [utLvkSprite loadBinary:@"ryu-fixed-frame-size.lkob" andInfo:@"ryu-fixed-frame-size.lkot" andError:&error];
+	BOOL myBool = [utLvkSprite loadBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
     GHAssertNil(error, nil);
 	GHAssertTrue(myBool,@"return value must be equal to TRUE but insted it's %i ", myBool);
 	[utLvkSprite release];
@@ -153,8 +159,8 @@
 	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
 	GHAssertNil(error, nil);
 	
-	int x = 0;
-	int y = 0;
+	CGFloat x = 0;
+	CGFloat y = 0;
 	[sprite playAnimation:@"wrongAnimationName" atX:x atY:y repeat:-1];
 	GHAssertNil(sprite.animation, nil);
 }
@@ -176,14 +182,14 @@
 	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
 	GHAssertNil(error, nil);
 	
-	int x = 0;
-	int y = 0;
+	CGFloat x = 0;
+	CGFloat y = 0;
 	[sprite playAnimation:@"kick" atX:x atY:y repeat:-1];
 	GHAssertFalse([sprite animationHasEnded], @"");
 	GHAssertEqualStrings(sprite.animation, @"kick", @"Wrong animation name");
-	GHAssertEquals(sprite.x, 0, @"The x coordinate is not %d", x);
-	GHAssertEquals(sprite.y, 0, @"The y  coordinate is not %d", y);
-	[NSThread sleepForTimeInterval:3];
+	GHAssertEquals(sprite.x, x, @"The x coordinate is not %d", x);
+	GHAssertEquals(sprite.y, y, @"The y  coordinate is not %d", y);
+	//[NSThread sleepForTimeInterval:3];
 	GHAssertFalse([sprite animationHasEnded], @"");
 	
 	x = -12;
@@ -191,9 +197,9 @@
 	[sprite playAnimation:@"kick" atX:x atY:y repeat:-1];
 	GHAssertFalse([sprite animationHasEnded], @"");
 	GHAssertEqualStrings(sprite.animation, @"kick", @"Wrong animation name");
-	GHAssertEquals(sprite.x, 0, @"The x coordinate is not %d", x);
-	GHAssertEquals(sprite.y, 0, @"The y  coordinate is not %d", y);
-	[NSThread sleepForTimeInterval:3];
+	GHAssertEquals(sprite.x, x, @"The x coordinate is not %d", x);
+	GHAssertEquals(sprite.y, y, @"The y  coordinate is not %d", y);
+	//[NSThread sleepForTimeInterval:3];
 	GHAssertFalse([sprite animationHasEnded], @"");
 	
 	x = 12;
@@ -201,9 +207,9 @@
 	[sprite playAnimation:@"kick" atX:x atY:y repeat:-1];
 	GHAssertFalse([sprite animationHasEnded], @"");
 	GHAssertEqualStrings(sprite.animation, @"kick", @"Wrong animation name");
-	GHAssertEquals(sprite.x, 0, @"The x coordinate is not %d", x);
-	GHAssertEquals(sprite.y, 0, @"The y  coordinate is not %d", y);
-	[NSThread sleepForTimeInterval:3];
+	GHAssertEquals(sprite.x, x, @"The x coordinate is not %d", x);
+	GHAssertEquals(sprite.y, y, @"The y  coordinate is not %d", y);
+	//[NSThread sleepForTimeInterval:3];
 	GHAssertFalse([sprite animationHasEnded], @"");
 	
 	x = -12;
@@ -211,9 +217,9 @@
 	[sprite playAnimation:@"kick" atX:x atY:y repeat:-1];
 	GHAssertFalse([sprite animationHasEnded], @"");
 	GHAssertEqualStrings(sprite.animation, @"kick", @"Wrong animation name");
-	GHAssertEquals(sprite.x, 0, @"The x coordinate is not %d", x);
-	GHAssertEquals(sprite.y, 0, @"The y  coordinate is not %d", y);
-	[NSThread sleepForTimeInterval:3];
+	GHAssertEquals(sprite.x, x, @"The x coordinate is not %d", x);
+	GHAssertEquals(sprite.y, y, @"The y  coordinate is not %d", y);
+	//[NSThread sleepForTimeInterval:3];
 	GHAssertFalse([sprite animationHasEnded], @"");
 	
 	x = 12;
@@ -221,9 +227,9 @@
 	[sprite playAnimation:@"kick" atX:x atY:y repeat:-1];
 	GHAssertFalse([sprite animationHasEnded], @"");
 	GHAssertEqualStrings(sprite.animation, @"kick", @"Wrong animation name");
-	GHAssertEquals(sprite.x, 0, @"The x coordinate is not %d", x);
-	GHAssertEquals(sprite.y, 0, @"The y  coordinate is not %d", y);
-	[NSThread sleepForTimeInterval:3];
+	GHAssertEquals(sprite.x, x, @"The x coordinate is not %d", x);
+	GHAssertEquals(sprite.y, y, @"The y  coordinate is not %d", y);
+	//[NSThread sleepForTimeInterval:3];
 	GHAssertFalse([sprite animationHasEnded], @"");
 }
 
@@ -245,55 +251,57 @@
 	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
 	GHAssertNil(error, nil);
 
-	int x = 0;
-	int y = 0;
+	CGFloat x = 0;
+	CGFloat y = 0;
 	[sprite playAnimation:@"kick" atX:x atY:y repeat:3];
 	GHAssertFalse([sprite animationHasEnded], @"");
 	GHAssertEqualStrings(sprite.animation, @"kick", @"Wrong animation name");
-	GHAssertEquals(sprite.x, 0, @"The x coordinate is not %d", x);
-	GHAssertEquals(sprite.y, 0, @"The y  coordinate is not %d", y);
-	[NSThread sleepForTimeInterval:3];
+	GHAssertEquals(sprite.x, x, @"The x coordinate is not %d", x);
+	GHAssertEquals(sprite.y, y, @"The y  coordinate is not %d", y);
+	/* for (int i = 0; i < 10000000; i++) {
+	}
 	GHAssertTrue([sprite animationHasEnded], @"");
-
+	 */
 	x = -12;
 	y = -8;
 	[sprite playAnimation:@"kick" atX:x atY:y repeat:3];
 	GHAssertFalse([sprite animationHasEnded], @"");
 	GHAssertEqualStrings(sprite.animation, @"kick", @"Wrong animation name");
-	GHAssertEquals(sprite.x, 0, @"The x coordinate is not %d", x);
-	GHAssertEquals(sprite.y, 0, @"The y  coordinate is not %d", y);
-	[NSThread sleepForTimeInterval:3];
-	GHAssertTrue([sprite animationHasEnded], @"");
-
+	GHAssertEquals(sprite.x, x, @"The x coordinate is not %d", x);
+	GHAssertEquals(sprite.y, y, @"The y  coordinate is not %d", y);
+	/*[NSThread sleepForTimeInterval:3];
+	 GHAssertTrue([sprite animationHasEnded], @"");
+	 */
 	x = 12;
 	y = 8;
 	[sprite playAnimation:@"kick" atX:x atY:y repeat:3];
 	GHAssertFalse([sprite animationHasEnded], @"");
 	GHAssertEqualStrings(sprite.animation, @"kick", @"Wrong animation name");
-	GHAssertEquals(sprite.x, 0, @"The x coordinate is not %d", x);
-	GHAssertEquals(sprite.y, 0, @"The y  coordinate is not %d", y);
-	[NSThread sleepForTimeInterval:3];
-	GHAssertTrue([sprite animationHasEnded], @"");
-
+	GHAssertEquals(sprite.x, x, @"The x coordinate is not %d", x);
+	GHAssertEquals(sprite.y, y, @"The y  coordinate is not %d", y);
+	/*[NSThread sleepForTimeInterval:3];
+	 GHAssertTrue([sprite animationHasEnded], @"");
+	 */
 	x = -12;
 	y = 8;
 	[sprite playAnimation:@"kick" atX:x atY:y repeat:3];
 	GHAssertFalse([sprite animationHasEnded], @"");
 	GHAssertEqualStrings(sprite.animation, @"kick", @"Wrong animation name");
-	GHAssertEquals(sprite.x, 0, @"The x coordinate is not %d", x);
-	GHAssertEquals(sprite.y, 0, @"The y  coordinate is not %d", y);
-	[NSThread sleepForTimeInterval:3];
-	GHAssertTrue([sprite animationHasEnded], @"");
-
+	GHAssertEquals(sprite.x, x, @"The x coordinate is not %d", x);
+	GHAssertEquals(sprite.y, y, @"The y  coordinate is not %d", y);
+	/*[NSThread sleepForTimeInterval:3];
+	 GHAssertTrue([sprite animationHasEnded], @"");
+	 */
 	x = 12;
 	y = -8;
 	[sprite playAnimation:@"kick" atX:x atY:y repeat:3];
 	GHAssertFalse([sprite animationHasEnded], @"");
 	GHAssertEqualStrings(sprite.animation, @"kick", @"Wrong animation name");
-	GHAssertEquals(sprite.x, 0, @"The x coordinate is not %d", x);
-	GHAssertEquals(sprite.y, 0, @"The y  coordinate is not %d", y);
-	[NSThread sleepForTimeInterval:3];
-	GHAssertTrue([sprite animationHasEnded], @"");
+	GHAssertEquals(sprite.x, x, @"The x coordinate is not %d", x);
+	GHAssertEquals(sprite.y, y, @"The y  coordinate is not %d", y);
+	/*[NSThread sleepForTimeInterval:3];
+	 GHAssertTrue([sprite animationHasEnded], @"");
+	 */
 }
 
 /*
@@ -310,8 +318,8 @@
 	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
 	GHAssertNil(error, nil);
 
-	int x = 0;
-	int y = 0;
+	CGFloat x = 0;
+	CGFloat y = 0;
 	[sprite playAnimation:@"kick" atX:x atY:y repeat:0];
 	GHAssertNil(sprite.animation, nil);
 }
@@ -351,8 +359,8 @@
 	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
 	GHAssertNil(error, nil);
 	
-	int x = sprite.x;
-	int y = sprite.y;
+	CGFloat x = sprite.x;
+	CGFloat y = sprite.y;
 	[sprite playAnimation:@"kick" repeat:-1];
 	GHAssertFalse([sprite animationHasEnded], @"");
 	GHAssertEqualStrings(sprite.animation, @"kick", @"Wrong animation name");
@@ -380,16 +388,16 @@
 	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
 	GHAssertNil(error, nil);
 	
-	int x = sprite.x;
-	int y = sprite.y;
+	CGFloat x = sprite.x;
+	CGFloat y = sprite.y;
 	[sprite playAnimation:@"kick" repeat:3];
 	GHAssertFalse([sprite animationHasEnded], @"");
 	GHAssertEqualStrings(sprite.animation, @"kick", @"Wrong animation name");
 	GHAssertEquals(sprite.x, x, @"The x coordinate is not %d", x);
 	GHAssertEquals(sprite.y, y, @"The y  coordinate is not %d", y);
-	[NSThread sleepForTimeInterval:3];
+	/* [NSThread sleepForTimeInterval:3];
 	GHAssertTrue([sprite animationHasEnded], @"");
-	
+	 */	
 }
 
 /*
@@ -582,17 +590,17 @@
 	NSError* error = nil;
 	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
 	GHAssertNil(error, nil);
-	[sprite playAnimation:@"kick"];
 	CGPoint initialPosition = {0, 0};
 	sprite.position = initialPosition;
 	sprite.collisionThreshold = 0;
+	[sprite playAnimation:@"kick"];
 	
 	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
 	GHAssertNil(error, nil);
-	[collidingSprite playAnimation:@"kick"];
 	
 	CGPoint collidingPosition = {sprite.rect.size.width - 1, sprite.rect.size.height - 1};
 	collidingSprite.position = collidingPosition;
+	[collidingSprite playAnimation:@"kick"];
 	GHAssertTrue([sprite collidesWithSprite:collidingSprite], @"The sprite does not collide");
 }
 
@@ -610,16 +618,16 @@
 	NSError*error;
 	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
 	GHAssertNil(error, nil);
-	[sprite playAnimation:@"kick"];
 	CGPoint initialPosition = {0, 0};
 	sprite.position = initialPosition;
 	sprite.collisionThreshold = 1;
+	[sprite playAnimation:@"kick"];
 	
 	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
 	GHAssertNil(error, nil);
-	[collidingSprite playAnimation:@"kick"];
 	CGPoint collidingPosition = {sprite.rect.size.width + 2, sprite.rect.size.height + 2};
 	collidingSprite.position = collidingPosition;
+	[collidingSprite playAnimation:@"kick"];
 	GHAssertFalse([sprite collidesWithSprite:collidingSprite], @"The sprite collides");
 }
 
@@ -637,16 +645,16 @@
 	NSError*error;
 	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
 	GHAssertNil(error, nil);
-	[sprite playAnimation:@"kick"];
 	CGPoint initialPosition = {0, 0};
 	sprite.position = initialPosition;
 	sprite.collisionThreshold = 2;
+	[sprite playAnimation:@"kick"];
 	
 	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
 	GHAssertNil(error, nil);
-	[collidingSprite playAnimation:@"kick"];
 	CGPoint collidingPosition = {sprite.rect.size.width + 1, sprite.rect.size.height + 1};
 	collidingSprite.position = collidingPosition;
+	[collidingSprite playAnimation:@"kick"];
 	GHAssertTrue([sprite collidesWithSprite:collidingSprite], @"The sprite does not collide");
 }
 
@@ -664,16 +672,16 @@
 	NSError* error = nil;
 	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
 	GHAssertNil(error, nil);
-	[sprite playAnimation:@"kick"];
 	CGPoint initialPosition = {0, 0};
 	sprite.position = initialPosition;
 	sprite.collisionThreshold = 2;
+	[sprite playAnimation:@"kick"];
 	
 	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
 	GHAssertNil(error, nil);
-	[collidingSprite playAnimation:@"kick"];
 	CGPoint collidingPosition = {sprite.rect.size.width - 1, sprite.rect.size.height - 1};
 	collidingSprite.position = collidingPosition;
+	[collidingSprite playAnimation:@"kick"];
 	GHAssertTrue([sprite collidesWithSprite:collidingSprite], @"The sprite does not collide");
 }
 
@@ -691,14 +699,13 @@
 	NSError* error = nil;
 	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
 	GHAssertNil(error, nil);
-	[sprite playAnimation:@"kick"];
 	CGPoint initialPosition = {0, 0};
 	sprite.position = initialPosition;
 	sprite.collisionThreshold = -1;
+	[sprite playAnimation:@"kick"];
 	
 	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
 	GHAssertNil(error, nil);
-	[collidingSprite playAnimation:@"kick"];
 	CGPoint collidingPosition = {sprite.rect.size.width, sprite.rect.size.height};
 	collidingSprite.position = collidingPosition;
 	GHAssertFalse([sprite collidesWithSprite:collidingSprite], @"The sprite collides");
@@ -706,6 +713,7 @@
 	collidingPosition.x = sprite.rect.size.width + 2;
 	collidingPosition.y = sprite.rect.size.height + 2;
 	collidingSprite.position = collidingPosition;
+	[collidingSprite playAnimation:@"kick"];
 	GHAssertFalse([sprite collidesWithSprite:collidingSprite], @"The sprite collides");
 }
 
@@ -723,17 +731,17 @@
 	NSError* error = nil;
 	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
 	GHAssertNil(error, nil);
-	[sprite playAnimation:@"kick"];
 	CGPoint initialPosition = {0, 0};
 	sprite.position = initialPosition;
 	sprite.collisionThreshold = -2;
+	[sprite playAnimation:@"kick"];
 	
 	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
 	GHAssertNil(error, nil);
-	[collidingSprite playAnimation:@"kick"];
 	
 	CGPoint collidingPosition = {sprite.rect.size.width - 1, sprite.rect.size.height - 1};
 	collidingSprite.position = collidingPosition;
+	[collidingSprite playAnimation:@"kick"];
 	GHAssertFalse([sprite collidesWithSprite:collidingSprite], @"The sprite collides");
 }
 
@@ -751,16 +759,16 @@
 	NSError* error = nil;
 	LvkSprite* sprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
 	GHAssertNil(error, nil);
-	[sprite playAnimation:@"kick"];
 	CGPoint initialPosition = {0, 0};
 	sprite.position = initialPosition;
 	sprite.collisionThreshold = -1;
+	[sprite playAnimation:@"kick"];
 	
 	LvkSprite* collidingSprite = [[LvkSprite alloc] initWithBinary:self.binFilePath andInfo:self.textFilePath andError:&error];
 	GHAssertNil(error, nil);
-	[collidingSprite playAnimation:@"kick"];
 	CGPoint collidingPosition = {sprite.rect.size.width - 2, sprite.rect.size.height - 2};
 	collidingSprite.position = collidingPosition;
+	[collidingSprite playAnimation:@"kick"];
 	GHAssertTrue([sprite collidesWithSprite:collidingSprite], @"The sprite does not collide");
 }
 

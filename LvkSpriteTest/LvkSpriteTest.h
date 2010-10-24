@@ -13,5 +13,4 @@
 	NSString* binFilePath;
 	NSString* textFilePath;
 }
-
 @end
