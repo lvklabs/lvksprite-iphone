@@ -2,6 +2,7 @@
 //  LvkSprite.m
 //
 
+#import <Foundation/NSData.h>
 #import "LvkSprite.h"
 #import "LvkRepeatAction.h"
 #import "common.h"
@@ -145,16 +146,22 @@
 	
 	const float fps = 1.0/24.0;
 	
-	NSDataReadingOptions options;
-	NSData *binData = [NSData dataWithContentsOfFile:binFile options:options error:error];
+	NSData *binData = [NSData dataWithContentsOfFile:binFile options:0 error:error];
 	if (*error != nil) {
+		LKLOG(@"Error opening binary file: %@", [*error localizedDescription]);
 		return NO;
+	}else {
+		*error = nil;
 	}
+
 	
 	NSStringEncoding encoding;
 	NSString *infoData = [NSString stringWithContentsOfFile:infoFile usedEncoding:&encoding error:error];
 	if (*error != nil) {
+		LKLOG(@"Error opening info file: %@", [*error localizedDescription]);
 		return NO;
+	}else {
+		*error = nil;
 	}
 	NSArray *lines = [infoData componentsSeparatedByString:@"\n"];
 	linesIterator = [lines objectEnumerator]; 
