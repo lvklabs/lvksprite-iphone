@@ -255,11 +255,13 @@
 				}
 				
 				[lvkAnimations setObject:anim forKey:animationName];
-								
+				
+				
 				[anim release];
 			}
 		}
-	}	
+	}
+	[nullAnim release];
 	[frames release];
 
 	LKLOG(@"LvkSprite: === Sprite parsing ended ===");
