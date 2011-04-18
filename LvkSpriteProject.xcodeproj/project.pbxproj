@@ -479,7 +479,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1D6058910D05DD3D006BFB54 /* LvkSprite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LvkSprite.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* display_bin2image.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = display_bin2image.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B6A347F124ABE9B002F820D /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		41922A3D111A68E40058E0DA /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Resources/Default.png; sourceTree = "<group>"; };
 		41922A3E111A68E40058E0DA /* fps_images.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fps_images.png; path = Resources/fps_images.png; sourceTree = "<group>"; };
@@ -578,7 +578,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* LvkSprite.app */,
+				1D6058910D05DD3D006BFB54 /* display_bin2image.app */,
 				E0B5417D124699D700A27025 /* Test.app */,
 				E0B544BA1246B73E00A27025 /* libLvkSprite.a */,
 			);
@@ -760,7 +760,7 @@
 			);
 			name = LvkSpriteProject;
 			productName = display_bin2image;
-			productReference = 1D6058910D05DD3D006BFB54 /* LvkSprite.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* display_bin2image.app */;
 			productType = "com.apple.product-type.application";
 		};
 		E0B5417C124699D700A27025 /* Test */ = {
@@ -1363,7 +1363,7 @@
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../cocos2d-iphone/cocos2d";
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = iphonesimulator4.0;
+				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../cocos2d-iphone/cocos2d";
 			};
 			name = Debug;
@@ -1379,7 +1379,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../cocos2d-iphone/cocos2d";
 				PREBINDING = NO;
-				SDKROOT = iphonesimulator4.0;
+				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../cocos2d-iphone/cocos2d";
 			};
 			name = Release;
@@ -1415,7 +1415,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = Test;
-				SDKROOT = iphonesimulator4.0;
+				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
@@ -1451,7 +1451,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = Test;
-				SDKROOT = iphonesimulator4.0;
+				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "";
 				ZERO_LINK = NO;
 			};

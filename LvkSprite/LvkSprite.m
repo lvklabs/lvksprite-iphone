@@ -7,12 +7,30 @@
 #import "LvkRepeatAction.h"
 #import "common.h"
 
+@interface LvkSprite ()
+
+@property (readwrite, retain) NSString* animation;
+@property (readwrite, retain) NSMutableDictionary* lvkAnimationsInternal;
+@property (readwrite, retain) NSEnumerator* linesIterator;
+@property (readwrite, retain) CCAction* aniAction;
+@end
+
 @implementation LvkSprite
 
+@synthesize animation = _animation;
+@synthesize lvkAnimationsInternal = _lvkAnimations;
+@synthesize linesIterator = _linesIterator;
+@synthesize aniAction = _aniAction;
+@synthesize collisionThreshold;
+
+- (NSDictionary*) lvkAnimations{
+    return _lvkAnimations;
+}
+
 - (id)init{
-	if(self = [super init]){
-		animation = nil;
-		aniAction = nil;
+	if((self = [super init])){
+		_animation = nil;
+		_aniAction = nil;
 		px = &(position_.x);
 		py = &(position_.y);
 		pw = &(contentSize_.width);
@@ -26,11 +44,11 @@
 
 - (id) initWithBinary: (NSString*)binFile andInfo: (NSString*)infoFile andError:(NSError**)error
 {
-	if(self = [super init]){
+	if((self = [super init])){
 		[self loadBinary: binFile andInfo: infoFile andError:error];
 
-		animation = nil;
-		aniAction = nil;
+		_animation = nil;
+		_aniAction = nil;
 		px = &(position_.x);
 		py = &(position_.y);
 		pw = &(contentSize_.width);
@@ -45,7 +63,10 @@
 }
 
 - (void) dealloc {
-	[lvkAnimations release];
+	SecureRelease(_animation);
+	SecureRelease(_lvkAnimations);
+	SecureRelease(_linesIterator);
+	SecureRelease(_aniAction);
 	[super dealloc];
 }
 
@@ -137,7 +158,7 @@
 	
 	// Ommit empty lines and comments
 	do {
-		line = [linesIterator nextObject];
+		line = [self.linesIterator nextObject];
 				
 		// TODO check what happens if the iterator has reached the end
 		if (!line) {
@@ -155,7 +176,7 @@
 	LKLOG(@"LvkSprite: === Sprite parsing started ===");
 	LKLOG(@"LvkSprite: %@,%@", binFile, infoFile);
 
-	[lvkAnimations removeAllObjects];
+	[self.lvkAnimationsInternal removeAllObjects];
 	
 	const float fps = 1.0/24.0;
 	
@@ -178,15 +199,16 @@
 		*error = nil;
 	}
 	NSArray *lines = [infoData componentsSeparatedByString:@"\n"];
-	linesIterator = [lines objectEnumerator]; 
+	self.linesIterator = [lines objectEnumerator]; 
 
 	NSMutableDictionary *frames = [[NSMutableDictionary alloc] initWithCapacity:10];
-	NSArray *lineInfo;
-	NSString* line;
+	NSArray *lineInfo = nil;
+	NSString* line = nil;
 	
 	CCAnimation *nullAnim = [[CCAnimation alloc] initWithName:@"NullAnimation" delay:fps];
-	[lvkAnimations setObject:nullAnim forKey:@"NullAnimation"];
-		
+	[self.lvkAnimationsInternal setObject:nullAnim forKey:@"NullAnimation"];
+    [nullAnim release];
+    
 	while ( (line = [self nextLine]) ) {	
 				
 		// parsing frames
@@ -209,7 +231,7 @@
 		// parsing animations
 		if ([line hasPrefix:@"animations("]){
 						
-			lvkAnimations = [[NSMutableDictionary alloc] init];
+			self.lvkAnimationsInternal = [NSMutableDictionary dictionary];
 			
 			for (line = [self nextLine]; ![line hasPrefix:@")"]; line = [self nextLine]) {
 				
@@ -219,7 +241,7 @@
 				//             ")"
 				lineInfo = [line componentsSeparatedByString:@","];
 				NSString *animationId = [lineInfo objectAtIndex:0];
-				NSString *animationName = [lineInfo objectAtIndex: 1];
+				NSString *animationName = [[lineInfo objectAtIndex: 1] retain];
 				LKLOG(@"LvkSprite: Parsing animation: %@ %@", animationId, animationName);
 				
 				NSString *CCAnimationId = [NSString stringWithFormat:@"%@_%@", infoFile, animationId];
@@ -254,12 +276,13 @@
 					}
 				}
 				
-				[lvkAnimations setObject:anim forKey:animationName];
+				[self.lvkAnimationsInternal setObject:anim forKey:animationName];
+                [animationName release];
 								
 				[anim release];
 			}
 		}
-	}	
+	}
 	[frames release];
 
 	LKLOG(@"LvkSprite: === Sprite parsing ended ===");
@@ -276,20 +299,20 @@
 	[self setPosition:ccp(x, y)];
 	[self stopAnimation];
 	
-	CCAnimation *anim = [lvkAnimations objectForKey:name];
+	CCAnimation *anim = [self.lvkAnimations objectForKey:name];
 
-	animation = nil;
+	self.animation = nil;
 	if (anim != nil) {
 		if (n > 0) {
-			aniAction = [[LvkRepeatAction alloc] initWithAction:[CCAnimate actionWithAnimation:anim] times:n];
+            self.aniAction = [[LvkRepeatAction alloc] initWithAction:[CCAnimate actionWithAnimation:anim] times:n];
 		} else if (n == -1) {
-			aniAction = [[CCRepeatForever alloc] initWithAction:[CCAnimate actionWithAnimation:anim]];
+			self.aniAction = [[CCRepeatForever alloc] initWithAction:[CCAnimate actionWithAnimation:anim]];
 		} else {
-			aniAction = nil;
+			self.aniAction = nil;
 		}
-		if (aniAction != nil) {
-			[self runAction:aniAction];
-			animation = name;
+		if (self.aniAction != nil) {
+			[self runAction:self.aniAction];
+			self.animation = name;
 		}
 	} else {
 		LKLOG(@"LvkSprite: animation '%@' does not exist", name);
@@ -309,24 +332,20 @@
 
 - (void) stopAnimation
 {
-	if (aniAction != nil && ![aniAction isDone]) {
-		[self stopAction:aniAction];
-		[aniAction release];
-		aniAction = nil;
+	if (self.aniAction != nil && ![self.aniAction isDone]) {
+		[self stopAction:self.aniAction];
+		self.aniAction = nil;
 	}
 }
 
 - (BOOL) animationHasEnded
 {
-	if (aniAction == nil) {
+	if (self.aniAction == nil) {
 		return YES;
 	} else {
-		return [aniAction isDone];
+		return [self.aniAction isDone];
 	}
 }
-
-@synthesize animation;
-@synthesize lvkAnimations;
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -417,8 +436,6 @@
 {
 	return CGRectMake(*px, *py, *pw, *ph);
 }
-
-@synthesize collisionThreshold;
 
 - (CGRect) collisionRect
 {

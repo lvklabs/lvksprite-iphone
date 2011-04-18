@@ -21,13 +21,13 @@
 @interface LvkSprite : CCSprite 
 {	
 	// a dictionary mapping animationName --> cocosAnimation
-	NSMutableDictionary *lvkAnimations;
+	NSMutableDictionary *_lvkAnimations;
 	// Lines iterator used to parse the sprite file
-	NSEnumerator *linesIterator; 
+	NSEnumerator *_linesIterator; 
 	// current animation name
-	NSString *animation;
+	NSString *_animation;
 	// current animation action
-	CCAction *aniAction;
+	CCAction *_aniAction;
 	// pointer to the x position
 	CGFloat *px;
 	// pointer to the y position
@@ -40,7 +40,30 @@
 	CGFloat collisionThreshold;
 }
 
-/// Initializes an instance of the class using a Lvk Sprite 
+/// Gets the name of the current animation
+/// @returns the name of the current animation or
+///          nil if no animation is playing
+@property (readonly, retain) NSString* animation;
+
+/// Set/returns the position of the sprite in the x axis
+@property CGFloat x;
+
+/// Set/returns the position of the sprite in the y axis
+@property CGFloat y;
+
+@property (readonly, retain) NSDictionary* lvkAnimations;
+
+/// Gets the current frame rect
+@property (readonly) CGRect rect;
+
+/// Gets the current frame rect plus the collision threshold 
+@property (readonly) CGRect collisionRect;
+
+/// Gets or sets the collision threshold.
+/// TODO explain with more detail
+@property CGFloat collisionThreshold;
+
+//// Initializes an instance of the class using a Lvk Sprite 
 /// @param bin: the lvk sprite binary file (usually *.lkob)
 /// @param info: the lvk sprite information file (usually *.lkot)
 /// @returns an initialized instance of LvkSprite
@@ -77,19 +100,6 @@
 /// Returns if the animation has ended
 /// @returns TRUE if the animation has ended, FALSE otherwise. 
 - (BOOL) animationHasEnded;
-
-/// Gets the name of the current animation
-/// @returns the name of the current animation or
-///          nil if no animation is playing
-@property (readonly) NSString* animation;
-
-/// Set/returns the position of the sprite in the x axis
-@property CGFloat x;
-
-/// Set/returns the position of the sprite in the y axis
-@property CGFloat y;
-
-@property (readonly, retain) NSDictionary* lvkAnimations;
 
 /// Changes the position of the sprite in the x axis relative to the current position
 /// @param dx: the x offset
@@ -152,17 +162,7 @@
 /// TODO: implement
 - (BOOL) moveHasEnded;
 
-/// Gets the current frame rect
-@property (readonly) CGRect rect;
-
-/// Gets the current frame rect plus the collision threshold 
-@property (readonly) CGRect collisionRect;
-
-/// Gets or sets the collision threshold.
-/// TODO explain with more detail
-@property CGFloat collisionThreshold;
-
-/// Returns if the sprite collides with the given sprite
+// Returns if the sprite collides with the given sprite
 /// @param spr: the given sprite
 /// @returns TRUE if the sprite collides with the given sprite,
 ///          FALSE otherwise
