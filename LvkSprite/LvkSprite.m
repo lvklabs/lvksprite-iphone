@@ -201,7 +201,7 @@
 	NSArray *lines = [infoData componentsSeparatedByString:@"\n"];
 	self.linesIterator = [lines objectEnumerator]; 
 
-	NSMutableDictionary *frames = [[NSMutableDictionary alloc] initWithCapacity:10];
+	NSMutableDictionary *frames = [NSMutableDictionary dictionaryWithCapacity:10];
 	NSArray *lineInfo = nil;
 	NSString* line = nil;
 	
@@ -241,7 +241,7 @@
 				//             ")"
 				lineInfo = [line componentsSeparatedByString:@","];
 				NSString *animationId = [lineInfo objectAtIndex:0];
-				NSString *animationName = [[lineInfo objectAtIndex: 1] retain];
+				NSString *animationName = [lineInfo objectAtIndex: 1];
 				LKLOG(@"LvkSprite: Parsing animation: %@ %@", animationId, animationName);
 				
 				NSString *CCAnimationId = [NSString stringWithFormat:@"%@_%@", infoFile, animationId];
@@ -277,13 +277,10 @@
 				}
 				
 				[self.lvkAnimationsInternal setObject:anim forKey:animationName];
-                [animationName release];
-								
 				[anim release];
 			}
 		}
 	}
-	[frames release];
 
 	LKLOG(@"LvkSprite: === Sprite parsing ended ===");
 
