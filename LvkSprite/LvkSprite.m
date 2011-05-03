@@ -29,6 +29,7 @@
 
 - (id)init{
 	if((self = [super init])){
+        _lkobFormat = LkobStandar;
 		_animation = nil;
 		_aniAction = nil;
 		px = &(position_.x);
@@ -42,10 +43,12 @@
 	return self;
 }
 
-- (id) initWithBinary: (NSString*)binFile andInfo: (NSString*)infoFile andError:(NSError**)error
+- (id) initWithBinary: (NSString*)binFile format:(LkobFormat)format andInfo: (NSString*)infoFile andError:(NSError**)error
 {
 	if((self = [super init])){
-		[self loadBinary: binFile andInfo: infoFile andError:error];
+        _lkobFormat = format;
+        
+		[self loadBinary: binFile format:format andInfo: infoFile andError:error];
 
 		_animation = nil;
 		_aniAction = nil;
@@ -171,7 +174,7 @@
 	return line;	
 }
 
-- (BOOL) loadBinary: (NSString*)binFile andInfo: (NSString*)infoFile andError:(NSError**)error
+- (BOOL) loadBinary: (NSString*)binFile format:(LkobFormat)format andInfo: (NSString*)infoFile andError:(NSError**)error
 {
 	LKLOG(@"LvkSprite: === Sprite parsing started ===");
 	LKLOG(@"LvkSprite: %@,%@", binFile, infoFile);
@@ -271,13 +274,19 @@
 					
 					while (frameCount*fps < timeCount) {
 						NSString *CCFrameId = [NSString stringWithFormat:@"%@_%@", infoFile, frameId];
-						[anim addFrameContent:[frames objectForKey:CCFrameId] withKey:CCFrameId];
+                        if (format == LkobStandar) {
+                            [anim addFrameContent:[frames objectForKey:CCFrameId] withKey:CCFrameId];                            
+                        } else {
+                            [anim addFramePVRTCContent:[frames objectForKey:CCFrameId] withKey:CCFrameId];
+                        }
 						frameCount++;
 					}
 				}
 				
 				[self.lvkAnimationsInternal setObject:anim forKey:animationName];
 				[anim release];
+                
+                // TODO check release frames???
 			}
 		}
 	}

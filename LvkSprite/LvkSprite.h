@@ -5,6 +5,11 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
+typedef enum {
+    LkobStandar,
+    LkobPVRTC,
+} LkobFormat;
+
 /// This class loads and plays sprites created with the
 /// Lvk Sprite Animation Tool. The Lvk Sprite format 
 /// consists of two files: the binary file (*.lkob) and 
@@ -20,6 +25,9 @@
 ///
 @interface LvkSprite : CCSprite 
 {	
+    // does the binary file contain PVRTC images
+    LkobFormat _lkobFormat;
+    
 	// a dictionary mapping animationName --> cocosAnimation
 	NSMutableDictionary *_lvkAnimations;
 	// Lines iterator used to parse the sprite file
@@ -65,16 +73,18 @@
 
 //// Initializes an instance of the class using a Lvk Sprite 
 /// @param bin: the lvk sprite binary file (usually *.lkob)
+/// @param format: the lvk sprite binary format (Standar or PVRTC)
 /// @param info: the lvk sprite information file (usually *.lkot)
 /// @returns an initialized instance of LvkSprite
-- (id) initWithBinary: (NSString*)bin andInfo: (NSString*)info andError:(NSError**)error;
+- (id) initWithBinary: (NSString*)bin format:(LkobFormat)format andInfo: (NSString*)info andError:(NSError**)error;
 
 /// Loads a Lvk Sprite
 /// @param bin: the lvk sprite binary file (usually *.lkob)
+/// @param format: the lvk sprite binary format (Standar or PVRTC)
 /// @param info: the lvk sprite information file (usually *.lkot)
 /// @returns TRUE if it loads and parses the files successfully,
 ///          FALSE otherwise
-- (BOOL) loadBinary: (NSString*)bin andInfo: (NSString*)info andError:(NSError**)error;
+- (BOOL) loadBinary: (NSString*)bin format:(LkobFormat)format andInfo: (NSString*)info andError:(NSError**)error;
 
 /// Plays n times the given animation at the given position
 /// @param name: the animation name
