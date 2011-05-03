@@ -7,6 +7,35 @@
 #import "LvkRepeatAction.h"
 #import "common.h"
 
+////////////////////////////////////////////////////////////////////////////////
+// free_mem()
+//
+// TODO move this to another file
+
+#import <mach/mach.h>      // freemem
+#import <mach/mach_host.h> // freemem
+
+natural_t free_mem() {
+    mach_port_t host_port;
+    mach_msg_type_number_t host_size;
+    vm_size_t pagesize;
+    host_port = mach_host_self();
+    
+    host_size = sizeof(vm_statistics_data_t) / sizeof(integer_t);
+    host_page_size(host_port, &pagesize);
+    vm_statistics_data_t vm_stat;
+    if (host_statistics(host_port, HOST_VM_INFO, (host_info_t)&vm_stat, &host_size) != KERN_SUCCESS) {
+        
+        NSLog(@"Failed to fetch vm statistics");
+        return 0;
+    }
+    /* Stats in bytes */
+    natural_t mem_free = vm_stat.free_count * pagesize;
+    return mem_free;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 @interface LvkSprite ()
 
 @property (readwrite, retain) NSString* animation;
@@ -178,6 +207,7 @@
 {
 	LKLOG(@"LvkSprite: === Sprite parsing started ===");
 	LKLOG(@"LvkSprite: %@,%@", binFile, infoFile);
+    LKLOG(@"Free Mem: %ui MB", free_mem()/1024/1024);
 
 	[self.lvkAnimationsInternal removeAllObjects];
 	
@@ -224,6 +254,7 @@
 				NSUInteger offset = [[lineInfo objectAtIndex: 1] intValue];
 				NSUInteger length = [[lineInfo objectAtIndex: 2] intValue];
 				LKLOG(@"LvkSprite: Parsing frame: %@,%i,%i", frameId, offset, length);
+                LKLOG(@"Free Mem: %ui MB", free_mem()/1024/1024);
 				
 				NSRange range = NSMakeRange(offset, length);
 				NSString *CCFrameId = [NSString stringWithFormat:@"%@_%@", infoFile, frameId];
@@ -246,6 +277,7 @@
 				NSString *animationId = [lineInfo objectAtIndex:0];
 				NSString *animationName = [lineInfo objectAtIndex: 1];
 				LKLOG(@"LvkSprite: Parsing animation: %@ %@", animationId, animationName);
+                LKLOG(@"Free Mem: %ui MB", free_mem()/1024/1024);
 				
 				NSString *CCAnimationId = [NSString stringWithFormat:@"%@_%@", infoFile, animationId];
 				CCAnimation *anim = [[CCAnimation alloc] initWithName:CCAnimationId delay:fps];
