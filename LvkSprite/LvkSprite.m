@@ -56,6 +56,10 @@ natural_t free_mem() {
     return _lvkAnimations;
 }
 
++ (id) spriteWithBinary: (NSString*)bin format:(LkobFormat)format andInfo: (NSString*)info andError:(NSError**)error{
+    return [[[LvkSprite alloc] initWithBinary:bin format:format andInfo:info andError:error] autorelease];
+}
+
 - (id)init{
 	if((self = [super init])){
         _lkobFormat = LkobStandar;

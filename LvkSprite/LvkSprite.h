@@ -71,6 +71,8 @@ typedef enum {
 /// TODO explain with more detail
 @property CGFloat collisionThreshold;
 
++ (id) spriteWithBinary: (NSString*)bin format:(LkobFormat)format andInfo: (NSString*)info andError:(NSError**)error;
+
 //// Initializes an instance of the class using a Lvk Sprite 
 /// @param bin: the lvk sprite binary file (usually *.lkob)
 /// @param format: the lvk sprite binary format (Standar or PVRTC)
