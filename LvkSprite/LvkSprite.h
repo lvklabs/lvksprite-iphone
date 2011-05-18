@@ -194,10 +194,4 @@ typedef enum {
 
 /// Drawing method that is called in every frame
 -(void) draw;
-
-/// deallocate resources used by the class
-///
-/// TODO: check that *all* resources are deallocated
-- (void) dealloc;
-
 @end

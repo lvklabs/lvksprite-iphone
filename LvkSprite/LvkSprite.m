@@ -92,8 +92,6 @@ natural_t free_mem() {
 		collisionThreshold = 0;
 		
 		self.anchorPoint = CGPointMake(0, 0);
-		
-		[self schedule:@selector(tick:)];
 	}
 	return self;
 }
@@ -104,10 +102,6 @@ natural_t free_mem() {
 	SecureRelease(_linesIterator);
 	SecureRelease(_aniAction);
 	[super dealloc];
-}
-
-- (void) tick: (ccTime) dt
-{
 }
 
 -(void) draw
@@ -352,9 +346,9 @@ natural_t free_mem() {
 	self.animation = nil;
 	if (anim != nil) {
 		if (n > 0) {
-            self.aniAction = [[LvkRepeatAction alloc] initWithAction:[CCAnimate actionWithAnimation:anim] times:n];
+            self.aniAction = [LvkRepeatAction actionWithAction:[CCAnimate actionWithAnimation:anim] times:n];
 		} else if (n == -1) {
-			self.aniAction = [[CCRepeatForever alloc] initWithAction:[CCAnimate actionWithAnimation:anim]];
+			self.aniAction = [CCRepeatForever actionWithAction:[CCAnimate actionWithAnimation:anim]];
 		} else {
 			self.aniAction = nil;
 		}
