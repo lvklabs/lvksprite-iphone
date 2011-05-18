@@ -120,7 +120,8 @@ natural_t free_mem() {
 	CGFloat w;
 	CGFloat h;
 	
-	glColor4ub(255, 0, 255, 255);
+	//Color:magenta
+    glColor4ub(255, 0, 255, 255);
 	glLineWidth(1);
 	x = rect_.origin.x;
 	y = rect_.origin.y;
@@ -134,9 +135,11 @@ natural_t free_mem() {
 	};
 	ccDrawPoly(v1, 4, YES);
 
+	//Color:red
 	glColor4ub(255, 0, 0, 255);
 	ccDrawPoint(CGPointMake(x, y));	
 	
+	//Color:purple
 	glColor4ub(128, 0, 128, 255);
 	glLineWidth(1);
 	x = rect_.origin.x - collisionThreshold;
@@ -151,6 +154,7 @@ natural_t free_mem() {
 	};
 	ccDrawPoly(v3, 4, YES);
 	
+	//Color:green
 	glColor4ub(0, 255, 0, 255);
 	glLineWidth(1);
 	x = position_.x;
@@ -165,9 +169,11 @@ natural_t free_mem() {
 	};
 	ccDrawPoly(v2, 4, YES);
 
+	//Color:magenta
 	glColor4ub(255, 0, 0, 255);
 	ccDrawPoint(CGPointMake(x, y));	
 	
+	//Color:dark green
 	glColor4ub(0, 128, 0, 255);
 	glLineWidth(1);
 	x = position_.x - collisionThreshold;

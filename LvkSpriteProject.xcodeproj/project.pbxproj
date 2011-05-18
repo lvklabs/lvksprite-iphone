@@ -608,8 +608,8 @@
 				E09FABA311E1304600334436 /* common.h */,
 				41922A47111A68F40058E0DA /* LvkSprite.h */,
 				41922A48111A68F40058E0DA /* LvkSprite.m */,
-				4199EE9511B2D869005919CB /* LvkRepeatAction.m */,
 				4199EE9711B2D88D005919CB /* LvkRepeatAction.h */,
+				4199EE9511B2D869005919CB /* LvkRepeatAction.m */,
 			);
 			name = "LvkSprite Sources";
 			sourceTree = "<group>";
