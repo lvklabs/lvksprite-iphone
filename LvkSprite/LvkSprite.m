@@ -209,10 +209,13 @@ natural_t free_mem() {
 
 - (BOOL) loadBinary: (NSString*)binFile format:(LkobFormat)format andInfo: (NSString*)infoFile andError:(NSError**)error
 {
+#ifdef LVKSPRITELOG
 	LKLOG(@"LvkSprite: === Sprite parsing started ===");
 	LKLOG(@"LvkSprite: %@,%@", binFile, infoFile);
+#endif
+#ifdef MEMORYLOG 
     LKLOG(@"Free Mem: %ui MB", free_mem()/1024/1024);
-
+#endif
 	[self.lvkAnimationsInternal removeAllObjects];
 	
 	const float fps = 1.0/24.0;
@@ -257,9 +260,12 @@ natural_t free_mem() {
 				NSString *frameId = [lineInfo objectAtIndex: 0];
 				NSUInteger offset = [[lineInfo objectAtIndex: 1] intValue];
 				NSUInteger length = [[lineInfo objectAtIndex: 2] intValue];
+#ifdef LVKSPRITELOG
 				LKLOG(@"LvkSprite: Parsing frame: %@,%i,%i", frameId, offset, length);
+#endif
+#ifdef MEMORYLOG 
                 LKLOG(@"Free Mem: %ui MB", free_mem()/1024/1024);
-				
+#endif				
 				NSRange range = NSMakeRange(offset, length);
 				NSString *CCFrameId = [NSString stringWithFormat:@"%@_%@", infoFile, frameId];
 				[frames setObject:[binData subdataWithRange: range] forKey: CCFrameId];
@@ -280,9 +286,12 @@ natural_t free_mem() {
 				lineInfo = [line componentsSeparatedByString:@","];
 				NSString *animationId = [lineInfo objectAtIndex:0];
 				NSString *animationName = [lineInfo objectAtIndex: 1];
+#ifdef LVKSPRITELOG
 				LKLOG(@"LvkSprite: Parsing animation: %@ %@", animationId, animationName);
+#endif
+#ifdef MEMORYLOG 
                 LKLOG(@"Free Mem: %ui MB", free_mem()/1024/1024);
-				
+#endif				
 				NSString *CCAnimationId = [NSString stringWithFormat:@"%@_%@", infoFile, animationId];
 				CCAnimation *anim = [[CCAnimation alloc] initWithName:CCAnimationId delay:fps];
 				
@@ -326,9 +335,9 @@ natural_t free_mem() {
 			}
 		}
 	}
-
+#ifdef LVKSPRITELOG
 	LKLOG(@"LvkSprite: === Sprite parsing ended ===");
-
+#endif
 	return TRUE;
 }
 
@@ -336,8 +345,9 @@ natural_t free_mem() {
 
 - (void) playAnimation: (NSString *)name atX:(CGFloat)x atY:(CGFloat)y repeat:(int)n
 {
+#ifdef LVKSPRITELOG
 	LKLOG(@"LvkSprite: Playing animation '%@' at (%f,%f) %i times", name, x, y, n);
-	
+#endif
 	[self setPosition:ccp(x, y)];
 	[self stopAnimation];
 	
