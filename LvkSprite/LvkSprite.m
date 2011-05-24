@@ -317,13 +317,12 @@ natural_t free_mem() {
 				
 				[self.lvkAnimationsInternal setObject:anim forKey:animationName];
 				[anim release];
-                
-                // TODO check release frames???
 			}
 		}
 	}
 
 	LKLOG(@"LvkSprite: === Sprite parsing ended ===");
+    LKLOG(@"Free Mem: %ui MB", free_mem()/1024/1024);
 
 	return TRUE;
 }
