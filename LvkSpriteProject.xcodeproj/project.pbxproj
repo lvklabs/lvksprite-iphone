@@ -28,7 +28,7 @@
 		DCCBF1BF0F6022AE0040855A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1BE0F6022AE0040855A /* UIKit.framework */; };
 		E09DBFA012747590003CCC20 /* ryu-fixed-frame-size.lkob in Resources */ = {isa = PBXBuildFile; fileRef = E0B545A91246C04C00A27025 /* ryu-fixed-frame-size.lkob */; };
 		E09DBFA112747590003CCC20 /* ryu-fixed-frame-size.lkot in Resources */ = {isa = PBXBuildFile; fileRef = E0B545AA1246C04C00A27025 /* ryu-fixed-frame-size.lkot */; };
-		E0AC3E60125BE25F00D9B00F /* libcocos2d.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E0AC3CB4125BD43700D9B00F /* libcocos2d.a */; };
+		E0AC3E60125BE25F00D9B00F /* libcocos2d.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E0AC3CB4125BD43700D9B00F /* libcocos2d.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		E0B541B812469B8800A27025 /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0B541B712469B8800A27025 /* GHUnitIOS.framework */; };
 		E0B543AD1246A20400A27025 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1B60F6022AE0040855A /* CoreGraphics.framework */; };
 		E0B543AE1246A20400A27025 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1B80F6022AE0040855A /* Foundation.framework */; };
@@ -462,19 +462,19 @@
 			remoteGlobalIDString = 507FF8F2116D16F600B6FAB2;
 			remoteInfo = Bug350;
 		};
-		E0AC3D3E125BDD3C00D9B00F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E0AC3C6F125BD43700D9B00F /* cocos2d-iphone.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 5018F24C0DFDEAC400C013A5;
-			remoteInfo = cocos2d;
-		};
 		E0B544CE1246B78F00A27025 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = E0B544B91246B73E00A27025;
 			remoteInfo = LvkSprite;
+		};
+		E0CB7E7B13953F1000A05E24 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E0AC3C6F125BD43700D9B00F /* cocos2d-iphone.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 5018F24C0DFDEAC400C013A5;
+			remoteInfo = cocos2d;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -559,7 +559,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E0AC3E60125BE25F00D9B00F /* libcocos2d.a in Frameworks */,
 				E0B544BF1246B75E00A27025 /* CoreGraphics.framework in Frameworks */,
 				E0B544C01246B75E00A27025 /* Foundation.framework in Frameworks */,
 				E0B544C11246B75E00A27025 /* OpenGLES.framework in Frameworks */,
@@ -569,6 +568,7 @@
 				E0B544C51246B75E00A27025 /* OpenAL.framework in Frameworks */,
 				E0B544C61246B75E00A27025 /* libz.dylib in Frameworks */,
 				E0B544C71246B75E00A27025 /* AVFoundation.framework in Frameworks */,
+				E0AC3E60125BE25F00D9B00F /* libcocos2d.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -792,7 +792,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				E0AC3D3F125BDD3C00D9B00F /* PBXTargetDependency */,
+				E0CB7E7C13953F1000A05E24 /* PBXTargetDependency */,
 			);
 			name = LvkSprite;
 			productName = LvkSprite;
@@ -1295,15 +1295,15 @@
 			target = E0B544B91246B73E00A27025 /* LvkSprite */;
 			targetProxy = 3BBDC27212517ADB0052B8D7 /* PBXContainerItemProxy */;
 		};
-		E0AC3D3F125BDD3C00D9B00F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = cocos2d;
-			targetProxy = E0AC3D3E125BDD3C00D9B00F /* PBXContainerItemProxy */;
-		};
 		E0B544CF1246B78F00A27025 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E0B544B91246B73E00A27025 /* LvkSprite */;
 			targetProxy = E0B544CE1246B78F00A27025 /* PBXContainerItemProxy */;
+		};
+		E0CB7E7C13953F1000A05E24 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = cocos2d;
+			targetProxy = E0CB7E7B13953F1000A05E24 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1319,7 +1319,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = "COCOS2D_DEBUG=1";
+				GCC_PREPROCESSOR_DEFINITIONS = "COCOS2D_DEBUG=0";
 				GCC_THUMB_SUPPORT = NO;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = Info.plist;
@@ -1364,6 +1364,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../cocos2d-iphone/cocos2d";
 			};
 			name = Debug;
@@ -1380,6 +1381,7 @@
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../cocos2d-iphone/cocos2d";
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../cocos2d-iphone/cocos2d";
 			};
 			name = Release;
@@ -1464,14 +1466,19 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "$(inherited)/**";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/LvkSprite/Frameworks/cocos2d/Simulator\"",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PREBINDING = NO;
 				PRODUCT_NAME = LvkSprite;
+				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "$(inherited)";
 			};
 			name = Debug;
@@ -1483,14 +1490,19 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "$(inherited)/**";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/LvkSprite/Frameworks/cocos2d/Simulator\"",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PREBINDING = NO;
 				PRODUCT_NAME = LvkSprite;
+				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "$(inherited)";
 				ZERO_LINK = NO;
 			};
