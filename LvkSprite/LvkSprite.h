@@ -93,8 +93,6 @@ typedef enum {
 /// @param x: the x position of the animation
 /// @param y: the y position of the animation
 /// @param n: repeat n times the animation, -1 repeats forever
-///
-/// FIXME: always repeats forever
 - (void) playAnimation: (NSString *)name atX:(CGFloat)x atY:(CGFloat)y repeat:(int)n;
 
 /// Plays n times the given animation

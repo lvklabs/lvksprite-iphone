@@ -210,8 +210,8 @@ natural_t free_mem() {
 - (BOOL) loadBinary: (NSString*)binFile format:(LkobFormat)format andInfo: (NSString*)infoFile andError:(NSError**)error
 {
 #ifdef LVKSPRITELOG
-	LKLOG(@"LvkSprite: === Sprite parsing started ===");
-	LKLOG(@"LvkSprite: %@,%@", binFile, infoFile);
+	LKLOG(@" LvkSprite - === Sprite parsing started ===");
+	LKLOG(@" LvkSprite - %@,%@", binFile, infoFile);
 #endif
 #ifdef MEMORYLOG 
     LKLOG(@"Free Mem: %ui MB", free_mem()/1024/1024);
@@ -261,7 +261,7 @@ natural_t free_mem() {
 				NSUInteger offset = [[lineInfo objectAtIndex: 1] intValue];
 				NSUInteger length = [[lineInfo objectAtIndex: 2] intValue];
 #ifdef LVKSPRITELOG
-				LKLOG(@"LvkSprite: Parsing frame: %@,%i,%i", frameId, offset, length);
+				LKLOG(@" LvkSprite - Parsing frame: %@,%i,%i", frameId, offset, length);
 #endif
 #ifdef MEMORYLOG 
                 LKLOG(@"Free Mem: %ui MB", free_mem()/1024/1024);
@@ -287,7 +287,7 @@ natural_t free_mem() {
 				NSString *animationId = [lineInfo objectAtIndex:0];
 				NSString *animationName = [lineInfo objectAtIndex: 1];
 #ifdef LVKSPRITELOG
-				LKLOG(@"LvkSprite: Parsing animation: %@ %@", animationId, animationName);
+				LKLOG(@" LvkSprite - Parsing animation: %@ %@", animationId, animationName);
 #endif
 #ifdef MEMORYLOG 
                 LKLOG(@"Free Mem: %ui MB", free_mem()/1024/1024);
@@ -297,7 +297,7 @@ natural_t free_mem() {
 				
 				line = [self nextLine];
 				if (![line hasPrefix:@"aframes("]) {  
-					LKLOG(@"LvkSprite: Error: Ill-formed sprite file: aframes(...) section expected, found '%@'", line);
+					LKLOG(@" LvkSprite - Error: Ill-formed sprite file: aframes(...) section expected, found '%@'", line);
 				}
 				
 				NSInteger frameCount = 1; // it counts the number of the next frame to load
@@ -334,7 +334,7 @@ natural_t free_mem() {
 		}
 	}
 #ifdef LVKSPRITELOG
-	LKLOG(@"LvkSprite: === Sprite parsing ended ===");
+	LKLOG(@" LvkSprite - === Sprite parsing ended ===");
     LKLOG(@"Free Mem: %ui MB", free_mem()/1024/1024);
 #endif
 
@@ -346,7 +346,7 @@ natural_t free_mem() {
 - (void) playAnimation: (NSString *)name atX:(CGFloat)x atY:(CGFloat)y repeat:(int)n
 {
 #ifdef LVKSPRITELOG
-	LKLOG(@"LvkSprite: Playing animation '%@' at (%f,%f) %i times", name, x, y, n);
+	LKLOG(@"LvkSprite - Playing animation '%@' at (%f,%f) %i times", name, x, y, n);
 #endif
 	[self setPosition:ccp(x, y)];
 	[self stopAnimation];
@@ -367,7 +367,7 @@ natural_t free_mem() {
 			self.animation = name;
 		}
 	} else {
-		LKLOG(@"LvkSprite: animation '%@' does not exist", name);
+		LKLOG(@" LvkSprite - animation '%@' does not exist", name);
 	}
 }
 
