@@ -38,15 +38,14 @@ natural_t free_mem() {
 
 @interface LvkSprite ()
 
-@property (readwrite, retain) NSString* animation;
 @property (readwrite, retain) NSMutableDictionary* lvkAnimationsInternal;
 @property (readwrite, retain) NSEnumerator* linesIterator;
 @property (readwrite, retain) CCAction* aniAction;
+
 @end
 
 @implementation LvkSprite
 
-@synthesize animation = _animation;
 @synthesize lvkAnimationsInternal = _lvkAnimations;
 @synthesize linesIterator = _linesIterator;
 @synthesize aniAction = _aniAction;
@@ -342,45 +341,125 @@ natural_t free_mem() {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// TODO some pieces of code are duplicated. Refactor!
+
+
+// Helper function to build CCActions from the list of animation names
+- (NSMutableArray *) _getActionsFromAnimationList:(NSArray *) names repeat:(NSArray *)ns
+{
+	NSMutableArray *actions = [NSMutableArray arrayWithCapacity:names.count];
+	
+	int i;
+	for (i = 0; i < names.count ; i++) {
+		NSString* name = [names objectAtIndex:i];
+		int n = (ns != nil && ns.count > i) ? [(NSNumber *)[ns objectAtIndex:i] intValue] : 1;
+		
+		CCAnimation *anim = [self.lvkAnimations objectForKey:name];
+		
+		if (anim != nil) {
+			CCAction* action = nil;
+			
+			if (n == 1) {
+				action = [CCAnimate actionWithAnimation:anim];
+			} else if (n > 1) {
+				action = [LvkRepeatAction actionWithAction:[CCAnimate actionWithAnimation:anim] times:n];
+			} else if (n == -1) {
+				// Cannot use CCRepeatForever because this array of CCActions is used by CCSequence.
+				// CCSequence requires all CCActions to be CCFiniteAction and CCRepeatForever is not.
+				//action = [CCRepeatForever actionWithAction:[CCAnimate actionWithAnimation:anim]];
+				// NSUIntegerMax/10 should be enough for most purposes. Not using NSUIntegerMax because
+				// I guess there is a risk of overflow at some point.
+				action = [LvkRepeatAction actionWithAction:[CCAnimate actionWithAnimation:anim] times:NSUIntegerMax/100];
+			} 
+			
+			if (action != nil) {
+				[actions addObject:action];				
+			}
+			else
+			{
+				LKLOG(@" LvkSprite - Could not create action from animation '%@'", name);				
+			}
+		} else {
+			LKLOG(@" LvkSprite - animation '%@' does not exist", name);
+		}		
+	}
+
+	return actions;
+}
+
+// helper to play an action n times
+- (void) _playAction:(CCActionInterval *)action repeat:(int) n
+{
+	[self stopAnimation];
+	self.aniAction = nil;
+
+	if (n == 1) {
+		self.aniAction = action;
+	} else if (n > 1) {
+		self.aniAction = [LvkRepeatAction actionWithAction:action times:n];
+	} else if (n == -1) {
+		self.aniAction = [CCRepeatForever actionWithAction:action];
+	} 
+	
+	if (self.aniAction != nil) {
+		[self runAction:self.aniAction];
+	}			
+}
+
+// This helper function does the real work of playing a list of animations
+- (void) _playAnimations: (NSArray *)names repeat:(NSArray *)ns atX:(CGFloat)x atY:(CGFloat)y
+{	
+	[self setPosition:ccp(x, y)];
+	
+	CCSequence* seq = [CCSequence actionsWithArray:[self _getActionsFromAnimationList:names repeat:ns]];
+	
+	[self _playAction:seq repeat:1];
+}
+
+// This helper function does the real work of playing one animation
+- (void) _playAnimation: (NSString *)name atX:(CGFloat)x atY:(CGFloat)y repeat:(int)n
+{
+	[self setPosition:ccp(x, y)];
+	
+	CCAnimation *anim = [self.lvkAnimations objectForKey:name];
+	
+	if (anim != nil) {
+		[self _playAction:[CCAnimate actionWithAnimation:anim] repeat:n];
+	} else {
+		LKLOG(@" LvkSprite - animation '%@' does not exist", name);
+	}	
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 - (void) playAnimation: (NSString *)name atX:(CGFloat)x atY:(CGFloat)y repeat:(int)n
 {
-#ifdef LVKSPRITELOG
-	LKLOG(@"LvkSprite - Playing animation '%@' at (%f,%f) %i times", name, x, y, n);
-#endif
-	[self setPosition:ccp(x, y)];
-	[self stopAnimation];
-	
-	CCAnimation *anim = [self.lvkAnimations objectForKey:name];
-
-	self.animation = nil;
-	if (anim != nil) {
-		if (n > 0) {
-            self.aniAction = [LvkRepeatAction actionWithAction:[CCAnimate actionWithAnimation:anim] times:n];
-		} else if (n == -1) {
-			self.aniAction = [CCRepeatForever actionWithAction:[CCAnimate actionWithAnimation:anim]];
-		} else {
-			self.aniAction = nil;
-		}
-		if (self.aniAction != nil) {
-			[self runAction:self.aniAction];
-			self.animation = name;
-		}
-	} else {
-		LKLOG(@" LvkSprite - animation '%@' does not exist", name);
-	}
+	[self _playAnimation:name atX:x atY:y repeat:n];
 }
 
 - (void) playAnimation: (NSString *)name repeat:(int)n
 {
-	[self playAnimation:name atX:self.position.x atY:self.position.y repeat:n];
+	[self _playAnimation:name atX:self.position.x atY:self.position.y repeat:n];
 }
-
 
 - (void) playAnimation: (NSString *)name
 {
-	[self playAnimation:name repeat:-1];
+	[self _playAnimation:name atX:self.position.x atY:self.position.y repeat:-1];
 }
+
+// ---------------------------------------------------------------------------------
+
+- (void) playAnimations:(NSArray *)names repeat:(NSArray *)ns atX:(CGFloat)x atY:(CGFloat)y
+{
+	[self _playAnimations:names repeat:ns atX:x atY:y];
+}
+
+- (void) playAnimations:(NSArray *)names repeat:(NSArray *)ns
+{
+	[self _playAnimations:names repeat:ns atX:self.position.x atY:self.position.y];
+}
+
+// ---------------------------------------------------------------------------------
 
 - (void) stopAnimation
 {

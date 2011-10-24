@@ -31,7 +31,7 @@ typedef enum {
 	// a dictionary mapping animationName --> cocosAnimation
 	NSMutableDictionary *_lvkAnimations;
 	// Lines iterator used to parse the sprite file
-	NSEnumerator *_linesIterator; 
+	NSEnumerator *_linesIterator;
 	// current animation name
 	NSString *_animation;
 	// current animation action
@@ -47,11 +47,6 @@ typedef enum {
 	// collision threshold
 	CGFloat collisionThreshold;
 }
-
-/// Gets the name of the current animation
-/// @returns the name of the current animation or
-///          nil if no animation is playing
-@property (readonly, retain) NSString* animation;
 
 /// Set/returns the position of the sprite in the x axis
 @property CGFloat x;
@@ -95,14 +90,26 @@ typedef enum {
 /// @param n: repeat n times the animation, -1 repeats forever
 - (void) playAnimation: (NSString *)name atX:(CGFloat)x atY:(CGFloat)y repeat:(int)n;
 
-/// Plays n times the given animation
-/// @param name: the animation name
-/// @param n: repeat n times the animation, -1 to repeat forever
+/// Plays n times the given animation list
+/// @param names: the list of animation names
+/// @param n: repeat n times the animation, -1 repeats forever
 - (void) playAnimation: (NSString *)name repeat:(int)n;
 
 /// Plays forever the given animation
 /// @param name: the animation name
 - (void) playAnimation: (NSString *)name;
+
+/// Plays n times the given animation list at the given position
+/// @param names: the list of animation names
+/// @param ns: the list of repetitions for each animation. If nil it plays once.
+/// @param x: the x position of the animation
+/// @param y: the y position of the animation
+- (void) playAnimations: (NSArray *)names repeat:(NSArray *)ns atX:(CGFloat)x atY:(CGFloat)y;
+
+/// Plays n times the given animation list
+/// @param names: the list of animation names
+/// @param ns: the list of repetitions for each animation. If nil it plays once.
+- (void) playAnimations: (NSArray *)names repeat:(NSArray *)ns;
 
 /// Stops the current animation
 - (void) stopAnimation;
