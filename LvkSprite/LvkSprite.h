@@ -118,6 +118,10 @@ typedef enum {
 /// @returns TRUE if the animation has ended, FALSE otherwise. 
 - (BOOL) animationHasEnded;
 
+/// Returns if the given animation name exists in the sprite 
+/// @returns TRUE if the animation exists, FALSE otherwise. 
+- (BOOL) hasAnimation:(NSString *)name;
+
 /// Changes the position of the sprite in the x axis relative to the current position
 /// @param dx: the x offset
 - (void) setDx: (CGFloat)dx;

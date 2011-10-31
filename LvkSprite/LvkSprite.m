@@ -248,7 +248,11 @@ natural_t free_mem() {
 	[self.lvkAnimationsInternal setObject:nullAnim forKey:@"NullAnimation"];
     [nullAnim release];
     
-	while ( (line = [self nextLine]) ) {	
+	while ( (line = [self nextLine]) ) {
+		
+		///////////////////////////////////////////////////////////////
+		NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+		///////////////////////////////////////////////////////////////
 				
 		// parsing frames
 		if ([line hasPrefix:@"fpixmaps("]) {
@@ -305,6 +309,10 @@ natural_t free_mem() {
 				// aframes parsing
 				for (line = [self nextLine]; ![line hasPrefix:@")"]; line = [self nextLine]) {
 
+					///////////////////////////////////////////////////////////////
+					NSAutoreleasePool * subpool = [[NSAutoreleasePool alloc] init];
+					///////////////////////////////////////////////////////////////
+					
 					// line format "aframeId,frameId,delay,ox,oy"
 					lineInfo = [line componentsSeparatedByString:@","];
 					NSString* frameId = [lineInfo objectAtIndex: 1];					
@@ -325,12 +333,20 @@ natural_t free_mem() {
                         }
 						frameCount++;
 					}
+					
+					///////////////////////////////////////////////////////////////
+					[subpool release];
+					///////////////////////////////////////////////////////////////
 				}
 				
 				[self.lvkAnimationsInternal setObject:anim forKey:animationName];
 				[anim release];
 			}
 		}
+		
+		///////////////////////////////////////////////////////////////
+		[pool release];
+		///////////////////////////////////////////////////////////////
 	}
 #ifdef LVKSPRITELOG
 	LKLOG(@" LvkSprite - === Sprite parsing ended ===");
@@ -354,7 +370,7 @@ natural_t free_mem() {
 		NSString* name = [names objectAtIndex:i];
 		int n = (ns != nil && ns.count > i) ? [(NSNumber *)[ns objectAtIndex:i] intValue] : 1;
 		
-		CCAnimation *anim = [self.lvkAnimations objectForKey:name];
+		CCAnimation *anim = [self.lvkAnimationsInternal objectForKey:name];
 		
 		if (anim != nil) {
 			CCAction* action = nil;
@@ -421,7 +437,7 @@ natural_t free_mem() {
 {
 	[self setPosition:ccp(x, y)];
 	
-	CCAnimation *anim = [self.lvkAnimations objectForKey:name];
+	CCAnimation *anim = [self.lvkAnimationsInternal objectForKey:name];
 	
 	if (anim != nil) {
 		[self _playAction:[CCAnimate actionWithAnimation:anim] repeat:n];
@@ -476,6 +492,11 @@ natural_t free_mem() {
 	} else {
 		return [self.aniAction isDone];
 	}
+}
+
+- (BOOL) hasAnimation:(NSString *)name
+{
+	return [self.lvkAnimationsInternal objectForKey:name] != nil;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
