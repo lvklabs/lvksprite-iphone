@@ -27,7 +27,9 @@ typedef enum {
 {	
     // does the binary file contain PVRTC images
     LkobFormat _lkobFormat;
-    
+
+	// Key prefix to insert frames in map
+	NSString *_keyPrefix;
 	// a dictionary mapping animationName --> cocosAnimation
 	NSMutableDictionary *_lvkAnimations;
 	// Lines iterator used to parse the sprite file

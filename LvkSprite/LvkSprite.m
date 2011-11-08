@@ -36,11 +36,19 @@ natural_t free_mem() {
 
 ////////////////////////////////////////////////////////////////////////////////
 
+const float LVK_SPRITE_FPS = 1.0/24.0;
+
 @interface LvkSprite ()
 
 @property (readwrite, retain) NSMutableDictionary* lvkAnimationsInternal;
 @property (readwrite, retain) NSEnumerator* linesIterator;
 @property (readwrite, retain) CCAction* aniAction;
+@property (readwrite, retain) NSString* keyPrefix;
+
+- (NSString*) buildKeyWithFrameId:(NSString*)frameId;
+- (BOOL) parseFpixmaps:(NSMutableDictionary*)frames withBinData:(NSData *)binData;
+- (BOOL) parseAnimations:(NSMutableDictionary*)frames withFormat:(LkobFormat)format;
+- (BOOL) parseAframes:(NSMutableDictionary*)frames WithFormat:(LkobFormat)format insertIntoAnimation:(CCAnimation*)anim;
 
 @end
 
@@ -49,17 +57,21 @@ natural_t free_mem() {
 @synthesize lvkAnimationsInternal = _lvkAnimations;
 @synthesize linesIterator = _linesIterator;
 @synthesize aniAction = _aniAction;
+@synthesize keyPrefix = _keyPrefix;
 @synthesize collisionThreshold;
 
-- (NSDictionary*) lvkAnimations{
+- (NSDictionary*) lvkAnimations
+{
     return _lvkAnimations;
 }
 
-+ (id) spriteWithBinary: (NSString*)bin format:(LkobFormat)format andInfo: (NSString*)info andError:(NSError**)error{
++ (id) spriteWithBinary: (NSString*)bin format:(LkobFormat)format andInfo: (NSString*)info andError:(NSError**)error
+{
     return [[[LvkSprite alloc] initWithBinary:bin format:format andInfo:info andError:error] autorelease];
 }
 
-- (id)init{
+- (id)init
+{
 	if((self = [super init])){
         _lkobFormat = LkobStandar;
 		_animation = nil;
@@ -95,7 +107,8 @@ natural_t free_mem() {
 	return self;
 }
 
-- (void) dealloc {
+- (void) dealloc 
+{
 	SecureRelease(_animation);
 	SecureRelease(_lvkAnimations);
 	SecureRelease(_linesIterator);
@@ -194,11 +207,11 @@ natural_t free_mem() {
 	// Ommit empty lines and comments
 	do {
 		line = [self.linesIterator nextObject];
-				
-		// TODO check what happens if the iterator has reached the end
-		if (!line) {
-			return line;
+
+		if (line == nil) {
+			break;
 		}
+		
 		line = [line stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
 	} while ([line length] == 0 || [line hasPrefix:@"#"]);
@@ -215,139 +228,74 @@ natural_t free_mem() {
 #ifdef MEMORYLOG 
     LKLOG(@"Free Mem: %ui MB", free_mem()/1024/1024);
 #endif
-	[self.lvkAnimationsInternal removeAllObjects];
 	
-	const float fps = 1.0/24.0;
+	[self.lvkAnimationsInternal removeAllObjects];
+	self.keyPrefix = infoFile;
+	
+	// load bin file -------------------------------
 	
 	*error = nil;
 	NSData *binData = [NSData dataWithContentsOfFile:binFile options:0 error:error];
 	if (*error != nil) {
-		LKLOG(@"Error opening binary file: %@", [*error localizedDescription]);
+		LKLOG(@"LvkSprite - ERROR Error opening binary file: %@", [*error localizedDescription]);
 		return NO;
-	}else {
-		*error = nil;
 	}
-
 	
+	// Load info file ------------------------------
+	
+	*error = nil;
 	NSStringEncoding encoding;
 	NSString *infoData = [NSString stringWithContentsOfFile:infoFile usedEncoding:&encoding error:error];
 	if (*error != nil) {
-		LKLOG(@"Error opening info file: %@", [*error localizedDescription]);
+		LKLOG(@"LvkSprite - ERROR Error opening info file: %@", [*error localizedDescription]);
 		return NO;
-	}else {
-		*error = nil;
 	}
+	
 	NSArray *lines = [infoData componentsSeparatedByString:@"\n"];
 	self.linesIterator = [lines objectEnumerator]; 
 
+	// Parse file ----------------------------------
+	
 	NSMutableDictionary *frames = [NSMutableDictionary dictionaryWithCapacity:10];
-	NSArray *lineInfo = nil;
+	
 	NSString* line = nil;
 	
-	CCAnimation *nullAnim = [[CCAnimation alloc] initWithName:@"NullAnimation" delay:fps];
-	[self.lvkAnimationsInternal setObject:nullAnim forKey:@"NullAnimation"];
-    [nullAnim release];
-    
 	while ( (line = [self nextLine]) ) {
 		
-		///////////////////////////////////////////////////////////////
 		NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-		///////////////////////////////////////////////////////////////
-				
+
+		BOOL ok = YES;
+		
 		// parsing frames
 		if ([line hasPrefix:@"fpixmaps("]) {
-			for (line = [self nextLine]; ![line hasPrefix:@")"]; line = [self nextLine]) {
-
-				// line format "frameId,offset,length"
-				lineInfo = [line componentsSeparatedByString:@","];
-				NSString *frameId = [lineInfo objectAtIndex: 0];
-				NSUInteger offset = [[lineInfo objectAtIndex: 1] intValue];
-				NSUInteger length = [[lineInfo objectAtIndex: 2] intValue];
-#ifdef LVKSPRITELOG
-				LKLOG(@" LvkSprite - Parsing frame: %@,%i,%i", frameId, offset, length);
-#endif
-#ifdef MEMORYLOG 
-                LKLOG(@"Free Mem: %ui MB", free_mem()/1024/1024);
-#endif				
-				NSRange range = NSMakeRange(offset, length);
-				NSString *CCFrameId = [NSString stringWithFormat:@"%@_%@", infoFile, frameId];
-				[frames setObject:[binData subdataWithRange: range] forKey: CCFrameId];
+			if ([self parseFpixmaps:frames withBinData:binData] == NO) {
+				LKLOG(@"LvkSprite - ERROR cannot parse fpixmaps section.");
+				ok = NO;
 			}
+		} else if ([line hasPrefix:@"animations("]){
+			if ([self parseAnimations:frames withFormat:format] == NO) {
+				LKLOG(@"LvkSprite - ERROR cannot parse animations section.");
+				ok = NO;
+			}
+// FIXME implement this:
+//		} else {
+//			LKLOG(@"LvkSprite - ERROR cannot parse line '%@'", line);
+//			ok = NO;
 		}
 		
-		// parsing animations
-		if ([line hasPrefix:@"animations("]){
-						
-			self.lvkAnimationsInternal = [NSMutableDictionary dictionary];
-			
-			for (line = [self nextLine]; ![line hasPrefix:@")"]; line = [self nextLine]) {
-				
-				// line format "animId,animName"
-				//             "aframes("
-				//             "    aframeId,frameId,delay,ox,oy"
-				//             ")"
-				lineInfo = [line componentsSeparatedByString:@","];
-				NSString *animationId = [lineInfo objectAtIndex:0];
-				NSString *animationName = [lineInfo objectAtIndex: 1];
-#ifdef LVKSPRITELOG
-				LKLOG(@" LvkSprite - Parsing animation: %@ %@", animationId, animationName);
-#endif
-#ifdef MEMORYLOG 
-                LKLOG(@"Free Mem: %ui MB", free_mem()/1024/1024);
-#endif				
-				NSString *CCAnimationId = [NSString stringWithFormat:@"%@_%@", infoFile, animationId];
-				CCAnimation *anim = [[CCAnimation alloc] initWithName:CCAnimationId delay:fps];
-				
-				line = [self nextLine];
-				if (![line hasPrefix:@"aframes("]) {  
-					LKLOG(@" LvkSprite - Error: Ill-formed sprite file: aframes(...) section expected, found '%@'", line);
-				}
-				
-				NSInteger frameCount = 1; // it counts the number of the next frame to load
-				float timeCount = 0; // holds the sum of the delays of all the sprites loaded so far
-				
-				// aframes parsing
-				for (line = [self nextLine]; ![line hasPrefix:@")"]; line = [self nextLine]) {
-
-					///////////////////////////////////////////////////////////////
-					NSAutoreleasePool * subpool = [[NSAutoreleasePool alloc] init];
-					///////////////////////////////////////////////////////////////
-					
-					// line format "aframeId,frameId,delay,ox,oy"
-					lineInfo = [line componentsSeparatedByString:@","];
-					NSString* frameId = [lineInfo objectAtIndex: 1];					
-					float duration = [[lineInfo objectAtIndex: 2] floatValue];
-					//TODO use this values!
-					//int ox = [[lineInfo objectAtIndex:3] intValue];
-					//int oy = [[lineInfo objectAtIndex:4] intValue];
-					
-					//Delays in miliseconds
-					timeCount += duration*0.001;
-					
-					while (frameCount*fps < timeCount) {
-						NSString *CCFrameId = [NSString stringWithFormat:@"%@_%@", infoFile, frameId];
-                        if (format == LkobStandar) {
-                            [anim addFrameContent:[frames objectForKey:CCFrameId] withKey:CCFrameId];                            
-                        } else {
-                            [anim addFramePVRTCContent:[frames objectForKey:CCFrameId] withKey:CCFrameId];
-                        }
-						frameCount++;
-					}
-					
-					///////////////////////////////////////////////////////////////
-					[subpool release];
-					///////////////////////////////////////////////////////////////
-				}
-				
-				[self.lvkAnimationsInternal setObject:anim forKey:animationName];
-				[anim release];
-			}
-		}
-		
-		///////////////////////////////////////////////////////////////
 		[pool release];
-		///////////////////////////////////////////////////////////////
+		
+		if (!ok) {
+			return NO;
+		}
 	}
+	
+	// Create a Null animation --------------------
+	
+	CCAnimation *nullAnim = [[CCAnimation alloc] initWithName:@"NullAnimation" delay:LVK_SPRITE_FPS];
+	[self.lvkAnimationsInternal setObject:nullAnim forKey:@"NullAnimation"];
+    [nullAnim release];
+
 #ifdef LVKSPRITELOG
 	LKLOG(@" LvkSprite - === Sprite parsing ended ===");
     LKLOG(@"Free Mem: %ui MB", free_mem()/1024/1024);
@@ -355,6 +303,136 @@ natural_t free_mem() {
 
 	return TRUE;
 }
+
+- (NSString*) buildKeyWithFrameId:(NSString*)frameId
+{
+	return [NSString stringWithFormat:@"%@_%@", self.keyPrefix != nil ? self.keyPrefix : @"Null" , frameId];
+}
+
+- (BOOL) parseFpixmaps:(NSMutableDictionary*)frames withBinData:(NSData *)binData
+{
+	NSString* line = nil;
+	
+	for (line = [self nextLine]; line != nil && ![line hasPrefix:@")"]; line = [self nextLine]) {
+		
+		// line format "frameId,offset,length"
+		NSArray* lineInfo = [line componentsSeparatedByString:@","];
+		NSString* frameId = [lineInfo objectAtIndex: 0];
+		NSUInteger offset = [[lineInfo objectAtIndex: 1] intValue];
+		NSUInteger length = [[lineInfo objectAtIndex: 2] intValue];
+		
+#ifdef LVKSPRITELOG
+		LKLOG(@" LvkSprite - Parsing frame: %@,%i,%i", frameId, offset, length);
+#endif
+#ifdef MEMORYLOG 
+		LKLOG(@"Free Mem: %ui MB", free_mem()/1024/1024);
+#endif
+		
+		NSRange range = NSMakeRange(offset, length);
+		[frames setObject:[binData subdataWithRange: range] forKey:[self buildKeyWithFrameId:frameId]];
+	}
+	
+	return line != nil;
+}
+
+- (BOOL) parseAnimations:(NSMutableDictionary*)frames withFormat:(LkobFormat)format
+{
+	NSString* line = nil;
+	
+	self.lvkAnimationsInternal = [NSMutableDictionary dictionary];
+	
+	for (line = [self nextLine]; line != nil && ![line hasPrefix:@")"]; line = [self nextLine]) {
+		
+		// line format "animId,animName"
+		//             "aframes("
+		//             "    aframeId,frameId,delay,ox,oy"
+		//             ")"
+		
+		NSArray* lineInfo = [line componentsSeparatedByString:@","];
+		NSString* animationId = [lineInfo objectAtIndex:0];
+		NSString* animationName = [lineInfo objectAtIndex: 1];
+		
+#ifdef LVKSPRITELOG
+		LKLOG(@" LvkSprite - Parsing animation: %@ %@", animationId, animationName);
+#endif
+#ifdef MEMORYLOG 
+		LKLOG(@"Free Mem: %ui MB", free_mem()/1024/1024);
+#endif
+		
+		NSString *CCAnimationId = [NSString stringWithFormat:@"%@_%@", self.keyPrefix, animationId];
+		CCAnimation *anim = [[CCAnimation alloc] initWithName:CCAnimationId delay:LVK_SPRITE_FPS];
+		
+		line = [self nextLine];
+		if (![line hasPrefix:@"aframes("]) {  
+			LKLOG(@" LvkSprite - Error: Ill-formed sprite file: aframes(...) section expected but got '%@'", line);
+			return NO;
+		}
+		
+		[self parseAframes:frames WithFormat:format insertIntoAnimation:anim];
+		[self.lvkAnimationsInternal setObject:anim forKey:animationName];
+		
+		[anim release];
+	}
+	
+	return line != nil;
+}
+
+- (BOOL) parseAframes:(NSMutableDictionary*)frames WithFormat:(LkobFormat)format insertIntoAnimation:(CCAnimation*)anim
+{
+	NSString* line = nil;
+	
+	NSInteger frameCount = 1; // it counts the number of the next frame to load
+	float timeCount = 0; // holds the sum of the delays of all the sprites loaded so far
+	
+	// aframes parsing
+	for (line = [self nextLine]; line != nil && ![line hasPrefix:@")"]; line = [self nextLine]) {
+		
+		NSAutoreleasePool * subpool = [[NSAutoreleasePool alloc] init];
+		
+		// line format "aframeId,frameId,delay,ox,oy,sticky"
+		
+		NSArray* lineInfo = [line componentsSeparatedByString:@","];
+		
+		if (lineInfo.count < 3) {
+			LKLOG(@"LvkSprite - Error: Ill-formed sprite file: expected aframe but got '%@'. Line omitted", line);
+			continue;
+		}
+		
+		NSString* frameId = [lineInfo objectAtIndex: 1];					
+		float duration = [[lineInfo objectAtIndex: 2] floatValue];
+		int ox = 0;
+		int oy = 0;
+		BOOL isSticky = NO;
+		
+		if (lineInfo.count > 4) {	// Since LvkSprite format 0.2
+			ox = [[lineInfo objectAtIndex:3] intValue];					
+			oy = [[lineInfo objectAtIndex:4] intValue];						
+		}
+		if (lineInfo.count > 5) { 	// Since LvkSprite format 0.4
+			isSticky = [[lineInfo objectAtIndex:5] intValue];
+		}
+		
+		//Delays in miliseconds
+		timeCount += duration*0.001;
+		
+		if (isSticky == NO) {
+			while (frameCount*LVK_SPRITE_FPS < timeCount) {
+				NSString *CCFrameId = [self buildKeyWithFrameId:frameId];
+				if (format == LkobStandar) {
+					[anim addFrameContent:[frames objectForKey:CCFrameId] withKey:CCFrameId offset:CGPointMake(ox, oy)];                            
+				} else {
+					[anim addFramePVRTCContent:[frames objectForKey:CCFrameId] withKey:CCFrameId offset:CGPointMake(ox, oy)];
+				}
+				frameCount++;
+			}						
+		}
+		
+		[subpool release];
+	}
+	
+	return line != nil;
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // TODO some pieces of code are duplicated. Refactor!
