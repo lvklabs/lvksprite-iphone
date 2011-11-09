@@ -27,17 +27,20 @@ typedef enum {
 {	
     // does the binary file contain PVRTC images
     LkobFormat _lkobFormat;
-
 	// Key prefix to insert frames in map
 	NSString *_keyPrefix;
 	// a dictionary mapping animationName --> cocosAnimation
-	NSMutableDictionary *_lvkAnimations;
+	NSMutableDictionary *_animations;
+	// a dictionary mapping animationName --> list sticky frame ids 
+	NSMutableDictionary *_stickyFrames;
+	//
+	CCSprite *_stickyFrameSpr;
 	// Lines iterator used to parse the sprite file
 	NSEnumerator *_linesIterator;
 	// current animation name
 	NSString *_animation;
 	// current animation action
-	CCAction *_aniAction;
+	CCActionInterval *_aniAction;
 	// pointer to the x position
 	CGFloat *px;
 	// pointer to the y position
@@ -56,7 +59,7 @@ typedef enum {
 /// Set/returns the position of the sprite in the y axis
 @property CGFloat y;
 
-@property (readonly, retain) NSDictionary* lvkAnimations;
+@property (readonly, retain) NSDictionary* animations;
 
 /// Gets the current frame rect
 @property (readonly) CGRect rect;

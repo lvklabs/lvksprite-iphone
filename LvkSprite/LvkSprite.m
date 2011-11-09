@@ -40,29 +40,33 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 
 @interface LvkSprite ()
 
-@property (readwrite, retain) NSMutableDictionary* lvkAnimationsInternal;
+@property (readwrite, retain) NSMutableDictionary* animationsInternal;
+@property (readwrite, retain) NSMutableDictionary* stickyFrames;
+@property (readwrite, retain) CCSprite *stickyFrameSpr;
 @property (readwrite, retain) NSEnumerator* linesIterator;
-@property (readwrite, retain) CCAction* aniAction;
+@property (readwrite, retain) CCActionInterval* aniAction;
 @property (readwrite, retain) NSString* keyPrefix;
 
 - (NSString*) buildKeyWithFrameId:(NSString*)frameId;
 - (BOOL) parseFpixmaps:(NSMutableDictionary*)frames withBinData:(NSData *)binData;
-- (BOOL) parseAnimations:(NSMutableDictionary*)frames withFormat:(LkobFormat)format;
-- (BOOL) parseAframes:(NSMutableDictionary*)frames WithFormat:(LkobFormat)format insertIntoAnimation:(CCAnimation*)anim;
+- (BOOL) parseAnimations:(NSMutableDictionary*)frames;
+- (BOOL) parseAframes:(NSMutableDictionary*)frames animName:(NSString*)animName animId:(NSString *)animId;
 
 @end
 
 @implementation LvkSprite
 
-@synthesize lvkAnimationsInternal = _lvkAnimations;
+@synthesize animationsInternal = _animations;
+@synthesize stickyFrames = _stickyFrames;
+@synthesize stickyFrameSpr = _stickyFrameSpr;
 @synthesize linesIterator = _linesIterator;
 @synthesize aniAction = _aniAction;
 @synthesize keyPrefix = _keyPrefix;
 @synthesize collisionThreshold;
 
-- (NSDictionary*) lvkAnimations
+- (NSDictionary*) animations
 {
-    return _lvkAnimations;
+    return _animations;
 }
 
 + (id) spriteWithBinary: (NSString*)bin format:(LkobFormat)format andInfo: (NSString*)info andError:(NSError**)error
@@ -73,6 +77,8 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 - (id)init
 {
 	if((self = [super init])){
+		self.animationsInternal = [NSMutableDictionary dictionary];
+		self.stickyFrames = [NSMutableDictionary dictionary];
         _lkobFormat = LkobStandar;
 		_animation = nil;
 		_aniAction = nil;
@@ -91,7 +97,10 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 {
 	if((self = [super init])){
         _lkobFormat = format;
-        
+
+		self.animationsInternal = [NSMutableDictionary dictionary];
+		self.stickyFrames = [NSMutableDictionary dictionary];
+		
 		[self loadBinary: binFile format:format andInfo: infoFile andError:error];
 
 		_animation = nil;
@@ -110,7 +119,8 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 - (void) dealloc 
 {
 	SecureRelease(_animation);
-	SecureRelease(_lvkAnimations);
+	SecureRelease(_animations);
+	SecureRelease(_stickyFrames);
 	SecureRelease(_linesIterator);
 	SecureRelease(_aniAction);
 	[super dealloc];
@@ -229,8 +239,10 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
     LKLOG(@"Free Mem: %ui MB", free_mem()/1024/1024);
 #endif
 	
-	[self.lvkAnimationsInternal removeAllObjects];
+	[self.animationsInternal removeAllObjects];
+	[self.stickyFrames removeAllObjects];
 	self.keyPrefix = infoFile;
+	_lkobFormat = format;
 	
 	// load bin file -------------------------------
 	
@@ -273,7 +285,7 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 				ok = NO;
 			}
 		} else if ([line hasPrefix:@"animations("]){
-			if ([self parseAnimations:frames withFormat:format] == NO) {
+			if ([self parseAnimations:frames] == NO) {
 				LKLOG(@"LvkSprite - ERROR cannot parse animations section.");
 				ok = NO;
 			}
@@ -293,7 +305,7 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 	// Create a Null animation --------------------
 	
 	CCAnimation *nullAnim = [[CCAnimation alloc] initWithName:@"NullAnimation" delay:LVK_SPRITE_FPS];
-	[self.lvkAnimationsInternal setObject:nullAnim forKey:@"NullAnimation"];
+	[self.animationsInternal setObject:nullAnim forKey:@"NullAnimation"];
     [nullAnim release];
 
 #ifdef LVKSPRITELOG
@@ -335,12 +347,10 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 	return line != nil;
 }
 
-- (BOOL) parseAnimations:(NSMutableDictionary*)frames withFormat:(LkobFormat)format
+- (BOOL) parseAnimations:(NSMutableDictionary*)frames
 {
 	NSString* line = nil;
-	
-	self.lvkAnimationsInternal = [NSMutableDictionary dictionary];
-	
+		
 	for (line = [self nextLine]; line != nil && ![line hasPrefix:@")"]; line = [self nextLine]) {
 		
 		// line format "animId,animName"
@@ -358,31 +368,29 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 #ifdef MEMORYLOG 
 		LKLOG(@"Free Mem: %ui MB", free_mem()/1024/1024);
 #endif
-		
-		NSString *CCAnimationId = [NSString stringWithFormat:@"%@_%@", self.keyPrefix, animationId];
-		CCAnimation *anim = [[CCAnimation alloc] initWithName:CCAnimationId delay:LVK_SPRITE_FPS];
-		
+				
 		line = [self nextLine];
 		if (![line hasPrefix:@"aframes("]) {  
 			LKLOG(@" LvkSprite - Error: Ill-formed sprite file: aframes(...) section expected but got '%@'", line);
 			return NO;
 		}
 		
-		[self parseAframes:frames WithFormat:format insertIntoAnimation:anim];
-		[self.lvkAnimationsInternal setObject:anim forKey:animationName];
-		
-		[anim release];
+		[self parseAframes:frames animName:animationName animId:animationId];		
 	}
 	
 	return line != nil;
 }
 
-- (BOOL) parseAframes:(NSMutableDictionary*)frames WithFormat:(LkobFormat)format insertIntoAnimation:(CCAnimation*)anim
+- (BOOL) parseAframes:(NSMutableDictionary*)frames animName:(NSString*)animName animId:(NSString *)animId
 {
-	NSString* line = nil;
+	NSString *CCAnimationId = [NSString stringWithFormat:@"%@_%@", self.keyPrefix, animId];
+	CCAnimation *anim = [[CCAnimation alloc] initWithName:CCAnimationId delay:LVK_SPRITE_FPS];
 	
 	NSInteger frameCount = 1; // it counts the number of the next frame to load
 	float timeCount = 0; // holds the sum of the delays of all the sprites loaded so far
+
+	
+	NSString* line = nil;
 	
 	// aframes parsing
 	for (line = [self nextLine]; line != nil && ![line hasPrefix:@")"]; line = [self nextLine]) {
@@ -414,21 +422,38 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 		
 		//Delays in miliseconds
 		timeCount += duration*0.001;
+
+		NSString *CCFrameId = [self buildKeyWithFrameId:frameId];
 		
 		if (isSticky == NO) {
 			while (frameCount*LVK_SPRITE_FPS < timeCount) {
-				NSString *CCFrameId = [self buildKeyWithFrameId:frameId];
-				if (format == LkobStandar) {
+				if (_lkobFormat == LkobStandar) {
 					[anim addFrameContent:[frames objectForKey:CCFrameId] withKey:CCFrameId offset:CGPointMake(ox, oy)];                            
 				} else {
 					[anim addFramePVRTCContent:[frames objectForKey:CCFrameId] withKey:CCFrameId offset:CGPointMake(ox, oy)];
 				}
 				frameCount++;
 			}						
+		} else {
+			////////////////////////////////////////////////////////////////////////////////////////////
+			// FIXME object should be an array of ids
+			[self.stickyFrames setObject:frameId forKey:animName];
+			
+			CCSprite *spr = [CCSprite spriteWithTexture:[[CCTextureCache sharedTextureCache] textureForKey:CCFrameId]];
+			spr.position = CGPointMake(spr.contentSize.width/2, spr.contentSize.height/2);
+			spr.visible = NO;
+			[self addChild:spr z:-1 tag:[frameId intValue]];
+
+			////////////////////////////////////////////////////////////////////////////////////////////
 		}
 		
 		[subpool release];
 	}
+	
+	[self.animationsInternal setObject:anim forKey:animName];
+	
+	[anim release];
+
 	
 	return line != nil;
 }
@@ -448,7 +473,7 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 		NSString* name = [names objectAtIndex:i];
 		int n = (ns != nil && ns.count > i) ? [(NSNumber *)[ns objectAtIndex:i] intValue] : 1;
 		
-		CCAnimation *anim = [self.lvkAnimationsInternal objectForKey:name];
+		CCAnimation *anim = [self.animationsInternal objectForKey:name];
 		
 		if (anim != nil) {
 			CCAction* action = nil;
@@ -503,6 +528,11 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 // This helper function does the real work of playing a list of animations
 - (void) _playAnimations: (NSArray *)names repeat:(NSArray *)ns atX:(CGFloat)x atY:(CGFloat)y
 {	
+	if (self.stickyFrameSpr != nil && [self.aniAction hasStarted] == YES) {
+		self.stickyFrameSpr.visible = NO;
+		self.stickyFrameSpr = nil;
+	}
+	
 	[self setPosition:ccp(x, y)];
 	
 	CCSequence* seq = [CCSequence actionsWithArray:[self _getActionsFromAnimationList:names repeat:ns]];
@@ -513,12 +543,25 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 // This helper function does the real work of playing one animation
 - (void) _playAnimation: (NSString *)name atX:(CGFloat)x atY:(CGFloat)y repeat:(int)n
 {
+	if (self.stickyFrameSpr != nil) {
+		self.stickyFrameSpr.visible = NO;
+		self.stickyFrameSpr = nil;
+	}
+	
 	[self setPosition:ccp(x, y)];
 	
-	CCAnimation *anim = [self.lvkAnimationsInternal objectForKey:name];
+	CCAnimation *anim = [self.animationsInternal objectForKey:name];
 	
 	if (anim != nil) {
 		[self _playAction:[CCAnimate actionWithAnimation:anim] repeat:n];
+		
+		///////////////////////////////////
+		NSString* frameId = (NSString*)[self.stickyFrames objectForKey:name];
+		if (frameId != nil) {
+			self.stickyFrameSpr = (CCSprite *)[self getChildByTag:[frameId intValue]];
+			self.stickyFrameSpr.visible = YES;
+		}
+		///////////////////////////////////
 	} else {
 		LKLOG(@" LvkSprite - animation '%@' does not exist", name);
 	}	
@@ -574,7 +617,7 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 
 - (BOOL) hasAnimation:(NSString *)name
 {
-	return [self.lvkAnimationsInternal objectForKey:name] != nil;
+	return [self.animationsInternal objectForKey:name] != nil;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
