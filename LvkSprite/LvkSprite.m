@@ -420,8 +420,8 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 			}						
 		} else {
 			////////////////////////////////////////////////////////////////////////////////////////////
-			// FIXME object should be an array of ids
-			stickyFrameId = [NSString stringWithString:frameId];
+			// FIXME object should be an array of ids. Also we are loosing ox,oy
+			stickyFrameId = [[NSString alloc] initWithString:frameId];
 			////////////////////////////////////////////////////////////////////////////////////////////
 		}
 		
@@ -431,7 +431,7 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 	CCActionInterval *animAction = [CCAnimate actionWithAnimation:anim];
 		
 	if (stickyFrameId != nil) {
-		CCAnimation *stickyAnim = [[CCAnimation alloc] initWithName:@"" delay:animAction.duration];
+		CCAnimation *stickyAnim = [[CCAnimation alloc] initWithName:@"Sticky" delay:animAction.duration];
 
 		NSString *frameKey = [self buildKeyWithFrameId:stickyFrameId];
 		int ox = 0; // FIXME
@@ -440,9 +440,10 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 		
 		CCActionInterval *stickyAnimAction = [CCAnimate actionWithAnimation:stickyAnim];
 		
-		[self.animationsInternal setObject:[CCSpawn actions:stickyAnimAction, animAction, nil] forKey:animName];		
+		[self.animationsInternal setObject:[CCSpawn actionOne:animAction two:stickyAnimAction] forKey:animName];		
 		
-		[stickyAnim release];		
+		[stickyAnim release];
+		[stickyFrameId release];
 	} else {
 		[self.animationsInternal setObject:animAction forKey:animName];		
 	}
