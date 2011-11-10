@@ -31,6 +31,8 @@ typedef enum {
 	NSString *_keyPrefix;
 	// a dictionary mapping animationName --> cocosAnimation
 	NSMutableDictionary *_animations;
+	//
+	NSMutableDictionary *_stickyAnimations;
 	// Lines iterator used to parse the sprite file
 	NSEnumerator *_linesIterator;
 	// current animation name

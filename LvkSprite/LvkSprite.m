@@ -5,6 +5,7 @@
 #import <Foundation/NSData.h>
 #import "LvkSprite.h"
 #import "LvkRepeatAction.h"
+#import "LvkSpawn.h"
 #import "common.h"
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -367,12 +368,20 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 
 - (BOOL) parseAframes:(NSMutableDictionary*)frames animName:(NSString*)animName animId:(NSString *)animId
 {
+	// TODO refactor this class!
+	
 	CCAnimation *anim = [[CCAnimation alloc] initWithName:@"" delay:LVK_SPRITE_FPS];
 	
 	NSInteger frameCount = 1; // it counts the number of the next frame to load
 	float timeCount = 0; // holds the sum of the delays of all the sprites loaded so far
 
+	/////////////////////////////////////////////////////////////////////////////////////
+	// FIXME this data should be stored in an array. With this implementation we are only
+	//       supporting 1 sticky frame
 	NSString *stickyFrameId = nil;
+	int stickyFrame_ox = 0;
+	int stickyFrame_oy = 0;	
+	/////////////////////////////////////////////////////////////////////////////////////
 	
 	NSString* line = nil;
 	
@@ -419,28 +428,26 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 				frameCount++;
 			}						
 		} else {
-			////////////////////////////////////////////////////////////////////////////////////////////
-			// FIXME object should be an array of ids. Also we are loosing ox,oy
 			stickyFrameId = [[NSString alloc] initWithString:frameId];
-			////////////////////////////////////////////////////////////////////////////////////////////
+			stickyFrame_ox = ox;
+			stickyFrame_oy = oy;
 		}
 		
 		[subpool release];
 	}
 	
 	CCActionInterval *animAction = [CCAnimate actionWithAnimation:anim];
-		
+
+	// If there is a sticky frame, merge (or "spawn" using cocos jargon) it with the animation
 	if (stickyFrameId != nil) {
 		CCAnimation *stickyAnim = [[CCAnimation alloc] initWithName:@"Sticky" delay:animAction.duration];
 
 		NSString *frameKey = [self buildKeyWithFrameId:stickyFrameId];
-		int ox = 0; // FIXME
-		int oy = 0; // FIXME
-		[stickyAnim addFrameContent:[frames objectForKey:frameKey] withKey:frameKey offset:CGPointMake(ox, oy)];                            
+		[stickyAnim addFrameContent:[frames objectForKey:frameKey] withKey:frameKey offset:CGPointMake(stickyFrame_ox, stickyFrame_oy)];                            
 		
 		CCActionInterval *stickyAnimAction = [CCAnimate actionWithAnimation:stickyAnim];
 		
-		[self.animationsInternal setObject:[CCSpawn actionOne:animAction two:stickyAnimAction] forKey:animName];		
+		[self.animationsInternal setObject:[LvkSpawn actionOne:stickyAnimAction two:animAction] forKey:animName];		
 		
 		[stickyAnim release];
 		[stickyFrameId release];

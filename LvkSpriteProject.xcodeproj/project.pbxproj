@@ -10,6 +10,8 @@
 		3BBDC27C12517B000052B8D7 /* libLvkSprite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E0B544BA1246B73E00A27025 /* libLvkSprite.a */; };
 		4107346D13BBF46E00F05213 /* libcocos2d.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4107346B13BBF46E00F05213 /* libcocos2d.a */; };
 		4107346E13BBF46E00F05213 /* libCocosDenshion.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4107346C13BBF46E00F05213 /* libCocosDenshion.a */; };
+		4191C1FF146B0C3E00EDC2B9 /* LvkSpawn.m in Sources */ = {isa = PBXBuildFile; fileRef = 4191C1FE146B0C3E00EDC2B9 /* LvkSpawn.m */; };
+		4191C200146B149E00EDC2B9 /* LvkSpawn.m in Sources */ = {isa = PBXBuildFile; fileRef = 4191C1FE146B0C3E00EDC2B9 /* LvkSpawn.m */; };
 		41922A42111A68E40058E0DA /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 41922A3D111A68E40058E0DA /* Default.png */; };
 		41922A43111A68E40058E0DA /* fps_images.png in Resources */ = {isa = PBXBuildFile; fileRef = 41922A3E111A68E40058E0DA /* fps_images.png */; };
 		41922A44111A68E40058E0DA /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 41922A3F111A68E40058E0DA /* Icon.png */; };
@@ -148,6 +150,8 @@
 		4107346B13BBF46E00F05213 /* libcocos2d.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcocos2d.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4107346C13BBF46E00F05213 /* libCocosDenshion.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libCocosDenshion.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		41589E311385D5990078168C /* cocos2d-ios.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "cocos2d-ios.xcodeproj"; path = "../cocos2d-iphone/cocos2d-ios.xcodeproj"; sourceTree = "<group>"; };
+		4191C1FD146B0C3E00EDC2B9 /* LvkSpawn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LvkSpawn.h; path = LvkSprite/LvkSpawn.h; sourceTree = "<group>"; };
+		4191C1FE146B0C3E00EDC2B9 /* LvkSpawn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LvkSpawn.m; path = LvkSprite/LvkSpawn.m; sourceTree = "<group>"; };
 		41922A3D111A68E40058E0DA /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Resources/Default.png; sourceTree = "<group>"; };
 		41922A3E111A68E40058E0DA /* fps_images.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fps_images.png; path = Resources/fps_images.png; sourceTree = "<group>"; };
 		41922A3F111A68E40058E0DA /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Resources/Icon.png; sourceTree = "<group>"; };
@@ -259,6 +263,8 @@
 				41922A48111A68F40058E0DA /* LvkSprite.m */,
 				4199EE9711B2D88D005919CB /* LvkRepeatAction.h */,
 				4199EE9511B2D869005919CB /* LvkRepeatAction.m */,
+				4191C1FD146B0C3E00EDC2B9 /* LvkSpawn.h */,
+				4191C1FE146B0C3E00EDC2B9 /* LvkSpawn.m */,
 			);
 			name = "LvkSprite Sources";
 			sourceTree = "<group>";
@@ -520,6 +526,7 @@
 				41922A4F111A69270058E0DA /* LvkSpriteDemoAppDelegate.m in Sources */,
 				41922A50111A69270058E0DA /* main.m in Sources */,
 				4199EE9611B2D869005919CB /* LvkRepeatAction.m in Sources */,
+				4191C1FF146B0C3E00EDC2B9 /* LvkSpawn.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,6 +534,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4191C200146B149E00EDC2B9 /* LvkSpawn.m in Sources */,
 				E0B544C81246B77100A27025 /* LvkSprite.m in Sources */,
 				E0B544C91246B77100A27025 /* LvkRepeatAction.m in Sources */,
 			);
