@@ -407,7 +407,7 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 		
 		if (lineInfo.count > 4) {	// Since LvkSprite format 0.2
 			ox = [[lineInfo objectAtIndex:3] intValue];					
-			oy = [[lineInfo objectAtIndex:4] intValue];						
+			oy = [[lineInfo objectAtIndex:4] intValue]*-1; // *-1 because the Lvk Sprite Tool has anchor point (0,1)	
 		}
 		if (lineInfo.count > 5) { 	// Since LvkSprite format 0.4
 			isSticky = [[lineInfo objectAtIndex:5] intValue];

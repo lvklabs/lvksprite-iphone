@@ -32,9 +32,7 @@
 		one_ = one;
 		two_ = two;
 		child_ = [[CCSprite alloc] init];
-		
-		child_.isRelativeAnchorPoint = NO;
-		
+				
 		if( d1 > d2 )
 			two_ = [CCSequence actionOne:two two:[CCDelayTime actionWithDuration: (d1-d2)] ];
 		else if( d1 < d2)
@@ -55,7 +53,7 @@
 -(void) dealloc
 {
 	if (childAdded_ == YES) {
-		[target_ removeChild:child_ cleanup:YES];
+		[[target_ parent] removeChild:child_ cleanup:YES];
 	}
 
 	[one_ release];
@@ -66,8 +64,11 @@
 
 -(void) startWithTarget:(id)aTarget
 {
-	if (childAdded_ == NO) {
-		[aTarget addChild:child_];
+	if (childAdded_ == NO && aTarget != nil && [aTarget parent] != nil) {
+		child_.isRelativeAnchorPoint = [target_ isRelativeAnchorPoint];
+		child_.anchorPoint = [target_ anchorPoint];
+		
+		[[aTarget parent] addChild:child_];
 		childAdded_ = YES;
 	}
 	
@@ -79,7 +80,7 @@
 -(void) stop
 {
 	if (childAdded_ == YES) {
-		[target_ removeChild:child_ cleanup:YES];
+		[[target_ parent] removeChild:child_ cleanup:YES];
 		childAdded_ = NO;
 	}
 
@@ -92,6 +93,11 @@
 {
 	[one_ update:t];
 	[two_ update:t];
+
+	// LvkSprite uses anchor point (0,1) and LvkSprite uses (0,0), we need this convertion of position:
+	CGPoint targetPos = [target_ position];
+	CGSize targetSize = [target_ contentSize];
+	child_.position = CGPointMake(targetPos.x, targetPos.y + targetSize.height - child_.contentSize.height); 
 }
 
 - (CCActionInterval *) reverse
