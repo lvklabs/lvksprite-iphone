@@ -438,16 +438,18 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 	CCActionInterval *animAction = [CCAnimate actionWithAnimation:anim];
 
 	// If there is a sticky frame, merge (or "spawn" using cocos jargon) sticky animations with the animation
-	if (stickyAnims.count > 0) {
-		// FIXME currently only using one frame!
-		CCAnimation *stickyAnim = [stickyAnims objectAtIndex:0];
+	CCActionInterval *spawnAction = animAction;
+	
+	for (NSUInteger i = 0; i < MIN(stickyAnims.count,1); ++i) {
+		CCAnimation *stickyAnim = [stickyAnims objectAtIndex:i];
 		stickyAnim.delay = [animAction duration];
 		CCActionInterval *stickyAnimAction = [CCAnimate actionWithAnimation:stickyAnim];
-		[self.animationsInternal setObject:[LvkSpawn actionOne:stickyAnimAction two:animAction] forKey:animName];		
 		
-	} else {
-		[self.animationsInternal setObject:animAction forKey:animName];		
+		spawnAction = [LvkSpawn actionOne:stickyAnimAction two:spawnAction];			
 	}
+	
+	[self.animationsInternal setObject:spawnAction forKey:animName];
+
 	
 	[stickyAnims release];
 	[anim release];
