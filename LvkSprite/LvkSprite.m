@@ -370,18 +370,15 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 {
 	// TODO refactor this class!
 	
-	CCAnimation *anim = [[CCAnimation alloc] initWithName:@"" delay:LVK_SPRITE_FPS];
+	// Frames can be "Common" or "Sticky". Sticky frames are frames that are displayed always. 
+	// To implement sticky frames we have one animation per sticky that only renders that frame. 
+	// Finally we merge all sticky animations with the main animation to achieve the desired effect.
+	CCAnimation *anim = [[CCAnimation alloc] initWithName:@"" delay:LVK_SPRITE_FPS];	// main animation
+	NSMutableArray *stickyAnims = [[NSMutableArray alloc] init];						// array of sticky animations
 	
-	NSInteger frameCount = 1; // it counts the number of the next frame to load
-	float timeCount = 0; // holds the sum of the delays of all the sprites loaded so far
-
-	/////////////////////////////////////////////////////////////////////////////////////
-	// FIXME this data should be stored in an array. With this implementation we are only
-	//       supporting 1 sticky frame
-	NSString *stickyFrameId = nil;
-	int stickyFrame_ox = 0;
-	int stickyFrame_oy = 0;	
-	/////////////////////////////////////////////////////////////////////////////////////
+	
+	NSInteger frameCount = 1;
+	float timeCount = 0; 
 	
 	NSString* line = nil;
 	
@@ -390,7 +387,7 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 		
 		NSAutoreleasePool * subpool = [[NSAutoreleasePool alloc] init];
 		
-		// line format "aframeId,frameId,delay,ox,oy,sticky"
+		// line format "<aframeId,frameId,delay>[,ox,oy][,sticky]"
 		
 		NSArray* lineInfo = [line componentsSeparatedByString:@","];
 		
@@ -413,12 +410,11 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 			isSticky = [[lineInfo objectAtIndex:5] intValue];
 		}
 		
-		//Delays in miliseconds
-		timeCount += duration*0.001;
-
 		NSString *frameKey = [self buildKeyWithFrameId:frameId];
 		
 		if (isSticky == NO) {
+			timeCount += duration*0.001;
+			
 			while (frameCount*LVK_SPRITE_FPS < timeCount) {
 				if (_lkobFormat == LkobStandar) {
 					[anim addFrameContent:[frames objectForKey:frameKey] withKey:frameKey offset:CGPointMake(ox, oy)];                            
@@ -428,35 +424,33 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 				frameCount++;
 			}						
 		} else {
-			stickyFrameId = [[NSString alloc] initWithString:frameId];
-			stickyFrame_ox = ox;
-			stickyFrame_oy = oy;
+			// Create an animation that contains only one frame. This animation will be merge with the main animation.
+			CCAnimation *stickyAnim = [[CCAnimation alloc] initWithName:@"" delay:1]; // Real delay will be added at the end.
+			[stickyAnim addFrameContent:[frames objectForKey:frameKey] withKey:frameKey offset:CGPointMake(ox, oy)];                            
+			[stickyAnims addObject:stickyAnim];
+			[stickyAnim release];
 		}
 		
 		[subpool release];
 	}
 	
+	// main animaion
 	CCActionInterval *animAction = [CCAnimate actionWithAnimation:anim];
 
-	// If there is a sticky frame, merge (or "spawn" using cocos jargon) it with the animation
-	if (stickyFrameId != nil) {
-		CCAnimation *stickyAnim = [[CCAnimation alloc] initWithName:@"Sticky" delay:animAction.duration];
-
-		NSString *frameKey = [self buildKeyWithFrameId:stickyFrameId];
-		[stickyAnim addFrameContent:[frames objectForKey:frameKey] withKey:frameKey offset:CGPointMake(stickyFrame_ox, stickyFrame_oy)];                            
-		
+	// If there is a sticky frame, merge (or "spawn" using cocos jargon) sticky animations with the animation
+	if (stickyAnims.count > 0) {
+		// FIXME currently only using one frame!
+		CCAnimation *stickyAnim = [stickyAnims objectAtIndex:0];
+		stickyAnim.delay = [animAction duration];
 		CCActionInterval *stickyAnimAction = [CCAnimate actionWithAnimation:stickyAnim];
-		
 		[self.animationsInternal setObject:[LvkSpawn actionOne:stickyAnimAction two:animAction] forKey:animName];		
 		
-		[stickyAnim release];
-		[stickyFrameId release];
 	} else {
 		[self.animationsInternal setObject:animAction forKey:animName];		
 	}
 	
+	[stickyAnims release];
 	[anim release];
-
 	
 	return line != nil;
 }
