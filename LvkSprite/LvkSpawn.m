@@ -11,6 +11,8 @@
 
 @implementation LvkSpawn
 
+@synthesize nested = nested_;
+
 +(id) actionOne: (CCFiniteTimeAction*) one two: (CCFiniteTimeAction*) two
 {	
 	return [[[self alloc] initOne:one two:two ] autorelease];
@@ -24,6 +26,7 @@
 	if( (self=[super initWithDuration: MAX(d1,d2)] ) ) {
 		
 		childAdded_ = NO;
+		nested_ = NO;
 		
 		[one_ release];
 		[two_ release];
@@ -53,7 +56,7 @@
 -(void) dealloc
 {
 	if (childAdded_ == YES) {
-		[[target_ parent] removeChild:child_ cleanup:YES];
+		[target_ removeChild:child_ cleanup:YES];
 	}
 
 	[one_ release];
@@ -64,23 +67,34 @@
 
 -(void) startWithTarget:(id)aTarget
 {
-	if (childAdded_ == NO && aTarget != nil && [aTarget parent] != nil) {
-		child_.isRelativeAnchorPoint = [target_ isRelativeAnchorPoint];
-		child_.anchorPoint = [target_ anchorPoint];
-		
-		[[aTarget parent] addChild:child_];
+	if (childAdded_ == NO) {
+		child_.anchorPoint = CGPointMake(0, 1);
+		child_.contentSize = [aTarget contentSize];
+
+		if (!nested_) {
+			[aTarget addChild:child_ z:1];
+			child_.position = CGPointMake(0, [aTarget contentSize].height);
+		} else {
+			[aTarget addChild:child_ z:-1];
+		}
 		childAdded_ = YES;
 	}
 	
 	[super startWithTarget:aTarget];
-	[one_ startWithTarget:target_];
-	[two_ startWithTarget:child_];
+	
+	if (!nested_) {
+		[one_ startWithTarget:child_];
+		[two_ startWithTarget:target_];		
+	} else {
+		[one_ startWithTarget:target_];
+		[two_ startWithTarget:child_];				
+	}
 }
 
 -(void) stop
 {
 	if (childAdded_ == YES) {
-		[[target_ parent] removeChild:child_ cleanup:YES];
+		[target_ removeChild:child_ cleanup:YES];
 		childAdded_ = NO;
 	}
 
@@ -91,13 +105,13 @@
 
 -(void) update: (ccTime) t
 {
+	// Not sure why I need this correction in the position :(
+	if (!nested_) {
+		child_.position = CGPointMake(0, [(CCNode*)target_ contentSize].height);
+	}
+	
 	[one_ update:t];
 	[two_ update:t];
-
-	// LvkSprite uses anchor point (0,1) and LvkSprite uses (0,0), we need this convertion of position:
-	CGPoint targetPos = [target_ position];
-	CGSize targetSize = [target_ contentSize];
-	child_.position = CGPointMake(targetPos.x, targetPos.y + targetSize.height - child_.contentSize.height); 
 }
 
 - (CCActionInterval *) reverse

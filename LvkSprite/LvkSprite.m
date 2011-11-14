@@ -94,7 +94,7 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 		ph = &(contentSize_.height);
 		collisionThreshold = 0;
 		
-		self.anchorPoint = CGPointMake(0, 0);
+		self.anchorPoint = CGPointMake(0, 1);
 	}
 	return self;
 }
@@ -404,7 +404,7 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 		
 		if (lineInfo.count > 4) {	// Since LvkSprite format 0.2
 			ox = [[lineInfo objectAtIndex:3] intValue];					
-			oy = [[lineInfo objectAtIndex:4] intValue]*-1; // *-1 because the Lvk Sprite Tool has anchor point (0,1)	
+			oy = [[lineInfo objectAtIndex:4] intValue]*-1; // *-1 because the Lvk Sprite Tool has the origin at top-left corner	
 		}
 		if (lineInfo.count > 5) { 	// Since LvkSprite format 0.4
 			isSticky = [[lineInfo objectAtIndex:5] intValue];
@@ -434,21 +434,25 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 		[subpool release];
 	}
 	
-	// main animaion
+	// main animation
 	CCActionInterval *animAction = [CCAnimate actionWithAnimation:anim];
 
 	// If there is a sticky frame, merge (or "spawn" using cocos jargon) sticky animations with the animation
-	CCActionInterval *spawnAction = animAction;
 	
-	for (NSUInteger i = 0; i < MIN(stickyAnims.count,1); ++i) {
-		CCAnimation *stickyAnim = [stickyAnims objectAtIndex:i];
+	for (NSUInteger i = 0; i < stickyAnims.count; ++i) {
+		CCAnimation *stickyAnim = [stickyAnims objectAtIndex:(stickyAnims.count - i - 1)];
 		stickyAnim.delay = [animAction duration];
 		CCActionInterval *stickyAnimAction = [CCAnimate actionWithAnimation:stickyAnim];
 		
-		spawnAction = [LvkSpawn actionOne:stickyAnimAction two:spawnAction];			
+		animAction = [LvkSpawn actionOne:animAction two:stickyAnimAction];
+		
+		// FIXME!!!!!!!!!! Nasty workaround to avoid flickering
+		if (i == 0) {
+			[(LvkSpawn *)animAction setNested:NO];
+		}
 	}
 	
-	[self.animationsInternal setObject:spawnAction forKey:animName];
+	[self.animationsInternal setObject:animAction forKey:animName];
 
 	
 	[stickyAnims release];

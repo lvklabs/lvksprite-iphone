@@ -17,9 +17,12 @@
     CCSprite *child_;
 	CCFiniteTimeAction *one_;
 	CCFiniteTimeAction *two_;
+	BOOL nested_;
 }
 
 +(id) actionOne: (CCFiniteTimeAction*) one two:(CCFiniteTimeAction*) two;
 -(id) initOne: (CCFiniteTimeAction*) one two:(CCFiniteTimeAction*) two;
+
+@property (assign) BOOL nested;
 
 @end
