@@ -49,7 +49,7 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 
 - (NSString*) buildKeyWithFrameId:(NSString*)frameId;
 - (BOOL) parseFpixmaps:(NSMutableDictionary*)frames withBinData:(NSData *)binData;
-- (BOOL) parseAnimations:(NSMutableDictionary*)frames;
+- (BOOL) parseAnimations:(NSMutableDictionary*)frames ids:(NSArray *)ids;
 - (BOOL) parseAframes:(NSMutableDictionary*)frames animName:(NSString*)animName animId:(NSString *)animId;
 
 @end
@@ -67,24 +67,34 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
     return _animations;
 }
 
-+ (id) spriteWithBinary: (NSString*)bin format:(LkobFormat)format andInfo: (NSString*)info andError:(NSError**)error
++ (id) spriteWithBinary:(NSString*)bin format:(LkobFormat)format info:(NSString*)info andError:(NSError**)error
 {
-    return [[[LvkSprite alloc] initWithBinary:bin format:format andInfo:info andError:error] autorelease];
+    return [[[LvkSprite alloc] initWithBinary:bin format:format info:info andError:error] autorelease];
+}
+
++ (id) spriteWithBinary:(NSString*)bin format:(LkobFormat)format info:(NSString*)info ids:(NSArray *)ids andError:(NSError**)error
+{
+    return [[[LvkSprite alloc] initWithBinary:bin format:format info:info ids:ids andError:error] autorelease];
 }
 
 - (id)init
 {
-	return [self initWithBinary:nil format:LkobStandar andInfo:nil andError:nil];
+	return [self initWithBinary:nil format:LkobStandar info:nil andError:nil];
 }
 
-- (id) initWithBinary: (NSString*)binFile format:(LkobFormat)format andInfo: (NSString*)infoFile andError:(NSError**)error
+- (id) initWithBinary:(NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile andError:(NSError**)error
+{
+	return [self initWithBinary:binFile format:format info:infoFile ids:nil andError:error];
+}
+
+- (id) initWithBinary:(NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile ids:(NSArray *)ids andError:(NSError**)error
 {
 	if((self = [super init])){
         _lkobFormat = format;
 
 		self.animationsInternal = [NSMutableDictionary dictionary];
 		
-		[self loadBinary: binFile format:format andInfo: infoFile andError:error];
+		[self loadBinary: binFile format:format info: infoFile ids:ids andError:error];
 
 		_animation = nil;
 		_aniAction = nil;
@@ -211,7 +221,18 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 	return line;	
 }
 
-- (BOOL) loadBinary: (NSString*)binFile format:(LkobFormat)format andInfo: (NSString*)infoFile andError:(NSError**)error
+- (BOOL) loadBinary: (NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile andError:(NSError**)error
+{
+	if (binFile == nil || infoFile == nil) {
+		return NO;
+	}
+	
+	[self.animationsInternal removeAllObjects];
+
+	return [self loadBinary:binFile format:format info:infoFile ids:nil andError:error];
+}
+
+- (BOOL) loadBinary: (NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile ids:(NSArray *)ids andError:(NSError**)error
 {
 	if (binFile == nil || infoFile == nil) {
 		return NO;
@@ -225,7 +246,6 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
     LKLOG(@"Free Mem: %ui MB", free_mem()/1024/1024);
 #endif
 	
-	[self.animationsInternal removeAllObjects];
 	self.keyPrefix = infoFile;
 	_lkobFormat = format;
 	
@@ -270,7 +290,7 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 				ok = NO;
 			}
 		} else if ([line hasPrefix:@"animations("]){
-			if ([self parseAnimations:frames] == NO) {
+			if ([self parseAnimations:frames ids:ids] == NO) {
 				LKLOG(@"LvkSprite - ERROR cannot parse animations section.");
 				ok = NO;
 			}
@@ -332,7 +352,7 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 	return line != nil;
 }
 
-- (BOOL) parseAnimations:(NSMutableDictionary*)frames
+- (BOOL) parseAnimations:(NSMutableDictionary*)frames ids:(NSArray *)ids
 {
 	NSString* line = nil;
 		
@@ -346,6 +366,24 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 		NSArray* lineInfo = [line componentsSeparatedByString:@","];
 		NSString* animationId = [lineInfo objectAtIndex:0];
 		NSString* animationName = [lineInfo objectAtIndex: 1];
+		
+		// if ids if not nil, we have an array with the list of animation ids to parse,
+		// otherwise we parse all animations
+		if (ids != nil) {
+			BOOL found = NO;
+			NSNumber *currentId = [NSNumber numberWithInt:[animationId integerValue]];
+			for (NSNumber *id_ in ids) {
+				if ([id_ isEqualToNumber:currentId] == YES) {
+					found = YES;
+					break;
+				}
+			}
+			if (found == NO) {
+				// If not found, ommit the whole section aframes and continue with next animation
+				for (line = [self nextLine]; line != nil && ![line hasPrefix:@")"]; line = [self nextLine]);
+				continue;
+			}
+		}
 		
 #ifdef LVKSPRITELOG
 		LKLOG(@" LvkSprite - Parsing animation: %@ %@", animationId, animationName);
