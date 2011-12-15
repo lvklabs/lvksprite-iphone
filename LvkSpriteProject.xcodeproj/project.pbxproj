@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3BBDC27C12517B000052B8D7 /* libLvkSprite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E0B544BA1246B73E00A27025 /* libLvkSprite.a */; };
-		4107346D13BBF46E00F05213 /* libcocos2d.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4107346B13BBF46E00F05213 /* libcocos2d.a */; };
-		4107346E13BBF46E00F05213 /* libCocosDenshion.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4107346C13BBF46E00F05213 /* libCocosDenshion.a */; };
 		4191C1FF146B0C3E00EDC2B9 /* LvkSpawn.m in Sources */ = {isa = PBXBuildFile; fileRef = 4191C1FE146B0C3E00EDC2B9 /* LvkSpawn.m */; };
 		4191C200146B149E00EDC2B9 /* LvkSpawn.m in Sources */ = {isa = PBXBuildFile; fileRef = 4191C1FE146B0C3E00EDC2B9 /* LvkSpawn.m */; };
 		41922A42111A68E40058E0DA /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 41922A3D111A68E40058E0DA /* Default.png */; };
@@ -147,8 +145,6 @@
 /* Begin PBXFileReference section */
 		1D6058910D05DD3D006BFB54 /* LvkSprite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LvkSprite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B6A347F124ABE9B002F820D /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
-		4107346B13BBF46E00F05213 /* libcocos2d.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcocos2d.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		4107346C13BBF46E00F05213 /* libCocosDenshion.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libCocosDenshion.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		41589E311385D5990078168C /* cocos2d-ios.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "cocos2d-ios.xcodeproj"; path = "../cocos2d-iphone/cocos2d-ios.xcodeproj"; sourceTree = "<group>"; };
 		4191C1FD146B0C3E00EDC2B9 /* LvkSpawn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LvkSpawn.h; path = LvkSprite/LvkSpawn.h; sourceTree = "<group>"; };
 		4191C1FE146B0C3E00EDC2B9 /* LvkSpawn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LvkSpawn.m; path = LvkSprite/LvkSpawn.m; sourceTree = "<group>"; };
@@ -210,8 +206,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4107346D13BBF46E00F05213 /* libcocos2d.a in Frameworks */,
-				4107346E13BBF46E00F05213 /* libCocosDenshion.a in Frameworks */,
 				E0B544BF1246B75E00A27025 /* CoreGraphics.framework in Frameworks */,
 				E0B544C01246B75E00A27025 /* Foundation.framework in Frameworks */,
 				E0B544C11246B75E00A27025 /* OpenGLES.framework in Frameworks */,
@@ -239,8 +233,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				4107346B13BBF46E00F05213 /* libcocos2d.a */,
-				4107346C13BBF46E00F05213 /* libCocosDenshion.a */,
 				41589E311385D5990078168C /* cocos2d-ios.xcodeproj */,
 				3B6A347F124ABE9B002F820D /* README */,
 				E0B5418F12469A9900A27025 /* LvkSpriteTest */,

@@ -69,10 +69,10 @@ typedef enum {
 /// TODO explain with more detail
 @property CGFloat collisionThreshold;
 
-+ (id) spriteWithBinary:(NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile andError:(NSError**)error;
++ (id) spriteWithBinary:(NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile;
 
 // Idem but only loads the given animation ids
-+ (id) spriteWithBinary:(NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile ids:(NSArray *)ids andError:(NSError**)error;
++ (id) spriteWithBinary:(NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile ids:(NSArray *)ids;
 
 
 //// Initializes an instance of the class using a Lvk Sprite 
@@ -80,10 +80,10 @@ typedef enum {
 /// @param format: the lvk sprite binary format (Standar or PVRTC)
 /// @param info: the lvk sprite information file (usually *.lkot)
 /// @returns an initialized instance of LvkSprite
-- (id) initWithBinary:(NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile andError:(NSError**)error;
+- (id) initWithBinary:(NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile;
 
 // Idem but only loads the given animation ids
-- (id) initWithBinary:(NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile ids:(NSArray *)ids andError:(NSError**)error;
+- (id) initWithBinary:(NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile ids:(NSArray *)ids;
 
 /// Loads a Lvk Sprite
 /// @param bin: the lvk sprite binary file (usually *.lkob)
@@ -91,10 +91,10 @@ typedef enum {
 /// @param info: the lvk sprite information file (usually *.lkot)
 /// @returns TRUE if it loads and parses the files successfully,
 ///          FALSE otherwise
-- (BOOL) loadBinary: (NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile andError:(NSError**)error;
+- (BOOL) loadBinary: (NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile;
 
 // Idem but only loads the given animation ids
-- (BOOL) loadBinary: (NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile ids:(NSArray *)ids andError:(NSError**)error;
+- (BOOL) loadBinary: (NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile ids:(NSArray *)ids;
 
 /// Plays n times the given animation at the given position
 /// @param name: the animation name

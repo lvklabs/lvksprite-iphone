@@ -67,34 +67,34 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
     return _animations;
 }
 
-+ (id) spriteWithBinary:(NSString*)bin format:(LkobFormat)format info:(NSString*)info andError:(NSError**)error
++ (id) spriteWithBinary:(NSString*)bin format:(LkobFormat)format info:(NSString*)info
 {
-    return [[[LvkSprite alloc] initWithBinary:bin format:format info:info andError:error] autorelease];
+    return [[[LvkSprite alloc] initWithBinary:bin format:format info:info] autorelease];
 }
 
-+ (id) spriteWithBinary:(NSString*)bin format:(LkobFormat)format info:(NSString*)info ids:(NSArray *)ids andError:(NSError**)error
++ (id) spriteWithBinary:(NSString*)bin format:(LkobFormat)format info:(NSString*)info ids:(NSArray *)ids
 {
-    return [[[LvkSprite alloc] initWithBinary:bin format:format info:info ids:ids andError:error] autorelease];
+    return [[[LvkSprite alloc] initWithBinary:bin format:format info:info ids:ids] autorelease];
 }
 
 - (id)init
 {
-	return [self initWithBinary:nil format:LkobStandar info:nil andError:nil];
+	return [self initWithBinary:nil format:LkobStandar info:nil];
 }
 
-- (id) initWithBinary:(NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile andError:(NSError**)error
+- (id) initWithBinary:(NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile
 {
-	return [self initWithBinary:binFile format:format info:infoFile ids:nil andError:error];
+	return [self initWithBinary:binFile format:format info:infoFile ids:nil];
 }
 
-- (id) initWithBinary:(NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile ids:(NSArray *)ids andError:(NSError**)error
+- (id) initWithBinary:(NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile ids:(NSArray *)ids
 {
 	if((self = [super init])){
         _lkobFormat = format;
 
 		self.animationsInternal = [NSMutableDictionary dictionary];
 		
-		[self loadBinary: binFile format:format info: infoFile ids:ids andError:error];
+		[self loadBinary: binFile format:format info: infoFile ids:ids];
 
 		_animation = nil;
 		_aniAction = nil;
@@ -221,7 +221,7 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 	return line;	
 }
 
-- (BOOL) loadBinary: (NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile andError:(NSError**)error
+- (BOOL) loadBinary: (NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile
 {
 	if (binFile == nil || infoFile == nil) {
 		return NO;
@@ -229,10 +229,10 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 	
 	[self.animationsInternal removeAllObjects];
 
-	return [self loadBinary:binFile format:format info:infoFile ids:nil andError:error];
+	return [self loadBinary:binFile format:format info:infoFile ids:nil];
 }
 
-- (BOOL) loadBinary: (NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile ids:(NSArray *)ids andError:(NSError**)error
+- (BOOL) loadBinary: (NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile ids:(NSArray *)ids
 {
 	if (binFile == nil || infoFile == nil) {
 		return NO;
@@ -250,21 +250,21 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 	_lkobFormat = format;
 	
 	// load bin file -------------------------------
+	NSError *error = nil;
 	
-	*error = nil;
-	NSData *binData = [NSData dataWithContentsOfFile:binFile options:0 error:error];
-	if (*error != nil) {
-		LKLOG(@"LvkSprite - ERROR Error opening binary file: %@", [*error localizedDescription]);
+	NSData *binData = [NSData dataWithContentsOfFile:binFile options:0 error:&error];
+	if (error != nil) {
+		LKLOG(@"LvkSprite - ERROR Error opening binary file: %@", [error localizedDescription]);
 		return NO;
 	}
 	
 	// Load info file ------------------------------
 	
-	*error = nil;
+	error = nil;
 	NSStringEncoding encoding;
-	NSString *infoData = [NSString stringWithContentsOfFile:infoFile usedEncoding:&encoding error:error];
-	if (*error != nil) {
-		LKLOG(@"LvkSprite - ERROR Error opening info file: %@", [*error localizedDescription]);
+	NSString *infoData = [NSString stringWithContentsOfFile:infoFile usedEncoding:&encoding error:&error];
+	if (error != nil) {
+		LKLOG(@"LvkSprite - ERROR Error opening info file: %@", [error localizedDescription]);
 		return NO;
 	}
 	
