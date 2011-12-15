@@ -7,27 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3BBDC27C12517B000052B8D7 /* libLvkSprite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E0B544BA1246B73E00A27025 /* libLvkSprite.a */; };
-		4191C1FF146B0C3E00EDC2B9 /* LvkSpawn.m in Sources */ = {isa = PBXBuildFile; fileRef = 4191C1FE146B0C3E00EDC2B9 /* LvkSpawn.m */; };
 		4191C200146B149E00EDC2B9 /* LvkSpawn.m in Sources */ = {isa = PBXBuildFile; fileRef = 4191C1FE146B0C3E00EDC2B9 /* LvkSpawn.m */; };
-		41922A42111A68E40058E0DA /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 41922A3D111A68E40058E0DA /* Default.png */; };
-		41922A43111A68E40058E0DA /* fps_images.png in Resources */ = {isa = PBXBuildFile; fileRef = 41922A3E111A68E40058E0DA /* fps_images.png */; };
-		41922A44111A68E40058E0DA /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 41922A3F111A68E40058E0DA /* Icon.png */; };
-		41922A45111A68E40058E0DA /* ryu.lkob in Resources */ = {isa = PBXBuildFile; fileRef = 41922A40111A68E40058E0DA /* ryu.lkob */; };
-		41922A46111A68E40058E0DA /* ryu.lkot in Resources */ = {isa = PBXBuildFile; fileRef = 41922A41111A68E40058E0DA /* ryu.lkot */; };
-		41922A49111A68F40058E0DA /* LvkSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 41922A48111A68F40058E0DA /* LvkSprite.m */; };
-		41922A4F111A69270058E0DA /* LvkSpriteDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 41922A4D111A69270058E0DA /* LvkSpriteDemoAppDelegate.m */; };
-		41922A50111A69270058E0DA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41922A4E111A69270058E0DA /* main.m */; };
-		4199EE9611B2D869005919CB /* LvkRepeatAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4199EE9511B2D869005919CB /* LvkRepeatAction.m */; };
-		506EDB88102F4C4000A389B3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 506EDB87102F4C4000A389B3 /* libz.dylib */; };
-		506EDBA5102F4C9F00A389B3 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506EDBA4102F4C9F00A389B3 /* AVFoundation.framework */; };
-		DC6640030F83B3EA000B3E49 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6640020F83B3EA000B3E49 /* AudioToolbox.framework */; };
-		DC6640050F83B3EA000B3E49 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6640040F83B3EA000B3E49 /* OpenAL.framework */; };
-		DCCBF1B70F6022AE0040855A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1B60F6022AE0040855A /* CoreGraphics.framework */; };
-		DCCBF1B90F6022AE0040855A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1B80F6022AE0040855A /* Foundation.framework */; };
-		DCCBF1BB0F6022AE0040855A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1BA0F6022AE0040855A /* OpenGLES.framework */; };
-		DCCBF1BD0F6022AE0040855A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1BC0F6022AE0040855A /* QuartzCore.framework */; };
-		DCCBF1BF0F6022AE0040855A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1BE0F6022AE0040855A /* UIKit.framework */; };
 		E0B544BF1246B75E00A27025 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1B60F6022AE0040855A /* CoreGraphics.framework */; };
 		E0B544C01246B75E00A27025 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1B80F6022AE0040855A /* Foundation.framework */; };
 		E0B544C11246B75E00A27025 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1BA0F6022AE0040855A /* OpenGLES.framework */; };
@@ -41,111 +21,8 @@
 		E0B544C91246B77100A27025 /* LvkRepeatAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4199EE9511B2D869005919CB /* LvkRepeatAction.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		3BBDC27212517ADB0052B8D7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E0B544B91246B73E00A27025;
-			remoteInfo = LvkSprite;
-		};
-		4107346713BBF45600F05213 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 41589E311385D5990078168C /* cocos2d-ios.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 5018F24C0DFDEAC400C013A5;
-			remoteInfo = cocos2d;
-		};
-		4107346913BBF45600F05213 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 41589E311385D5990078168C /* cocos2d-ios.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 50CB2FC91004C8B100B7A750;
-			remoteInfo = CocosDenshion;
-		};
-		41589EAE1385D5A40078168C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 41589E311385D5990078168C /* cocos2d-ios.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 509807081175041800EA7266;
-			remoteInfo = "build all tests";
-		};
-		41589EB01385D5A40078168C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 41589E311385D5990078168C /* cocos2d-ios.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 504225700FC0B39C00B992F7;
-			remoteInfo = box2d;
-		};
-		41589EB21385D5A40078168C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 41589E311385D5990078168C /* cocos2d-ios.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 50B2C4D10E100AEA00AE9530;
-			remoteInfo = Chipmunk;
-		};
-		41589EB41385D5A40078168C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 41589E311385D5990078168C /* cocos2d-ios.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 5018F24D0DFDEAC400C013A5;
-			remoteInfo = cocos2d;
-		};
-		41589EB61385D5A40078168C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 41589E311385D5990078168C /* cocos2d-ios.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 502C65EE0DFEF3DD00E4107D;
-			remoteInfo = "cocos2d-documentation";
-		};
-		41589EB81385D5A40078168C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 41589E311385D5990078168C /* cocos2d-ios.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 50CB2FCA1004C8B100B7A750;
-			remoteInfo = CocosDenshion;
-		};
-		41589EBA1385D5A40078168C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 41589E311385D5990078168C /* cocos2d-ios.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 509B3A0D0F31024E00F2FB95;
-			remoteInfo = cocosLive;
-		};
-		41589EBC1385D5A40078168C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 41589E311385D5990078168C /* cocos2d-ios.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 505461DF10616AE100AB7C52;
-			remoteInfo = FontLabel;
-		};
-		41589EBE1385D5A40078168C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 41589E311385D5990078168C /* cocos2d-ios.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 503164CD10277665003ACFE7;
-			remoteInfo = libpng;
-		};
-		41589EC01385D5A40078168C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 41589E311385D5990078168C /* cocos2d-ios.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 509B39DF0F31020900F2FB95;
-			remoteInfo = TouchJSON;
-		};
-		41589EC21385D5A40078168C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 41589E311385D5990078168C /* cocos2d-ios.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8E6CBEEF0F7A758000D47B3A;
-			remoteInfo = vorbis;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		1D6058910D05DD3D006BFB54 /* LvkSprite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LvkSprite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B6A347F124ABE9B002F820D /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
-		41589E311385D5990078168C /* cocos2d-ios.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "cocos2d-ios.xcodeproj"; path = "../cocos2d-iphone/cocos2d-ios.xcodeproj"; sourceTree = "<group>"; };
 		4191C1FD146B0C3E00EDC2B9 /* LvkSpawn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LvkSpawn.h; path = LvkSprite/LvkSpawn.h; sourceTree = "<group>"; };
 		4191C1FE146B0C3E00EDC2B9 /* LvkSpawn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LvkSpawn.m; path = LvkSprite/LvkSpawn.m; sourceTree = "<group>"; };
 		41922A3D111A68E40058E0DA /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Resources/Default.png; sourceTree = "<group>"; };
@@ -185,23 +62,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		1D60588F0D05DD3D006BFB54 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3BBDC27C12517B000052B8D7 /* libLvkSprite.a in Frameworks */,
-				DCCBF1B70F6022AE0040855A /* CoreGraphics.framework in Frameworks */,
-				DCCBF1B90F6022AE0040855A /* Foundation.framework in Frameworks */,
-				DCCBF1BB0F6022AE0040855A /* OpenGLES.framework in Frameworks */,
-				DCCBF1BD0F6022AE0040855A /* QuartzCore.framework in Frameworks */,
-				DCCBF1BF0F6022AE0040855A /* UIKit.framework in Frameworks */,
-				DC6640030F83B3EA000B3E49 /* AudioToolbox.framework in Frameworks */,
-				DC6640050F83B3EA000B3E49 /* OpenAL.framework in Frameworks */,
-				506EDB88102F4C4000A389B3 /* libz.dylib in Frameworks */,
-				506EDBA5102F4C9F00A389B3 /* AVFoundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		E0B544B81246B73E00A27025 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -224,7 +84,6 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* LvkSprite.app */,
 				E0B544BA1246B73E00A27025 /* libLvkSprite.a */,
 			);
 			name = Products;
@@ -233,7 +92,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				41589E311385D5990078168C /* cocos2d-ios.xcodeproj */,
 				3B6A347F124ABE9B002F820D /* README */,
 				E0B5418F12469A9900A27025 /* LvkSpriteTest */,
 				41922A4A111A69070058E0DA /* LvkSprite Demo App Sources */,
@@ -294,24 +152,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		41589E321385D5990078168C /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				41589EAF1385D5A40078168C /* libbuild all tests.a */,
-				41589EB11385D5A40078168C /* libbox2d.a */,
-				41589EB31385D5A40078168C /* libChipmunk.a */,
-				41589EB51385D5A40078168C /* libcocos2d.a */,
-				41589EB71385D5A40078168C /* libcocos2d-documentation.a */,
-				41589EB91385D5A40078168C /* libCocosDenshion.a */,
-				41589EBB1385D5A40078168C /* libcocos Live.a */,
-				41589EBD1385D5A40078168C /* libFontLabel.a */,
-				41589EBF1385D5A40078168C /* liblibpng.a */,
-				41589EC11385D5A40078168C /* libTouchJSON.a */,
-				41589EC31385D5A40078168C /* libvorbis.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		41922A4A111A69070058E0DA /* LvkSprite Demo App Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -346,24 +186,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		1D6058900D05DD3D006BFB54 /* LvkSpriteProject */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "LvkSpriteProject" */;
-			buildPhases = (
-				1D60588D0D05DD3D006BFB54 /* Resources */,
-				1D60588E0D05DD3D006BFB54 /* Sources */,
-				1D60588F0D05DD3D006BFB54 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				3BBDC27312517ADB0052B8D7 /* PBXTargetDependency */,
-			);
-			name = LvkSpriteProject;
-			productName = display_bin2image;
-			productReference = 1D6058910D05DD3D006BFB54 /* LvkSprite.app */;
-			productType = "com.apple.product-type.application";
-		};
 		E0B544B91246B73E00A27025 /* LvkSprite */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E0B544BD1246B75D00A27025 /* Build configuration list for PBXNativeTarget "LvkSprite" */;
@@ -375,8 +197,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				4107346813BBF45600F05213 /* PBXTargetDependency */,
-				4107346A13BBF45600F05213 /* PBXTargetDependency */,
 			);
 			name = LvkSprite;
 			productName = LvkSprite;
@@ -400,128 +220,14 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 41589E321385D5990078168C /* Products */;
-					ProjectRef = 41589E311385D5990078168C /* cocos2d-ios.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
-				1D6058900D05DD3D006BFB54 /* LvkSpriteProject */,
 				E0B544B91246B73E00A27025 /* LvkSprite */,
 			);
 		};
 /* End PBXProject section */
 
-/* Begin PBXReferenceProxy section */
-		41589EAF1385D5A40078168C /* libbuild all tests.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libbuild all tests.a";
-			remoteRef = 41589EAE1385D5A40078168C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		41589EB11385D5A40078168C /* libbox2d.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libbox2d.a;
-			remoteRef = 41589EB01385D5A40078168C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		41589EB31385D5A40078168C /* libChipmunk.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libChipmunk.a;
-			remoteRef = 41589EB21385D5A40078168C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		41589EB51385D5A40078168C /* libcocos2d.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libcocos2d.a;
-			remoteRef = 41589EB41385D5A40078168C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		41589EB71385D5A40078168C /* libcocos2d-documentation.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libcocos2d-documentation.a";
-			remoteRef = 41589EB61385D5A40078168C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		41589EB91385D5A40078168C /* libCocosDenshion.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libCocosDenshion.a;
-			remoteRef = 41589EB81385D5A40078168C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		41589EBB1385D5A40078168C /* libcocos Live.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libcocos Live.a";
-			remoteRef = 41589EBA1385D5A40078168C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		41589EBD1385D5A40078168C /* libFontLabel.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libFontLabel.a;
-			remoteRef = 41589EBC1385D5A40078168C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		41589EBF1385D5A40078168C /* liblibpng.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = liblibpng.a;
-			remoteRef = 41589EBE1385D5A40078168C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		41589EC11385D5A40078168C /* libTouchJSON.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libTouchJSON.a;
-			remoteRef = 41589EC01385D5A40078168C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		41589EC31385D5A40078168C /* libvorbis.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libvorbis.a;
-			remoteRef = 41589EC21385D5A40078168C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
-
-/* Begin PBXResourcesBuildPhase section */
-		1D60588D0D05DD3D006BFB54 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				41922A42111A68E40058E0DA /* Default.png in Resources */,
-				41922A43111A68E40058E0DA /* fps_images.png in Resources */,
-				41922A44111A68E40058E0DA /* Icon.png in Resources */,
-				41922A45111A68E40058E0DA /* ryu.lkob in Resources */,
-				41922A46111A68E40058E0DA /* ryu.lkot in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		1D60588E0D05DD3D006BFB54 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				41922A49111A68F40058E0DA /* LvkSprite.m in Sources */,
-				41922A4F111A69270058E0DA /* LvkSpriteDemoAppDelegate.m in Sources */,
-				41922A50111A69270058E0DA /* main.m in Sources */,
-				4199EE9611B2D869005919CB /* LvkRepeatAction.m in Sources */,
-				4191C1FF146B0C3E00EDC2B9 /* LvkSpawn.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		E0B544B71246B73E00A27025 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -534,68 +240,7 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		3BBDC27312517ADB0052B8D7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E0B544B91246B73E00A27025 /* LvkSprite */;
-			targetProxy = 3BBDC27212517ADB0052B8D7 /* PBXContainerItemProxy */;
-		};
-		4107346813BBF45600F05213 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = cocos2d;
-			targetProxy = 4107346713BBF45600F05213 /* PBXContainerItemProxy */;
-		};
-		4107346A13BBF45600F05213 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = CocosDenshion;
-			targetProxy = 4107346913BBF45600F05213 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
-		1D6058940D05DD3E006BFB54 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = "COCOS2D_DEBUG=0";
-				GCC_THUMB_SUPPORT = NO;
-				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
-				INFOPLIST_FILE = Info.plist;
-				OTHER_LDFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = LvkSprite;
-				USER_HEADER_SEARCH_PATHS = "";
-				WARNING_CFLAGS = "-Wall";
-			};
-			name = Debug;
-		};
-		1D6058950D05DD3E006BFB54 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = display_bin2image_Prefix.pch;
-				GCC_THUMB_SUPPORT = NO;
-				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
-				INFOPLIST_FILE = Info.plist;
-				OTHER_LDFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = display_bin2image;
-				USER_HEADER_SEARCH_PATHS = "";
-				WARNING_CFLAGS = "-Wall";
-			};
-			name = Release;
-		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -685,15 +330,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "LvkSpriteProject" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1D6058940D05DD3E006BFB54 /* Debug */,
-				1D6058950D05DD3E006BFB54 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "LvkSpriteProject" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
