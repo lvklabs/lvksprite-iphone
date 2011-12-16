@@ -111,10 +111,10 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 
 - (void) dealloc 
 {
-	SecureRelease(_animation);
-	SecureRelease(_animations);
-	SecureRelease(_linesIterator);
-	SecureRelease(_aniAction);
+	[_animation release];
+	[_animations release];
+	[_linesIterator release];
+	[_aniAction release];
 	[super dealloc];
 }
 
