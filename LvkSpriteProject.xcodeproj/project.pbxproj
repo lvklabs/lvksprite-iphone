@@ -15,6 +15,8 @@
 		41800F3B15E28CCC0009D053 /* CCTextureCache+lvk.m in Sources */ = {isa = PBXBuildFile; fileRef = 41800F3215E28CCC0009D053 /* CCTextureCache+lvk.m */; };
 		41800F3C15E28CCC0009D053 /* CCTexturePVR+lvk.h in Headers */ = {isa = PBXBuildFile; fileRef = 41800F3315E28CCC0009D053 /* CCTexturePVR+lvk.h */; };
 		41800F3D15E28CCC0009D053 /* CCTexturePVR+lvk.m in Sources */ = {isa = PBXBuildFile; fileRef = 41800F3415E28CCC0009D053 /* CCTexturePVR+lvk.m */; };
+		4183F82715E2C9EB00C69034 /* LvkAnimate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4183F82515E2C9EA00C69034 /* LvkAnimate.h */; };
+		4183F82815E2C9EB00C69034 /* LvkAnimate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4183F82615E2C9EA00C69034 /* LvkAnimate.m */; };
 		4191C200146B149E00EDC2B9 /* LvkSpawn.m in Sources */ = {isa = PBXBuildFile; fileRef = 4191C1FE146B0C3E00EDC2B9 /* LvkSpawn.m */; };
 		41B842C415E2B441005CE9E5 /* CCAction+lvk.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B842C115E2B441005CE9E5 /* CCAction+lvk.m */; };
 		E0B544BF1246B75E00A27025 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1B60F6022AE0040855A /* CoreGraphics.framework */; };
@@ -40,6 +42,8 @@
 		41800F3215E28CCC0009D053 /* CCTextureCache+lvk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CCTextureCache+lvk.m"; path = "CCLvkExts/CCTextureCache+lvk.m"; sourceTree = "<group>"; };
 		41800F3315E28CCC0009D053 /* CCTexturePVR+lvk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CCTexturePVR+lvk.h"; path = "CCLvkExts/CCTexturePVR+lvk.h"; sourceTree = "<group>"; };
 		41800F3415E28CCC0009D053 /* CCTexturePVR+lvk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CCTexturePVR+lvk.m"; path = "CCLvkExts/CCTexturePVR+lvk.m"; sourceTree = "<group>"; };
+		4183F82515E2C9EA00C69034 /* LvkAnimate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LvkAnimate.h; path = LvkSprite/LvkAnimate.h; sourceTree = "<group>"; };
+		4183F82615E2C9EA00C69034 /* LvkAnimate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LvkAnimate.m; path = LvkSprite/LvkAnimate.m; sourceTree = "<group>"; };
 		4191C1FD146B0C3E00EDC2B9 /* LvkSpawn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LvkSpawn.h; path = LvkSprite/LvkSpawn.h; sourceTree = "<group>"; };
 		4191C1FE146B0C3E00EDC2B9 /* LvkSpawn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LvkSpawn.m; path = LvkSprite/LvkSpawn.m; sourceTree = "<group>"; };
 		41922A3D111A68E40058E0DA /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Resources/Default.png; sourceTree = "<group>"; };
@@ -135,6 +139,8 @@
 				4199EE9511B2D869005919CB /* LvkRepeatAction.m */,
 				4191C1FD146B0C3E00EDC2B9 /* LvkSpawn.h */,
 				4191C1FE146B0C3E00EDC2B9 /* LvkSpawn.m */,
+				4183F82515E2C9EA00C69034 /* LvkAnimate.h */,
+				4183F82615E2C9EA00C69034 /* LvkAnimate.m */,
 			);
 			name = "LvkSprite Sources";
 			sourceTree = "<group>";
@@ -221,6 +227,7 @@
 				41800F3815E28CCC0009D053 /* CCTexture2D+lvk.h in Headers */,
 				41800F3A15E28CCC0009D053 /* CCTextureCache+lvk.h in Headers */,
 				41800F3C15E28CCC0009D053 /* CCTexturePVR+lvk.h in Headers */,
+				4183F82715E2C9EB00C69034 /* LvkAnimate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +291,7 @@
 				41800F3B15E28CCC0009D053 /* CCTextureCache+lvk.m in Sources */,
 				41800F3D15E28CCC0009D053 /* CCTexturePVR+lvk.m in Sources */,
 				41B842C415E2B441005CE9E5 /* CCAction+lvk.m in Sources */,
+				4183F82815E2C9EB00C69034 /* LvkAnimate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

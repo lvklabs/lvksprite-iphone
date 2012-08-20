@@ -11,6 +11,7 @@
 #import "LvkSpawn.h"
 #import "CCAnimation+lvk.h"
 #import "CCAction+lvk.h"
+#import "LvkAnimate.h"
 #import "common.h"
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -315,7 +316,7 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 	// Create a Null animation --------------------
 	
 	CCAnimation *nullAnim = [[CCAnimation alloc] initWithName:@"NullAnimation" delay:LVK_SPRITE_FPS];
- 	[self.animationsInternal setObject:[CCAnimate actionWithAnimation:nullAnim] forKey:@"NullAnimation"];
+ 	[self.animationsInternal setObject:[LvkAnimate actionWithAnimation:nullAnim] forKey:@"NullAnimation"];
     [nullAnim release];
 
 #ifdef LVKSPRITELOG
@@ -480,14 +481,14 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 	}
 	
 	// main animation
-	CCActionInterval *animAction = [CCAnimate actionWithAnimation:anim];
+	CCActionInterval *animAction = [LvkAnimate actionWithAnimation:anim];
 
 	// If there is a sticky frame, merge (or "spawn" using cocos jargon) sticky animations with the animation
 	
 	for (NSUInteger i = 0; i < stickyAnims.count; ++i) {
 		CCAnimation *stickyAnim = [stickyAnims objectAtIndex:(stickyAnims.count - i - 1)];
 		stickyAnim.delay = [animAction duration];
-		CCActionInterval *stickyAnimAction = [CCAnimate actionWithAnimation:stickyAnim];
+		CCActionInterval *stickyAnimAction = [LvkAnimate actionWithAnimation:stickyAnim];
 		
 		animAction = [LvkSpawn actionOne:animAction two:stickyAnimAction];
 		
@@ -533,7 +534,7 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 			} else if (n == -1) {
 				// Cannot use CCRepeatForever because this array of CCActions is used by CCSequence.
 				// CCSequence requires all CCActions to be CCFiniteAction and CCRepeatForever is not.
-				//action = [CCRepeatForever actionWithAction:[CCAnimate actionWithAnimation:anim]];
+				//action = [CCRepeatForever actionWithAction:[LvkAnimate actionWithAnimation:anim]];
 				// NSUIntegerMax/10 should be enough for most purposes. Not using NSUIntegerMax because
 				// I guess there is a risk of overflow at some point.
 				action = [LvkRepeatAction actionWithAction:anim times:NSUIntegerMax/100];
