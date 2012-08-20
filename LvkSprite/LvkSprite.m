@@ -7,6 +7,7 @@
 #import "LvkRepeatAction.h"
 #import "LvkSpawn.h"
 #import "common.h"
+#import "cocos2d+lvk.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // free_mem()

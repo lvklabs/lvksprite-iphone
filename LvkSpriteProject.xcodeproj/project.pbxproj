@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41800F3615E28CCC0009D053 /* CCAnimation+lvk.h in Headers */ = {isa = PBXBuildFile; fileRef = 41800F2D15E28CCC0009D053 /* CCAnimation+lvk.h */; };
+		41800F3715E28CCC0009D053 /* CCAnimation+lvk.m in Sources */ = {isa = PBXBuildFile; fileRef = 41800F2E15E28CCC0009D053 /* CCAnimation+lvk.m */; };
+		41800F3815E28CCC0009D053 /* CCTexture2D+lvk.h in Headers */ = {isa = PBXBuildFile; fileRef = 41800F2F15E28CCC0009D053 /* CCTexture2D+lvk.h */; };
+		41800F3915E28CCC0009D053 /* CCTexture2D+lvk.m in Sources */ = {isa = PBXBuildFile; fileRef = 41800F3015E28CCC0009D053 /* CCTexture2D+lvk.m */; };
+		41800F3A15E28CCC0009D053 /* CCTextureCache+lvk.h in Headers */ = {isa = PBXBuildFile; fileRef = 41800F3115E28CCC0009D053 /* CCTextureCache+lvk.h */; };
+		41800F3B15E28CCC0009D053 /* CCTextureCache+lvk.m in Sources */ = {isa = PBXBuildFile; fileRef = 41800F3215E28CCC0009D053 /* CCTextureCache+lvk.m */; };
+		41800F3C15E28CCC0009D053 /* CCTexturePVR+lvk.h in Headers */ = {isa = PBXBuildFile; fileRef = 41800F3315E28CCC0009D053 /* CCTexturePVR+lvk.h */; };
+		41800F3D15E28CCC0009D053 /* CCTexturePVR+lvk.m in Sources */ = {isa = PBXBuildFile; fileRef = 41800F3415E28CCC0009D053 /* CCTexturePVR+lvk.m */; };
+		41800F3E15E28CCC0009D053 /* cocos2d+lvk.h in Headers */ = {isa = PBXBuildFile; fileRef = 41800F3515E28CCC0009D053 /* cocos2d+lvk.h */; };
 		4191C200146B149E00EDC2B9 /* LvkSpawn.m in Sources */ = {isa = PBXBuildFile; fileRef = 4191C1FE146B0C3E00EDC2B9 /* LvkSpawn.m */; };
 		E0B544BF1246B75E00A27025 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1B60F6022AE0040855A /* CoreGraphics.framework */; };
 		E0B544C01246B75E00A27025 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1B80F6022AE0040855A /* Foundation.framework */; };
@@ -23,6 +32,15 @@
 
 /* Begin PBXFileReference section */
 		3B6A347F124ABE9B002F820D /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		41800F2D15E28CCC0009D053 /* CCAnimation+lvk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CCAnimation+lvk.h"; path = "CCLvkExts/CCAnimation+lvk.h"; sourceTree = "<group>"; };
+		41800F2E15E28CCC0009D053 /* CCAnimation+lvk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CCAnimation+lvk.m"; path = "CCLvkExts/CCAnimation+lvk.m"; sourceTree = "<group>"; };
+		41800F2F15E28CCC0009D053 /* CCTexture2D+lvk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CCTexture2D+lvk.h"; path = "CCLvkExts/CCTexture2D+lvk.h"; sourceTree = "<group>"; };
+		41800F3015E28CCC0009D053 /* CCTexture2D+lvk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CCTexture2D+lvk.m"; path = "CCLvkExts/CCTexture2D+lvk.m"; sourceTree = "<group>"; };
+		41800F3115E28CCC0009D053 /* CCTextureCache+lvk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CCTextureCache+lvk.h"; path = "CCLvkExts/CCTextureCache+lvk.h"; sourceTree = "<group>"; };
+		41800F3215E28CCC0009D053 /* CCTextureCache+lvk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CCTextureCache+lvk.m"; path = "CCLvkExts/CCTextureCache+lvk.m"; sourceTree = "<group>"; };
+		41800F3315E28CCC0009D053 /* CCTexturePVR+lvk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CCTexturePVR+lvk.h"; path = "CCLvkExts/CCTexturePVR+lvk.h"; sourceTree = "<group>"; };
+		41800F3415E28CCC0009D053 /* CCTexturePVR+lvk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CCTexturePVR+lvk.m"; path = "CCLvkExts/CCTexturePVR+lvk.m"; sourceTree = "<group>"; };
+		41800F3515E28CCC0009D053 /* cocos2d+lvk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "cocos2d+lvk.h"; path = "CCLvkExts/cocos2d+lvk.h"; sourceTree = "<group>"; };
 		4191C1FD146B0C3E00EDC2B9 /* LvkSpawn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LvkSpawn.h; path = LvkSprite/LvkSpawn.h; sourceTree = "<group>"; };
 		4191C1FE146B0C3E00EDC2B9 /* LvkSpawn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LvkSpawn.m; path = LvkSprite/LvkSpawn.m; sourceTree = "<group>"; };
 		41922A3D111A68E40058E0DA /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Resources/Default.png; sourceTree = "<group>"; };
@@ -92,6 +110,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				41800F2B15E28C9B0009D053 /* Cocos2d LVK extensions */,
 				3B6A347F124ABE9B002F820D /* README */,
 				E0B5418F12469A9900A27025 /* LvkSpriteTest */,
 				41922A4A111A69070058E0DA /* LvkSprite Demo App Sources */,
@@ -152,6 +171,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		41800F2B15E28C9B0009D053 /* Cocos2d LVK extensions */ = {
+			isa = PBXGroup;
+			children = (
+				41800F2D15E28CCC0009D053 /* CCAnimation+lvk.h */,
+				41800F2E15E28CCC0009D053 /* CCAnimation+lvk.m */,
+				41800F2F15E28CCC0009D053 /* CCTexture2D+lvk.h */,
+				41800F3015E28CCC0009D053 /* CCTexture2D+lvk.m */,
+				41800F3115E28CCC0009D053 /* CCTextureCache+lvk.h */,
+				41800F3215E28CCC0009D053 /* CCTextureCache+lvk.m */,
+				41800F3315E28CCC0009D053 /* CCTexturePVR+lvk.h */,
+				41800F3415E28CCC0009D053 /* CCTexturePVR+lvk.m */,
+				41800F3515E28CCC0009D053 /* cocos2d+lvk.h */,
+			);
+			name = "Cocos2d LVK extensions";
+			sourceTree = "<group>";
+		};
 		41922A4A111A69070058E0DA /* LvkSprite Demo App Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -180,6 +215,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41800F3615E28CCC0009D053 /* CCAnimation+lvk.h in Headers */,
+				41800F3815E28CCC0009D053 /* CCTexture2D+lvk.h in Headers */,
+				41800F3A15E28CCC0009D053 /* CCTextureCache+lvk.h in Headers */,
+				41800F3C15E28CCC0009D053 /* CCTexturePVR+lvk.h in Headers */,
+				41800F3E15E28CCC0009D053 /* cocos2d+lvk.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,6 +278,10 @@
 				4191C200146B149E00EDC2B9 /* LvkSpawn.m in Sources */,
 				E0B544C81246B77100A27025 /* LvkSprite.m in Sources */,
 				E0B544C91246B77100A27025 /* LvkRepeatAction.m in Sources */,
+				41800F3715E28CCC0009D053 /* CCAnimation+lvk.m in Sources */,
+				41800F3915E28CCC0009D053 /* CCTexture2D+lvk.m in Sources */,
+				41800F3B15E28CCC0009D053 /* CCTextureCache+lvk.m in Sources */,
+				41800F3D15E28CCC0009D053 /* CCTexturePVR+lvk.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
