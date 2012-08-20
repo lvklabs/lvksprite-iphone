@@ -7,7 +7,9 @@
 
 typedef enum {
     LkobStandar,
-    LkobPVRTC,
+#ifdef LVKSPRITE_PVR_ENABLED
+    LkobPVRTC, // Experimental
+#endif
 } LkobFormat;
 
 /// This class loads and plays sprites created with the

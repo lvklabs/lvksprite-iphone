@@ -2,13 +2,10 @@
 
 @interface CCTexture2D (CCLvkExt)
 
-//lavadaink andres
-/** Initializes a texture from a NSData with the contents of a PVRTC file. I had to implement this method because
- initWithPVRTCData:level:bpp:hasAlpha:length did not work in my case
- */
+#ifdef LVKSPRITE_PVR_ENABLED
 -(id) initWithPVRTCData: (NSData*) data;
+#endif
 
 @end
-
 
 

@@ -458,7 +458,9 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 				if (_lkobFormat == LkobStandar) {
 					[anim addFrameContent:[frames objectForKey:frameKey] withKey:frameKey offset:CGPointMake(ox, oy)];                            
 				} else {
+#ifdef LVKSPRITE_PVR_ENABLED
 					[anim addFramePVRTCContent:[frames objectForKey:frameKey] withKey:frameKey offset:CGPointMake(ox, oy)];
+#endif
 				}
 				frameCount++;
 			}						

@@ -1,7 +1,11 @@
+
 #import "CCTexture2D+lvk.h"
+#import "CCTexturePVR+lvk.h"
 #import "cocos2d.h"
 
 @implementation CCTexture2D (CCLvkExt)
+
+#ifdef LVKSPRITE_PVR_ENABLED
 
 -(id) initWithPVRTCData: (NSData*) data
 {   
@@ -34,5 +38,7 @@
 	}
 	return self;
 }
+
+#endif
 
 @end

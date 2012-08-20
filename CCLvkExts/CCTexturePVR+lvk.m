@@ -1,8 +1,8 @@
 #import "CCTexturePVR+lvk.h"
 
-
 @implementation CCTexturePVR (CCLvkExt)
 
+#ifdef LVKSPRITE_PVR_ENABLED
 - (id)initWithData:(NSData *)data
 {
 	if((self = [super init]))
@@ -17,7 +17,7 @@
 		
 		retainName_ = NO; // cocos2d integration
         
-		if( ! [self unpackPVRData:(unsigned char *)[data bytes] PVRLen:[data length]] || ![self createGLTexture]  ) {
+		if(![self unpackPVRData:(unsigned char *)[data bytes] PVRLen:[data length]] || ![self createGLTexture]) {
 			[self release];
 			return nil;
 		}
@@ -25,6 +25,7 @@
 	
 	return self;
 }
+#endif
 
 @end
 

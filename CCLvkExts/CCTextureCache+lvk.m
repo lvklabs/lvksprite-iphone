@@ -33,6 +33,8 @@
 	
 	return tex;	
 }
+
+#ifdef LVKSPRITE_PVR_ENABLED
 -(CCTexture2D*) addPVRTCImageFromRawData: (NSData*)data withKey: (NSString*)key
 {    
 	CCTexture2D * tex;
@@ -49,5 +51,6 @@
 	
 	return [tex autorelease];
 }
+#endif
 
 @end

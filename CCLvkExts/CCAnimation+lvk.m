@@ -24,6 +24,8 @@
 	[frames_ addObject:frame];	
 }
 
+#ifdef LVKSPRITE_PVR_ENABLED
+
 -(void) addFramePVRTCContent: (NSData*)data withKey:(NSString*)key
 {
 	[self addFramePVRTCContent:data withKey:key offset:CGPointZero];
@@ -41,5 +43,7 @@
 											  originalSize:rectInPixels.size];
 	[frames_ addObject:frame];
 }
+
+#endif
 
 @end
