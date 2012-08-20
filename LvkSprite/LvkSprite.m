@@ -1,13 +1,17 @@
 //
 //  LvkSprite.m
+//  LvkSpriteProject
+//
+//  Copyright 2010, 2011, 2012 LVK. All rights reserved.
 //
 
 #import <Foundation/NSData.h>
 #import "LvkSprite.h"
 #import "LvkRepeatAction.h"
 #import "LvkSpawn.h"
+#import "CCAnimation+lvk.h"
+#import "CCAction+lvk.h"
 #import "common.h"
-#import "cocos2d+lvk.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // free_mem()

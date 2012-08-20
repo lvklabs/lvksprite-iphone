@@ -1,5 +1,8 @@
 //
 //  LvkSprite.h
+//  LvkSpriteProject
+//
+//  Copyright 2010, 2011, 2012 LVK. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

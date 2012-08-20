@@ -1,3 +1,10 @@
+//
+//  CCAnimation+lvk.m
+//  LvkSpriteProject
+//
+//  Copyright (c) 2012 LVK. All rights reserved.
+//
+
 #import "ccMacros.h"
 #import "CCAnimation.h"
 #import "CCSpriteFrame.h"

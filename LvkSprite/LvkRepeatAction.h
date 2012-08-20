@@ -2,9 +2,7 @@
  *  LvkRepeatAction.h
  *  LvkSpriteProject
  *
- *  Created by Andres on 5/30/10.
- *  Copyright 2010 LavandaInk. All rights reserved.
- *
+ *  Copyright 2010, 2011, 2012 LVK. All rights reserved.
  */
 
 #import <Foundation/Foundation.h>

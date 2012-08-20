@@ -2,8 +2,7 @@
 //  LvkSpawn.h
 //  LvkSpriteProject
 //
-//  Created by Andres on 11/9/11.
-//  Copyright 2011 LavandaInk. All rights reserved.
+//  Copyright 2011, 2012 LVK. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

@@ -1,3 +1,10 @@
+//
+//  CCAnimation+lvk.h
+//  LvkSpriteProject
+//
+//  Copyright (c) 2012 LVK. All rights reserved.
+//
+
 #import "CCAnimation.h"
 
 @interface CCAnimation (CCLvkExt)

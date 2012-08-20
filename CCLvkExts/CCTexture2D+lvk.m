@@ -1,3 +1,9 @@
+//
+//  CCTexture2D+lvk.m
+//  LvkSpriteProject
+//
+//  Copyright (c) 2012 LVK. All rights reserved.
+//
 
 #import "CCTexture2D+lvk.h"
 #import "CCTexturePVR+lvk.h"

@@ -1,11 +1,9 @@
-/*
- *  common.h
- *  igirl
- *
- *  Created by Mario Tambos on 7/4/10.
- *  Copyright 2010 LavandaInk. All rights reserved.
- *
- */
+//
+//  common.h
+//  LvkSpriteProject
+//
+//  Copyright 2010, 2011, 2012 LVK. All rights reserved.
+//
 
 //#define MEMORYLOG
 //#define LVKSPRITELOG

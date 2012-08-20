@@ -1,3 +1,10 @@
+//
+//  CCTextureCache+lvk.h
+//  LvkSpriteProject
+//
+//  Copyright (c) 2012 LVK. All rights reserved.
+//
+
 #import "CCTextureCache.h"
 
 @interface CCTextureCache (CCLvkExt)
