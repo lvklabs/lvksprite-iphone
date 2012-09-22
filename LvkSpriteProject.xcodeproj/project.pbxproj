@@ -59,7 +59,7 @@
 		4199EE9511B2D869005919CB /* LvkRepeatAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LvkRepeatAction.m; path = LvkSprite/LvkRepeatAction.m; sourceTree = "<group>"; };
 		4199EE9711B2D88D005919CB /* LvkRepeatAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LvkRepeatAction.h; path = LvkSprite/LvkRepeatAction.h; sourceTree = "<group>"; };
 		41B842C115E2B441005CE9E5 /* CCAction+lvk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CCAction+lvk.m"; path = "CCLvkExts/CCAction+lvk.m"; sourceTree = "<group>"; };
-		41B842C815E2B5F6005CE9E5 /* CCAction+lvk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CCAction+lvk.h"; sourceTree = "<group>"; };
+		41B842C815E2B5F6005CE9E5 /* CCAction+lvk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CCLvkExts/CCAction+lvk.h"; sourceTree = "<group>"; };
 		41DA179111ADF299004277E9 /* ResourcesPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResourcesPath.h; path = LvkSpriteDemo/ResourcesPath.h; sourceTree = "<group>"; };
 		506EDB87102F4C4000A389B3 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		506EDBA4102F4C9F00A389B3 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
