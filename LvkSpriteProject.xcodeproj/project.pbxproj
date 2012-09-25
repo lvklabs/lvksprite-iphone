@@ -18,6 +18,7 @@
 		4183F82715E2C9EB00C69034 /* LvkAnimate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4183F82515E2C9EA00C69034 /* LvkAnimate.h */; };
 		4183F82815E2C9EB00C69034 /* LvkAnimate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4183F82615E2C9EA00C69034 /* LvkAnimate.m */; };
 		4191C200146B149E00EDC2B9 /* LvkSpawn.m in Sources */ = {isa = PBXBuildFile; fileRef = 4191C1FE146B0C3E00EDC2B9 /* LvkSpawn.m */; };
+		41AAEF07161147DF004E9E2B /* CCAction+lvk.h in Headers */ = {isa = PBXBuildFile; fileRef = 41AAEF06161147DF004E9E2B /* CCAction+lvk.h */; };
 		41B842C415E2B441005CE9E5 /* CCAction+lvk.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B842C115E2B441005CE9E5 /* CCAction+lvk.m */; };
 		E0B544BF1246B75E00A27025 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1B60F6022AE0040855A /* CoreGraphics.framework */; };
 		E0B544C01246B75E00A27025 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1B80F6022AE0040855A /* Foundation.framework */; };
@@ -58,8 +59,8 @@
 		41922A4E111A69270058E0DA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = LvkSpriteDemo/main.m; sourceTree = "<group>"; };
 		4199EE9511B2D869005919CB /* LvkRepeatAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LvkRepeatAction.m; path = LvkSprite/LvkRepeatAction.m; sourceTree = "<group>"; };
 		4199EE9711B2D88D005919CB /* LvkRepeatAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LvkRepeatAction.h; path = LvkSprite/LvkRepeatAction.h; sourceTree = "<group>"; };
+		41AAEF06161147DF004E9E2B /* CCAction+lvk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CCAction+lvk.h"; path = "CCLvkExts/CCAction+lvk.h"; sourceTree = "<group>"; };
 		41B842C115E2B441005CE9E5 /* CCAction+lvk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CCAction+lvk.m"; path = "CCLvkExts/CCAction+lvk.m"; sourceTree = "<group>"; };
-		41B842C815E2B5F6005CE9E5 /* CCAction+lvk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CCAction+lvk.h"; sourceTree = "<group>"; };
 		41DA179111ADF299004277E9 /* ResourcesPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResourcesPath.h; path = LvkSpriteDemo/ResourcesPath.h; sourceTree = "<group>"; };
 		506EDB87102F4C4000A389B3 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		506EDBA4102F4C9F00A389B3 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -181,7 +182,7 @@
 		41800F2B15E28C9B0009D053 /* Cocos2d LVK extensions */ = {
 			isa = PBXGroup;
 			children = (
-				41B842C815E2B5F6005CE9E5 /* CCAction+lvk.h */,
+				41AAEF06161147DF004E9E2B /* CCAction+lvk.h */,
 				41B842C115E2B441005CE9E5 /* CCAction+lvk.m */,
 				41800F2D15E28CCC0009D053 /* CCAnimation+lvk.h */,
 				41800F2E15E28CCC0009D053 /* CCAnimation+lvk.m */,
@@ -228,6 +229,7 @@
 				41800F3A15E28CCC0009D053 /* CCTextureCache+lvk.h in Headers */,
 				41800F3C15E28CCC0009D053 /* CCTexturePVR+lvk.h in Headers */,
 				4183F82715E2C9EB00C69034 /* LvkAnimate.h in Headers */,
+				41AAEF07161147DF004E9E2B /* CCAction+lvk.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
