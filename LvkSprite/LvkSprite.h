@@ -8,13 +8,6 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-typedef enum {
-    LkobStandar,
-#ifdef LVKSPRITE_PVR_ENABLED
-    LkobPVRTC, // Experimental
-#endif
-} LkobFormat;
-
 /// This class loads and plays sprites created with the
 /// Lvk Sprite Animation Tool. The Lvk Sprite format 
 /// consists of two files: the binary file (*.lkob) and 
@@ -22,16 +15,14 @@ typedef enum {
 /// The first one contains images of each frame, and  
 /// the second one contains how to play the frames
 ///
-/// Example:
-/// 
-/// LvkSprite *ryu = [[LvkSprite alloc] initWithBinary:@"ryu.lkob" andInfo: @"ryu.lkot"];
+/// Asumming we have sprites files "ryu.lkob" and "ryu.lkot". Example:
+///
+/// LvkSprite *ryu = [[LvkSprite alloc] initWithName:@"ryu"];
 /// [sceneInstance addChild:ryu];
-/// [ryu playAnimation:@"punch" atX:70 atY:100];
+/// [ryu playAnimation:@"punch"];
 ///
 @interface LvkSprite : CCSprite 
 {	
-    // does the binary file contain PVRTC images
-    LkobFormat _lkobFormat;
 	// Key prefix to insert frames in map
 	NSString *_keyPrefix;
 	// a dictionary mapping animationName --> cocosAnimation
@@ -54,52 +45,39 @@ typedef enum {
 	CGFloat *ph;
 	// collision threshold
 	CGFloat collisionThreshold;
+    
+    BOOL _preloadMode;
 }
 
-/// Set/returns the position of the sprite in the x axis
-@property CGFloat x;
+/// Creates an empty Lvk Sprite
++ (LvkSprite *) sprite;
 
-/// Set/returns the position of the sprite in the y axis
-@property CGFloat y;
+/// Creates an empty Lvk Sprite
+- (LvkSprite *) init;
 
-@property (readonly, retain) NSDictionary* animations;
+/// Creates a Lvk Sprite with the given name
+/// @param name: the lvk sprite name (the filename without the extension, i.e. ".lkob")
++ (LvkSprite *) spriteWithName:(NSString*)name;
 
-/// Gets the current frame rect
-@property (readonly) CGRect rect;
+/// Creates a Lvk Sprite with the given name
+/// @param name: the lvk sprite name (the filename without the extension, i.e. ".lkob")
+- (LvkSprite *) initWithName:(NSString*)name;
 
-/// Gets the current frame rect plus the collision threshold 
-@property (readonly) CGRect collisionRect;
-
-/// Gets or sets the collision threshold.
-/// TODO explain with more detail
-@property CGFloat collisionThreshold;
-
-+ (id) spriteWithBinary:(NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile;
-
-// Idem but only loads the given animation ids
-+ (id) spriteWithBinary:(NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile ids:(NSArray *)ids;
-
-
-//// Initializes an instance of the class using a Lvk Sprite 
+/// Loads a Lvk Sprite with the given binary and info files
 /// @param bin: the lvk sprite binary file (usually *.lkob)
-/// @param format: the lvk sprite binary format (Standar or PVRTC)
-/// @param info: the lvk sprite information file (usually *.lkot)
-/// @returns an initialized instance of LvkSprite
-- (id) initWithBinary:(NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile;
-
-// Idem but only loads the given animation ids
-- (id) initWithBinary:(NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile ids:(NSArray *)ids;
-
-/// Loads a Lvk Sprite
-/// @param bin: the lvk sprite binary file (usually *.lkob)
-/// @param format: the lvk sprite binary format (Standar or PVRTC)
 /// @param info: the lvk sprite information file (usually *.lkot)
 /// @returns TRUE if it loads and parses the files successfully,
 ///          FALSE otherwise
-- (BOOL) loadBinary: (NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile;
+- (BOOL) loadBinary:(NSString*)binFile info:(NSString*)infoFile;
 
 // Idem but only loads the given animation ids
-- (BOOL) loadBinary: (NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile ids:(NSArray *)ids;
+- (BOOL) loadBinary:(NSString*)binFile info:(NSString*)infoFile animationIds:(NSArray *)ids;
+
+// Idem but only preloads textures into the texture cache
++ (BOOL) preloadTextures:(NSString*)binFile info:(NSString*)infoFile;
+
+// Idem but only preloads textures into the texture cache for the given animations IDs
++ (BOOL) preloadTextures:(NSString*)binFile info:(NSString*)infoFile animationIds:(NSArray *)ids;
 
 /// Plays n times the given animation at the given position
 /// @param name: the animation name
@@ -219,6 +197,22 @@ typedef enum {
 ///          FALSE otherwise
 - (BOOL) collidesWithRect:(CGRect)rect;
 
-/// Drawing method that is called in every frame
--(void) draw;
+/// Set/returns the position of the sprite in the x axis
+@property CGFloat x;
+
+/// Set/returns the position of the sprite in the y axis
+@property CGFloat y;
+
+@property (readonly, retain) NSDictionary* animations;
+
+/// Gets the current frame rect
+@property (readonly) CGRect rect;
+
+/// Gets the current frame rect plus the collision threshold
+@property (readonly) CGRect collisionRect;
+
+/// Gets or sets the collision threshold.
+/// TODO explain with more detail
+@property CGFloat collisionThreshold;
+
 @end

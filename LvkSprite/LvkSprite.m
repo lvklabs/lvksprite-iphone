@@ -53,10 +53,15 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 @property (readwrite, retain) CCActionInterval* aniAction;
 @property (readwrite, retain) NSString* keyPrefix;
 
+/// Preload only textures and store them in the texture cache. Do not create animations
+@property BOOL preloadMode;
+
+
 - (NSString*) buildKeyWithFrameId:(NSString*)frameId;
 - (BOOL) parseFpixmaps:(NSMutableDictionary*)frames withBinData:(NSData *)binData;
 - (BOOL) parseAnimations:(NSMutableDictionary*)frames ids:(NSArray *)ids;
 - (BOOL) parseAframes:(NSMutableDictionary*)frames animName:(NSString*)animName animId:(NSString *)animId;
+- (void) addAframeWithKey:(NSString *)key frames:(NSMutableDictionary *)frames offset:(CGPoint)offset toAnimation:(CCAnimation*)anim;
 
 @end
 
@@ -66,6 +71,8 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 @synthesize linesIterator = _linesIterator;
 @synthesize aniAction = _aniAction;
 @synthesize keyPrefix = _keyPrefix;
+@synthesize preloadMode = _preloadMode;
+
 @synthesize collisionThreshold;
 
 - (NSDictionary*) animations
@@ -73,34 +80,29 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
     return _animations;
 }
 
-+ (id) spriteWithBinary:(NSString*)bin format:(LkobFormat)format info:(NSString*)info
++ (LvkSprite *) sprite
 {
-    return [[[LvkSprite alloc] initWithBinary:bin format:format info:info] autorelease];
+    return [[[LvkSprite alloc] init] autorelease];
 }
 
-+ (id) spriteWithBinary:(NSString*)bin format:(LkobFormat)format info:(NSString*)info ids:(NSArray *)ids
++ (LvkSprite *) spriteWithName:(NSString *)name
 {
-    return [[[LvkSprite alloc] initWithBinary:bin format:format info:info ids:ids] autorelease];
+    return [[[LvkSprite alloc] initWithName:name] autorelease];
 }
 
-- (id)init
+- (LvkSprite *) init
 {
-	return [self initWithBinary:nil format:LkobStandar info:nil];
+	return [self initWithName:nil];
 }
 
-- (id) initWithBinary:(NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile
+- (LvkSprite *) initWithName:(NSString *)name
 {
-	return [self initWithBinary:binFile format:format info:infoFile ids:nil];
-}
-
-- (id) initWithBinary:(NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile ids:(NSArray *)ids
-{
-	if((self = [super init])){
-        _lkobFormat = format;
-
+	if ((self = [super init])) {
 		self.animationsInternal = [NSMutableDictionary dictionary];
 		
-		[self loadBinary: binFile format:format info: infoFile ids:ids];
+        NSString *lkobFile = [[NSBundle mainBundle] pathForResource:name ofType:@"lkob"];
+        NSString *lkotFile = [[NSBundle mainBundle] pathForResource:name ofType:@"lkot"];
+		[self loadBinary:lkobFile info:lkotFile];
 
 		_animation = nil;
 		_aniAction = nil;
@@ -121,6 +123,7 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 	[_animations release];
 	[_linesIterator release];
 	[_aniAction release];
+    
 	[super dealloc];
 }
 
@@ -227,7 +230,7 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 	return line;	
 }
 
-- (BOOL) loadBinary: (NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile
+- (BOOL) loadBinary: (NSString*)binFile info:(NSString*)infoFile
 {
 	if (binFile == nil || infoFile == nil) {
 		return NO;
@@ -235,10 +238,10 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 	
 	[self.animationsInternal removeAllObjects];
 
-	return [self loadBinary:binFile format:format info:infoFile ids:nil];
+	return [self loadBinary:binFile info:infoFile animationIds:nil];
 }
 
-- (BOOL) loadBinary: (NSString*)binFile format:(LkobFormat)format info:(NSString*)infoFile ids:(NSArray *)ids
+- (BOOL) loadBinary:(NSString *)binFile info:(NSString *)infoFile animationIds:(NSArray *)ids
 {
 	if (binFile == nil || infoFile == nil) {
 		return NO;
@@ -253,22 +256,22 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 #endif
 	
 	self.keyPrefix = infoFile;
-	_lkobFormat = format;
 	
 	// load bin file -------------------------------
 	NSError *error = nil;
-	
-	NSData *binData = [NSData dataWithContentsOfFile:binFile options:0 error:&error];
-	if (error != nil) {
-		LKLOG(@"LvkSprite - ERROR Error opening binary file: %@", [error localizedDescription]);
-		return NO;
-	}
-	
+
+    NSData *binData = [NSData dataWithContentsOfFile:binFile options:0 error:&error];
+    
+    if (error != nil) {
+        LKLOG(@"LvkSprite - ERROR Error opening binary file: %@", [error localizedDescription]);
+        return NO;
+    }
+		
 	// Load info file ------------------------------
 	
 	error = nil;
 	NSStringEncoding encoding;
-	NSString *infoData = [NSString stringWithContentsOfFile:infoFile usedEncoding:&encoding error:&error];
+    NSString *infoData = [NSString stringWithContentsOfFile:infoFile usedEncoding:&encoding error:&error];
 	if (error != nil) {
 		LKLOG(@"LvkSprite - ERROR Error opening info file: %@", [error localizedDescription]);
 		return NO;
@@ -312,19 +315,25 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 			return NO;
 		}
 	}
-	
-	// Create a Null animation --------------------
-	
-	CCAnimation *nullAnim = [[CCAnimation alloc] initWithName:@"NullAnimation" delay:LVK_SPRITE_FPS];
- 	[self.animationsInternal setObject:[LvkAnimate actionWithAnimation:nullAnim] forKey:@"NullAnimation"];
-    [nullAnim release];
 
 #ifdef LVKSPRITELOG
 	LKLOG(@" LvkSprite - === Sprite parsing ended ===");
     LKLOG(@"Free Mem: %ui MB", free_mem()/1024/1024);
 #endif
 
-	return TRUE;
+	return YES;
+}
+
++ (BOOL) preloadTextures:(NSString *)binFile info:(NSString *)infoFile
+{
+    return [self preloadTextures:binFile info:infoFile animationIds:nil];
+}
+
++ (BOOL) preloadTextures:(NSString *)binFile info:(NSString *)infoFile animationIds:(NSArray *)ids
+{
+    LvkSprite *spr = [[LvkSprite alloc] init];
+    spr.preloadMode = YES;
+    return [spr loadBinary:binFile info:infoFile animationIds:ids];
 }
 
 - (NSString*) buildKeyWithFrameId:(NSString*)frameId
@@ -406,6 +415,10 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 		
 		[self parseAframes:frames animName:animationName animId:animationId];		
 	}
+    
+	// Create a Null animation 	
+	CCAnimation *nullAnim = [CCAnimation animationWithName:@"NullAnimation" delay:LVK_SPRITE_FPS];
+ 	[self.animationsInternal setObject:[LvkAnimate actionWithAnimation:nullAnim] forKey:@"NullAnimation"];
 	
 	return line != nil;
 }
@@ -456,23 +469,20 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 		
 		NSString *frameKey = [self buildKeyWithFrameId:frameId];
 		
-		if (isSticky == NO) {
+        if (_preloadMode == YES) {
+            [self addAframeWithKey:frameKey frames:frames offset:CGPointMake(ox, oy) toAnimation:anim];
+        } else
+        if (isSticky == NO) {
 			timeCount += duration*0.001;
 			
 			while (frameCount*LVK_SPRITE_FPS < timeCount) {
-				if (_lkobFormat == LkobStandar) {
-					[anim addFrameContent:[frames objectForKey:frameKey] withKey:frameKey offset:CGPointMake(ox, oy)];                            
-				} else {
-#ifdef LVKSPRITE_PVR_ENABLED
-					[anim addFramePVRTCContent:[frames objectForKey:frameKey] withKey:frameKey offset:CGPointMake(ox, oy)];
-#endif
-				}
+                [self addAframeWithKey:frameKey frames:frames offset:CGPointMake(ox, oy) toAnimation:anim];
 				frameCount++;
 			}						
 		} else {
 			// Create an animation that contains only one frame. This animation will be merge with the main animation.
 			CCAnimation *stickyAnim = [[CCAnimation alloc] initWithName:@"" delay:1]; // Real delay will be added at the end.
-			[stickyAnim addFrameContent:[frames objectForKey:frameKey] withKey:frameKey offset:CGPointMake(ox, oy)];                            
+            [self addAframeWithKey:frameKey frames:frames offset:CGPointMake(ox, oy) toAnimation:stickyAnim];
 			[stickyAnims addObject:stickyAnim];
 			[stickyAnim release];
 		}
@@ -505,6 +515,33 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 	[anim release];
 	
 	return line != nil;
+}
+
+- (void) addAframeWithKey:(NSString *)key frames:(NSMutableDictionary *)frames offset:(CGPoint)offset
+              toAnimation:(CCAnimation *)anim
+{
+    CCTexture2D *tex = [[CCTextureCache sharedTextureCache] textureForKey:key];
+    
+    if (tex == nil) {
+        NSData *data = [frames objectForKey:key];
+        if (data != nil) {
+            UIImage *img = [UIImage imageWithData:data];
+            tex = [[CCTextureCache sharedTextureCache] addCGImage:img.CGImage forKey:key];
+        }
+    }
+
+    if (_preloadMode == NO) {
+        if (tex != nil) {
+            CGRect rect = CGRectZero;
+            rect.size = tex.contentSize;
+            CGRect rectInPixels = CC_RECT_POINTS_TO_PIXELS(rect);
+            CCSpriteFrame *frame = [CCSpriteFrame frameWithTexture:tex rectInPixels:rectInPixels
+                                                           rotated:NO offset:offset originalSize:rectInPixels.size];
+            [anim addFrame:frame];
+        } else {
+            LKLOG(@"LvkSprite - Error: no frame data for key %@", key);
+        }        
+    }
 }
 
 
