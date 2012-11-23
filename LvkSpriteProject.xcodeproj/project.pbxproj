@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		414A944F165A66E00041E9EB /* LvkSpriteCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 414A944D165A66E00041E9EB /* LvkSpriteCache.h */; };
 		414A9450165A66E00041E9EB /* LvkSpriteCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 414A944E165A66E00041E9EB /* LvkSpriteCache.m */; };
+		414A9454165AA9D60041E9EB /* LvkAsyncLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 414A9452165AA9D50041E9EB /* LvkAsyncLoader.h */; };
+		414A9455165AA9D60041E9EB /* LvkAsyncLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 414A9453165AA9D50041E9EB /* LvkAsyncLoader.m */; };
 		41800F3615E28CCC0009D053 /* CCAnimation+lvk.h in Headers */ = {isa = PBXBuildFile; fileRef = 41800F2D15E28CCC0009D053 /* CCAnimation+lvk.h */; };
 		41800F3715E28CCC0009D053 /* CCAnimation+lvk.m in Sources */ = {isa = PBXBuildFile; fileRef = 41800F2E15E28CCC0009D053 /* CCAnimation+lvk.m */; };
 		41800F3815E28CCC0009D053 /* CCTexture2D+lvk.h in Headers */ = {isa = PBXBuildFile; fileRef = 41800F2F15E28CCC0009D053 /* CCTexture2D+lvk.h */; };
@@ -39,6 +41,8 @@
 		3B6A347F124ABE9B002F820D /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		414A944D165A66E00041E9EB /* LvkSpriteCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LvkSpriteCache.h; path = LvkSprite/LvkSpriteCache.h; sourceTree = "<group>"; };
 		414A944E165A66E00041E9EB /* LvkSpriteCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LvkSpriteCache.m; path = LvkSprite/LvkSpriteCache.m; sourceTree = "<group>"; };
+		414A9452165AA9D50041E9EB /* LvkAsyncLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LvkAsyncLoader.h; path = LvkSprite/LvkAsyncLoader.h; sourceTree = "<group>"; };
+		414A9453165AA9D50041E9EB /* LvkAsyncLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LvkAsyncLoader.m; path = LvkSprite/LvkAsyncLoader.m; sourceTree = "<group>"; };
 		41800F2D15E28CCC0009D053 /* CCAnimation+lvk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CCAnimation+lvk.h"; path = "CCLvkExts/CCAnimation+lvk.h"; sourceTree = "<group>"; };
 		41800F2E15E28CCC0009D053 /* CCAnimation+lvk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CCAnimation+lvk.m"; path = "CCLvkExts/CCAnimation+lvk.m"; sourceTree = "<group>"; };
 		41800F2F15E28CCC0009D053 /* CCTexture2D+lvk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CCTexture2D+lvk.h"; path = "CCLvkExts/CCTexture2D+lvk.h"; sourceTree = "<group>"; };
@@ -148,6 +152,8 @@
 				4183F82615E2C9EA00C69034 /* LvkAnimate.m */,
 				414A944D165A66E00041E9EB /* LvkSpriteCache.h */,
 				414A944E165A66E00041E9EB /* LvkSpriteCache.m */,
+				414A9452165AA9D50041E9EB /* LvkAsyncLoader.h */,
+				414A9453165AA9D50041E9EB /* LvkAsyncLoader.m */,
 			);
 			name = "LvkSprite Sources";
 			sourceTree = "<group>";
@@ -237,6 +243,7 @@
 				4183F82715E2C9EB00C69034 /* LvkAnimate.h in Headers */,
 				41AAEF07161147DF004E9E2B /* CCAction+lvk.h in Headers */,
 				414A944F165A66E00041E9EB /* LvkSpriteCache.h in Headers */,
+				414A9454165AA9D60041E9EB /* LvkAsyncLoader.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +309,7 @@
 				41B842C415E2B441005CE9E5 /* CCAction+lvk.m in Sources */,
 				4183F82815E2C9EB00C69034 /* LvkAnimate.m in Sources */,
 				414A9450165A66E00041E9EB /* LvkSpriteCache.m in Sources */,
+				414A9455165AA9D60041E9EB /* LvkAsyncLoader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,7 +327,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../cocos2d-iphone/cocos2d";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -338,7 +346,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../cocos2d-iphone/cocos2d";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../cocos2d-iphone/cocos2d";
