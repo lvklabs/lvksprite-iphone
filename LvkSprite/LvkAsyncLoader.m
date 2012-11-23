@@ -69,28 +69,31 @@ static LvkAsyncLoader *_sharedLoader;
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
+    // Textures loaded in a new thread must use the same GL share group
     EAGLContext *auxGLcontext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1
                                                       sharegroup:[[[[CCDirector sharedDirector] openGLView] context] sharegroup]];
-    [EAGLContext setCurrentContext:auxGLcontext];
-
-    //LKLOG(@"LvkAsyncLoader - ctx %@", ctx);
-
-    NSString *binFile = [ctx objectAtIndex:0];
-    NSString *infoFile = [ctx objectAtIndex:1];
-    NSArray *ids = nil;
     
-    if (ctx.count > 2) {
-        ids = [ctx objectAtIndex:2];
+    if ([EAGLContext setCurrentContext:auxGLcontext] == YES) {
+        //LKLOG(@"LvkAsyncLoader - ctx %@", ctx);
+        
+        NSString *binFile = [ctx objectAtIndex:0];
+        NSString *infoFile = [ctx objectAtIndex:1];
+        NSArray *ids = nil;
+        
+        if (ctx.count > 2) {
+            ids = [ctx objectAtIndex:2];
+        }
+        
+        LKLOG(@"LvkAsyncLoader - Preloading textures for file %@", binFile);
+        
+        [LvkSprite preloadTextures:binFile info:infoFile animationIds:ids];
+        
+        LKLOG(@"LvkAsyncLoader - Preload end for file %@", binFile);
+        
+        [EAGLContext setCurrentContext:nil];
+    } else {
+        LKLOG(@"LvkAsyncLoader - Error cannot set GL context");        
     }
-
-    LKLOG(@"LvkAsyncLoader - Preloading textures for file %@", binFile);
-    
-    [LvkSprite preloadTextures:binFile info:infoFile animationIds:ids];
-    
-    LKLOG(@"LvkAsyncLoader - Preload end for file %@", binFile);
-
-    [EAGLContext setCurrentContext:nil];
-    [auxGLcontext release];
     
     [pool release];
 }
