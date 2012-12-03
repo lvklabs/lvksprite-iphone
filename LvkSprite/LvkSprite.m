@@ -538,6 +538,10 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
             CCSpriteFrame *frame = [CCSpriteFrame frameWithTexture:tex rectInPixels:rectInPixels
                                                            rotated:NO offset:offset originalSize:rectInPixels.size];
             [anim addFrame:frame];
+            
+            if (CGSizeEqualToSize(self.contentSize, CGSizeZero)) {
+                self.contentSize = rect.size;
+            }
         } else {
             LKLOG(@"LvkSprite - Error: no frame data for key %@", key);
         }        
