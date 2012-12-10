@@ -57,6 +57,8 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 @property BOOL preloadMode;
 
 
+- (NSData *) getBinData:(NSString *)binFile;
+- (NSString *) getInfoData:(NSString *)infoFile;
 - (NSString*) buildKeyWithFrameId:(NSString*)frameId;
 - (BOOL) parseFpixmaps:(NSMutableDictionary*)frames withBinData:(NSData *)binData;
 - (BOOL) parseAnimations:(NSMutableDictionary*)frames ids:(NSArray *)ids;
@@ -256,24 +258,16 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 #endif
 	
 	self.keyPrefix = infoFile;
-	
-	// load bin file -------------------------------
-	NSError *error = nil;
 
-    NSData *binData = [NSData dataWithContentsOfFile:binFile options:0 error:&error];
+	// load files -------------------------------
     
-    if (error != nil) {
-        LKLOG(@"LvkSprite - ERROR Error opening binary file: %@", [error localizedDescription]);
+    NSData *binData = [self getBinData:binFile];
+    if (binData == nil) {
         return NO;
     }
-		
-	// Load info file ------------------------------
-	
-	error = nil;
-	NSStringEncoding encoding;
-    NSString *infoData = [NSString stringWithContentsOfFile:infoFile usedEncoding:&encoding error:&error];
-	if (error != nil) {
-		LKLOG(@"LvkSprite - ERROR Error opening info file: %@", [error localizedDescription]);
+			
+    NSString *infoData = [self getInfoData:infoFile];
+	if (infoData == nil) {
 		return NO;
 	}
 	
@@ -322,6 +316,57 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 #endif
 
 	return YES;
+}
+
+- (NSData *) getBinData:(NSString *)binFile
+{
+    NSError *error = nil;
+    NSData *binData = nil;
+    
+	if (CC_CONTENT_SCALE_FACTOR() == 2) {
+        NSString *hdBinFile = [binFile stringByReplacingOccurrencesOfString:@".lkob" withString:@"-hd.lkob"];
+        binData = [NSData dataWithContentsOfFile:hdBinFile options:0 error:&error];
+        
+        if (binData != nil) {
+            _isHd = YES;
+        } else {
+            //LKLOG(@"LvkSprite - HD file %@ not found. Fallback to %@", hdBinFile, binFile);
+        }
+    }
+
+    if (binData == nil) {
+        binData = [NSData dataWithContentsOfFile:binFile options:0 error:&error];
+        
+        if (binData == nil) {
+            LKLOG(@"LvkSprite - ERROR Error opening binary file: %@", [error localizedDescription]);
+        }
+    }
+
+    return binData;
+}
+
+- (NSString *) getInfoData:(NSString *)infoFile
+{
+    NSError *error = nil;
+	NSStringEncoding encoding;
+    NSString *infoData = nil;
+    
+    if (_isHd == YES) {
+        NSString *hdInfoFile = [infoFile stringByReplacingOccurrencesOfString:@".lkot" withString:@"-hd.lkot"];
+        infoData = [NSString stringWithContentsOfFile:hdInfoFile usedEncoding:&encoding error:&error];
+        
+        if (error != nil) {
+            LKLOG(@"LvkSprite - ERROR Error opening info file: %@", [error localizedDescription]);
+        }
+    } else {
+        infoData = [NSString stringWithContentsOfFile:infoFile usedEncoding:&encoding error:&error];
+        
+        if (infoData == nil) {
+            LKLOG(@"LvkSprite - ERROR Error opening info file: %@", [error localizedDescription]);
+        }
+    }
+    
+    return infoData;
 }
 
 + (BOOL) preloadTextures:(NSString *)binFile info:(NSString *)infoFile

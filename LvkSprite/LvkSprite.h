@@ -45,6 +45,8 @@
 	CGFloat *ph;
 	// collision threshold
 	CGFloat collisionThreshold;
+    // high density sprite;
+    BOOL _isHd;
     
     BOOL _preloadMode;
 }
