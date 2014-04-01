@@ -525,7 +525,7 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 				frameCount++;
 			}						
 		} else {
-			// Create an animation that contains only one frame. This animation will be merge with the main animation.
+			// Create an animation that contains only one frame. This animation will be merged with the main animation.
 			CCAnimation *stickyAnim = [[CCAnimation alloc] initWithName:@"" delay:1]; // Real delay will be added at the end.
             [self addAframeWithKey:frameKey frames:frames offset:CGPointMake(ox, oy) toAnimation:stickyAnim];
 			[stickyAnims addObject:stickyAnim];
@@ -536,24 +536,24 @@ const float LVK_SPRITE_FPS = 1.0/24.0;
 	}
 	
 	// main animation
-	CCActionInterval *animAction = [LvkAnimate actionWithAnimation:anim];
+	CCActionInterval *mainAnim = [LvkAnimate actionWithAnimation:anim];
 
-	// If there is a sticky frame, merge (or "spawn" using cocos jargon) sticky animations with the animation
+	// If there is a sticky frame, merge (or "spawn" using cocos jargon) sticky animations with the main animation
 	
 	for (NSUInteger i = 0; i < stickyAnims.count; ++i) {
 		CCAnimation *stickyAnim = [stickyAnims objectAtIndex:(stickyAnims.count - i - 1)];
-		stickyAnim.delay = [animAction duration];
+		stickyAnim.delay = [mainAnim duration];
 		CCActionInterval *stickyAnimAction = [LvkAnimate actionWithAnimation:stickyAnim];
 		
-		animAction = [LvkSpawn actionOne:animAction two:stickyAnimAction];
+		mainAnim = [LvkSpawn actionOne:mainAnim two:stickyAnimAction];
 		
 		// FIXME!!!!!!!!!! Nasty workaround to avoid flickering
 		if (i == 0) {
-			[(LvkSpawn *)animAction setNested:NO];
+			[(LvkSpawn *)mainAnim setNested:NO];
 		}
 	}
 	
-	[self.animationsInternal setObject:animAction forKey:animName];
+	[self.animationsInternal setObject:mainAnim forKey:animName];
 
 	
 	[stickyAnims release];

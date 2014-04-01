@@ -54,13 +54,12 @@
 
 -(void) dealloc
 {
-	if (childAdded_ == YES) {
-		[target_ removeChild:child_ cleanup:YES];
-	}
-
+    [self stop];
+    
 	[one_ release];
 	[two_ release];
 	[child_ release];
+    
 	[super dealloc];
 }
 

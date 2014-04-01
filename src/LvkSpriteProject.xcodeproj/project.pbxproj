@@ -38,7 +38,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3B6A347F124ABE9B002F820D /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		414A944D165A66E00041E9EB /* LvkSpriteCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LvkSpriteCache.h; path = LvkSprite/LvkSpriteCache.h; sourceTree = "<group>"; };
 		414A944E165A66E00041E9EB /* LvkSpriteCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LvkSpriteCache.m; path = LvkSprite/LvkSpriteCache.m; sourceTree = "<group>"; };
 		414A9452165AA9D50041E9EB /* LvkAsyncLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LvkAsyncLoader.h; path = LvkSprite/LvkAsyncLoader.h; sourceTree = "<group>"; };
@@ -55,24 +54,14 @@
 		4183F82615E2C9EA00C69034 /* LvkAnimate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LvkAnimate.m; path = LvkSprite/LvkAnimate.m; sourceTree = "<group>"; };
 		4191C1FD146B0C3E00EDC2B9 /* LvkSpawn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LvkSpawn.h; path = LvkSprite/LvkSpawn.h; sourceTree = "<group>"; };
 		4191C1FE146B0C3E00EDC2B9 /* LvkSpawn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LvkSpawn.m; path = LvkSprite/LvkSpawn.m; sourceTree = "<group>"; };
-		41922A3D111A68E40058E0DA /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Resources/Default.png; sourceTree = "<group>"; };
-		41922A3E111A68E40058E0DA /* fps_images.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fps_images.png; path = Resources/fps_images.png; sourceTree = "<group>"; };
-		41922A3F111A68E40058E0DA /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Resources/Icon.png; sourceTree = "<group>"; };
-		41922A40111A68E40058E0DA /* ryu.lkob */ = {isa = PBXFileReference; lastKnownFileType = file; name = ryu.lkob; path = Resources/ryu.lkob; sourceTree = "<group>"; };
-		41922A41111A68E40058E0DA /* ryu.lkot */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ryu.lkot; path = Resources/ryu.lkot; sourceTree = "<group>"; };
 		41922A47111A68F40058E0DA /* LvkSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LvkSprite.h; path = LvkSprite/LvkSprite.h; sourceTree = "<group>"; };
 		41922A48111A68F40058E0DA /* LvkSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LvkSprite.m; path = LvkSprite/LvkSprite.m; sourceTree = "<group>"; };
-		41922A4C111A69270058E0DA /* LvkSpriteDemoAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LvkSpriteDemoAppDelegate.h; path = LvkSpriteDemo/LvkSpriteDemoAppDelegate.h; sourceTree = "<group>"; };
-		41922A4D111A69270058E0DA /* LvkSpriteDemoAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LvkSpriteDemoAppDelegate.m; path = LvkSpriteDemo/LvkSpriteDemoAppDelegate.m; sourceTree = "<group>"; };
-		41922A4E111A69270058E0DA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = LvkSpriteDemo/main.m; sourceTree = "<group>"; };
 		4199EE9511B2D869005919CB /* LvkRepeatAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LvkRepeatAction.m; path = LvkSprite/LvkRepeatAction.m; sourceTree = "<group>"; };
 		4199EE9711B2D88D005919CB /* LvkRepeatAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LvkRepeatAction.h; path = LvkSprite/LvkRepeatAction.h; sourceTree = "<group>"; };
 		41AAEF06161147DF004E9E2B /* CCAction+lvk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CCAction+lvk.h"; path = "CCLvkExts/CCAction+lvk.h"; sourceTree = "<group>"; };
 		41B842C115E2B441005CE9E5 /* CCAction+lvk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CCAction+lvk.m"; path = "CCLvkExts/CCAction+lvk.m"; sourceTree = "<group>"; };
-		41DA179111ADF299004277E9 /* ResourcesPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResourcesPath.h; path = LvkSpriteDemo/ResourcesPath.h; sourceTree = "<group>"; };
 		506EDB87102F4C4000A389B3 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		506EDBA4102F4C9F00A389B3 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC6640020F83B3EA000B3E49 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		DC6640040F83B3EA000B3E49 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		DCCBF1B60F6022AE0040855A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -82,15 +71,8 @@
 		DCCBF1BE0F6022AE0040855A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E00E647812475CEA00575829 /* LvkSprite-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LvkSprite-Info.plist"; sourceTree = "<group>"; };
 		E09FABA311E1304600334436 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = common.h; path = LvkSprite/common.h; sourceTree = "<group>"; };
-		E0B5417F124699D700A27025 /* Test-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Test-Info.plist"; sourceTree = "<group>"; };
-		E0B5419012469AB400A27025 /* GHUnitIPhoneTestMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHUnitIPhoneTestMain.m; path = LvkSpriteTest/GHUnitIPhoneTestMain.m; sourceTree = "<group>"; };
 		E0B541B712469B8800A27025 /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GHUnitIOS.framework; path = LvkSpriteTest/Frameworks/GHUnitIOS.framework; sourceTree = "<group>"; };
-		E0B541D412469C2E00A27025 /* LvkSpriteTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LvkSpriteTest.h; path = LvkSpriteTest/LvkSpriteTest.h; sourceTree = "<group>"; };
-		E0B541D512469C2E00A27025 /* LvkSpriteTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LvkSpriteTest.m; path = LvkSpriteTest/LvkSpriteTest.m; sourceTree = "<group>"; };
-		E0B544921246A84600A27025 /* libcocos2d.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcocos2d.a; path = LvkSprite/Frameworks/cocos2d/Simulator/libcocos2d.a; sourceTree = "<group>"; };
 		E0B544BA1246B73E00A27025 /* libLvkSprite.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLvkSprite.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		E0B545A91246C04C00A27025 /* ryu-fixed-frame-size.lkob */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ryu-fixed-frame-size.lkob"; path = "Resources/ryu-fixed-frame-size.lkob"; sourceTree = "<group>"; };
-		E0B545AA1246C04C00A27025 /* ryu-fixed-frame-size.lkot */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "ryu-fixed-frame-size.lkot"; path = "Resources/ryu-fixed-frame-size.lkot"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,14 +107,9 @@
 			isa = PBXGroup;
 			children = (
 				41800F2B15E28C9B0009D053 /* Cocos2d LVK extensions */,
-				3B6A347F124ABE9B002F820D /* README */,
-				E0B5418F12469A9900A27025 /* LvkSpriteTest */,
-				41922A4A111A69070058E0DA /* LvkSprite Demo App Sources */,
 				29B97315FDCFA39411CA2CEA /* LvkSprite Sources */,
-				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				E0B5417F124699D700A27025 /* Test-Info.plist */,
 				E00E647812475CEA00575829 /* LvkSprite-Info.plist */,
 			);
 			name = CustomTemplate;
@@ -158,21 +135,6 @@
 			name = "LvkSprite Sources";
 			sourceTree = "<group>";
 		};
-		29B97317FDCFA39411CA2CEA /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				E0B545A91246C04C00A27025 /* ryu-fixed-frame-size.lkob */,
-				E0B545AA1246C04C00A27025 /* ryu-fixed-frame-size.lkot */,
-				41922A3D111A68E40058E0DA /* Default.png */,
-				41922A3E111A68E40058E0DA /* fps_images.png */,
-				41922A3F111A68E40058E0DA /* Icon.png */,
-				41922A40111A68E40058E0DA /* ryu.lkob */,
-				41922A41111A68E40058E0DA /* ryu.lkot */,
-				8D1107310486CEB800E47090 /* Info.plist */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,7 +148,6 @@
 				DC6640020F83B3EA000B3E49 /* AudioToolbox.framework */,
 				506EDB87102F4C4000A389B3 /* libz.dylib */,
 				506EDBA4102F4C9F00A389B3 /* AVFoundation.framework */,
-				E0B544921246A84600A27025 /* libcocos2d.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -206,27 +167,6 @@
 				41800F3415E28CCC0009D053 /* CCTexturePVR+lvk.m */,
 			);
 			name = "Cocos2d LVK extensions";
-			sourceTree = "<group>";
-		};
-		41922A4A111A69070058E0DA /* LvkSprite Demo App Sources */ = {
-			isa = PBXGroup;
-			children = (
-				41DA179111ADF299004277E9 /* ResourcesPath.h */,
-				41922A4C111A69270058E0DA /* LvkSpriteDemoAppDelegate.h */,
-				41922A4D111A69270058E0DA /* LvkSpriteDemoAppDelegate.m */,
-				41922A4E111A69270058E0DA /* main.m */,
-			);
-			name = "LvkSprite Demo App Sources";
-			sourceTree = "<group>";
-		};
-		E0B5418F12469A9900A27025 /* LvkSpriteTest */ = {
-			isa = PBXGroup;
-			children = (
-				E0B541D412469C2E00A27025 /* LvkSpriteTest.h */,
-				E0B541D512469C2E00A27025 /* LvkSpriteTest.m */,
-				E0B5419012469AB400A27025 /* GHUnitIPhoneTestMain.m */,
-			);
-			name = LvkSpriteTest;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -326,7 +266,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/../cocos2d-iphone/cocos2d";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../cocos2d-iphone/cocos2d";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -345,7 +285,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/../cocos2d-iphone/cocos2d";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../cocos2d-iphone/cocos2d";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;

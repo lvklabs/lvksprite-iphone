@@ -5,7 +5,6 @@
 #import "LvkSpriteDemoAppDelegate.h"
 #import "cocos2d.h"
 #import "LvkSprite.h"
-#import "ResourcesPath.h"
 
 ////////////////////////////////////////
 
@@ -27,9 +26,6 @@ BOOL touch = FALSE;
 {
     self = [super init];
     if (self != nil) {
-		//NSString *fullpath = [CCFileUtils fullPathFromRelativePath: @"./Resources" ];
-		[[NSFileManager defaultManager] changeCurrentDirectoryPath:@LVK_SPRITE_RESOURCES_PATH];
-		
 		isTouchEnabled = YES;
 		
 		@try {
